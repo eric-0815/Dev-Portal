@@ -16,7 +16,7 @@ const auth = (req: any, res: Response, next: NextFunction) => {
     try {
         const decoded = jwt.verify(token, config.get("jwtSecret"));
         //@ts-ignore
-        req.body.user = decoded.user
+        req.body.userId = decoded.user.id
         next(); // Calling next() with no arguments tells express to continue to the next matching middleware or route handler
     } catch (err) {
         res.status(StatusCodes.UNAUTHORIZED).json({ msg: "Token is not valid" });

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export interface Profile {
-    user: mongoose.Schema.Types.ObjectId;
+    userId: mongoose.Schema.Types.ObjectId;
     company: string;
     website: string;
     location: string;
@@ -15,7 +15,7 @@ export interface Profile {
     social: Social;
 }
 
-interface Education {
+export interface Education {
     school: string;
     degree: string;
     fieldofstudy: string;
@@ -25,7 +25,7 @@ interface Education {
     description: string;
 }
 
-interface Experience {
+export interface Experience {
     title: string;
     company: string;
     location: string;
@@ -35,7 +35,7 @@ interface Experience {
     description: string;
 }
 
-interface Social {
+export interface Social {
     youtube: string;
     twitter: string;
     facebook: string;
@@ -45,7 +45,7 @@ interface Social {
 
 
 const ProfileSchema = new mongoose.Schema({
-    user: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
@@ -154,6 +154,6 @@ const ProfileSchema = new mongoose.Schema({
     }
 });
 
-const Profile = mongoose.model<Profile>("User", ProfileSchema);
+const Profile = mongoose.model<Profile>("Profile", ProfileSchema);
 
 export default Profile
