@@ -25,7 +25,7 @@ export const createUser = async (body: UserInfo) => {
 
         user.password = await encryptPassword(password);
 
-        // await user.save();
+        await user.save();
 
         const token = createToken(user.id)
 
@@ -35,15 +35,6 @@ export const createUser = async (body: UserInfo) => {
         console.error(err.message)
         throw new Error(`Server error ${err.message}`)
     }
-}
-
-export const validateUserInfo = (body: any) => {
-    const errors = []
-    const { name, email, password } = body
-    if (!name) errors.push('Name is required');
-    if (!email || !EmailValidator.validate(email)) errors.push('Please include a valid email');
-    if (!password || password?.length < 6) errors.push('Please enter a password with 6 or more characters')
-    return errors
 }
 
 export const checkIfUserExist = async (email: string) => {
