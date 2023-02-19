@@ -71,8 +71,8 @@ const createToken = (userId: string) => {
             id: userId
         }
     };
-
-    const token = jwt.sign(payload, config.get('jwtSecret'), { expiresIn: 360000 });
+    const jwtSecret = config.get<string>('jwtSecret');
+    const token = jwt.sign(payload, jwtSecret, { expiresIn: 360000 });
 
     return token;
 }
