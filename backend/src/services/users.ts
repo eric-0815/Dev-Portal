@@ -1,46 +1,84 @@
-import * as EmailValidator from 'email-validator';
 import User from '../models/User'
 import gravatar from 'gravatar'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import config from 'config'
-export interface UserInfo {
+import { validateUserInfo } from '../utils/validator'
+import { ValidateMethod } from '../constants/ValidateMethod'
+import { createErrorMsg } from '../utils/error'
+
+export interface UserRegistration {
     name: string;
     email: string;
     password: string;
     avatar: string;
 }
 
-export const createUser = async (body: UserInfo) => {
-    const { name, email, password } = body;
-    try {
-        const avatar = createAvatar(email);
-
-        const user = new User({
-            name,
-            email,
-            avatar,
-            password
-        });
-
-        user.password = await encryptPassword(password);
-
-        await user.save();
-
-        const token = createToken(user.id)
-
-        return { token }
-
-    } catch (err: any) {
-        console.error(err.message)
-        throw new Error(`Server error ${err.message}`)
-    }
+export interface UserLogin {
+    email: string;
+    password: string;
 }
 
-export const checkIfUserExist = async (email: string) => {
+
+export const createUser = async (body: UserRegistration) => {
+    const isExist = await checkIfUserExists(body.email)
+    if (isExist) return createErrorMsg('User already exists')
+
+    const errors = await validateUserInfo(body, ValidateMethod.REGISTER)
+    if (errors.length > 0) return ({ errors })
+
+    const { name, email, password } = body;
+
+    const avatar = createAvatar(email);
+
+    const user = new User({
+        name,
+        email,
+        avatar,
+        password
+    });
+
+    user.password = await encryptPassword(password);
+
+    await user.save();
+
+    const token = createToken(user.id)
+
+    return { token }
+}
+
+export const authenticateUser = async (body: UserLogin) => {
+    const errors = await validateUserInfo(body, ValidateMethod.LOGIN)
+    if (errors.length > 0) return ({ errors })
+
+    const { email, password } = body
+    let user = await getUserByEmail(email);
+    if (!user) return createErrorMsg("Invalid Credentials");
+
+    const isMatch = await checkPassword(password, user.password)
+    if (!isMatch) return createErrorMsg("Invalid Credentials");
+
+    const token = createToken(user.id)
+
+    return { token }
+}
+
+
+const checkIfUserExists = async (email: string) => {
     const user = await User.findOne({ email });
     return user ? true : false
 }
+
+const getUserByEmail = async (email: string) => {
+    const user = await User.findOne({ email });
+    return user;
+}
+
+const checkPassword = async (inputPassword: string, userPassword: string) => {
+    const isMatch = await bcrypt.compare(inputPassword, userPassword);
+    return isMatch
+}
+
 
 const createAvatar = (email: string) => {
     return gravatar.url(email, {
@@ -67,3 +105,5 @@ const createToken = (userId: string) => {
 
     return token;
 }
+
+

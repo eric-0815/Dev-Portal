@@ -1,11 +1,14 @@
 import express, { Request, Response } from "express";
-import { registerUser } from "../controllers/users";
+import { register, login } from "../controllers/users";
+import auth from '../middleware/auth'
 
 const usersRouter = express.Router();
 
-usersRouter.route('/')
+usersRouter.route('/register')
     .get()
-    .post(registerUser)
+    .post(register)
 
+usersRouter.route('/login')
+    .post(auth, login)
 
 export default usersRouter;

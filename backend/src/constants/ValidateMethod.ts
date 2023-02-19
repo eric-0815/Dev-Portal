@@ -1,4 +1,4 @@
 export enum ValidateMethod {
-    Login = 'login',
-    Register = 'register',
+    LOGIN = 'login',
+    REGISTER = 'register',
 };

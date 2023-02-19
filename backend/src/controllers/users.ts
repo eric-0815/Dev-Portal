@@ -1,19 +1,34 @@
 import { Request, Response } from "express";
-import { ValidateMethod } from "../constants/ValidateMethod";
-import { createUser, checkIfUserExist } from "../services/users";
-import { validateUserInfo } from "../utils/validator";
+import { createUser, authenticateUser } from "../services/users";
+import { StatusCodes } from 'http-status-codes';
 
+export const register = async (req: Request, res: Response) => {
+    try {
+        const { body } = req
+        const result = await createUser(body)
 
-export const registerUser = async (req: Request, res: Response) => {
-    const { body } = req
+        if (result?.errors) return res.status(StatusCodes.BAD_REQUEST).send(result)
+        res.send(result)
 
-    const isExist = await checkIfUserExist(body.email)
-    if (isExist) return res.status(400).send({ errors: [{ msg: 'User already exists' }] })
+    } catch (err: any) {
+        console.error(err.message)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+    }
 
-    const errors = await validateUserInfo(body, ValidateMethod.REGISTER)
-    if (errors.length > 0) return res.status(400).send({ errors })
+}
 
-    const result = await createUser(body)
-    res.send(result)
+export const login = async (req: Request, res: Response) => {
+    try {
+        const { body } = req
+
+        const result = await authenticateUser(body)
+
+        if (result?.errors) return res.status(StatusCodes.BAD_REQUEST).send(result)
+        res.send(result)
+
+    } catch (err: any) {
+        console.error(err.message)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+    }
 }
 
