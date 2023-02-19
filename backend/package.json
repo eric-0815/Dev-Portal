@@ -4,7 +4,9 @@
   "description": "",
   "main": "src/app.ts",
   "scripts": {
-    "start": "node src/app.ts"
+    "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
+    "start": "node src/app.ts",
+    "build": "tsc"
   },
   "author": "Eric Hong",
   "license": "MIT",
@@ -23,7 +25,10 @@
     "gravatar": "^1.8.2",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.9.2",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.9.5"
   },
   "devDependencies": {
     "@types/nodemon": "^1.19.2"
