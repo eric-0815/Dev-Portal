@@ -2,7 +2,8 @@ import * as EmailValidator from 'email-validator';
 import User from '../models/User'
 import gravatar from 'gravatar'
 import bcrypt from 'bcryptjs'
-
+import jwt from 'jsonwebtoken'
+import config from 'config'
 export interface UserInfo {
     name: string;
     email: string;
@@ -24,9 +25,12 @@ export const createUser = async (body: UserInfo) => {
 
         user.password = await encryptPassword(password);
 
-        await user.save();
+        // await user.save();
 
-        return user;
+        const token = createToken(user.id)
+
+        return { token }
+
     } catch (err: any) {
         console.error(err.message)
         throw new Error(`Server error ${err.message}`)
@@ -58,6 +62,17 @@ const createAvatar = (email: string) => {
 const encryptPassword = async (password: string) => {
     const salt = await bcrypt.genSalt(10);
     const encryptedPassword = await bcrypt.hash(password, salt)
-
     return encryptedPassword
+}
+
+const createToken = (userId: string) => {
+    const payload = {
+        user: {
+            id: userId
+        }
+    };
+
+    const token = jwt.sign(payload, config.get('jwtSecret'), { expiresIn: 360000 });
+
+    return token;
 }

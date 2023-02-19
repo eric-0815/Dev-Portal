@@ -6,4 +6,4 @@ npm i express express-validator bcryptjs config gravatar jsonwebtoken mongoose r
 
 npm i -D nodemon concurrently
 
-npm i @types/body-parser @types/express @types/express-validator @types/bcryptjs @types/config @types/gravatar @types/request @types/email-validator
+npm i @types/body-parser @types/express @types/express-validator @types/bcryptjs @types/config @types/gravatar @types/request @types/email-validator @types/jsonwebtoken
