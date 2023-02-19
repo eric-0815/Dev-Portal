@@ -5,7 +5,7 @@ const connectDB = async () => {
     try {
         const mongoURI = config.get<string>("mongoURI");
         mongoose.set("strictQuery", false);
-        await mongoose.connect(mongoURI)
+        await mongoose.connect(mongoURI);
 
         console.log('MongoDB Connected...');
     } catch (err: any) {
