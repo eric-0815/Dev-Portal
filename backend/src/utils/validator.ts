@@ -1,11 +1,21 @@
 import * as EmailValidator from 'email-validator';
 import { ValidateMethod } from '../constants/ValidateMethod';
+import { Experience } from '../models/Profile';
 
-export const validateUserInfo = (body: any, method: string) => {
+export const validateUserInfo = (userInput: any, method: string) => {
     const errors = []
 
-    if (method !== ValidateMethod.LOGIN && !body.name) errors.push('Name is required');
-    if (!body.email || !EmailValidator.validate(body.email)) errors.push('Please include a valid email');
-    if (!body.password || body.password?.length < 6) errors.push('Please enter a password with 6 or more characters')
+    if (method !== ValidateMethod.LOGIN && !userInput.name) errors.push('Name is required');
+    if (!userInput.email || !EmailValidator.validate(userInput.email)) errors.push('Please include a valid email');
+    if (!userInput.password || userInput.password?.length < 6) errors.push('Please enter a password with 6 or more characters')
+    return errors
+}
+
+export const validateExperienceInput = (experience: Experience) => {
+    const errors = []
+
+    if (!experience.title) errors.push('Title is required');
+    if (!experience.company) errors.push('Company is required');
+    if (!experience.from) errors.push('From date is required');
     return errors
 }

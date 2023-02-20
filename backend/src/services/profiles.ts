@@ -1,7 +1,8 @@
-import Profile, { ProfileType, Social } from "../models/Profile"
+import Profile, { Experience, ProfileType, Social } from "../models/Profile"
 import User from "../models/User";
 import { createErrorMsg } from "../utils/error"
 import mongoose from "mongoose";
+import { validateExperienceInput } from "../utils/validator";
 
 
 export interface ProfileInfo {
@@ -17,6 +18,17 @@ export interface ProfileInfo {
     instagram: string;
     linkedin: string;
     facebook: string;
+    userId: string;
+}
+
+interface ExperienceInfo {
+    title: string;
+    company: string;
+    location: string;
+    from: Date;
+    to: Date;
+    current: boolean;
+    description: string;
     userId: string;
 }
 
@@ -102,8 +114,8 @@ const updateProfile = async (profileFields: ProfileType) => {
     return updatedProfile
 }
 
-const findProfileByUserId = async (userId: mongoose.Types.ObjectId) => {
-    const profile = await Profile.findOne({ userId })
+const findProfileByUserId = async (userId: mongoose.Types.ObjectId | string) => {
+    const profile = await Profile.findOne({ user: userId })
     return profile
 }
 
@@ -113,4 +125,36 @@ export const removeProfile = async (userId: string) => {
     await User.findOneAndRemove({ _id: userId })
 
     return ({ msg: 'User deleted' })
+}
+
+export const updateExperience = async (experience: ExperienceInfo) => {
+    const {
+        title,
+        company,
+        location,
+        from,
+        to,
+        current,
+        description,
+        userId
+    } = experience;
+
+    const errors = await validateExperienceInput(experience);
+    if (errors.length > 0) return ({ errors })
+
+    const newExp = {
+        title,
+        company,
+        location,
+        from,
+        to,
+        current,
+        description,
+    } as Experience;
+
+    const profile = await findProfileByUserId(userId);
+    profile?.experience?.unshift(newExp);
+    profile?.save();
+
+    return profile
 }
