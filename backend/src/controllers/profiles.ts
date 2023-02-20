@@ -39,7 +39,6 @@ export const postProfile = async (req: Request, res: Response) => {
 export const deleteProfile = async (req: Request, res: Response) => {
     try {
         const { userId } = req.body
-        console.log(`userId: ${userId}`)
         const result = await removeProfile(userId)
         res.send(result)
     } catch (err: any) {

@@ -1,12 +1,9 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import { postProfile, getProfiles, getProfile, deleteProfile } from "../controllers/profiles";
 import auth from '../middleware/auth'
 
 const profileRoute = express.Router();
 
-// @router  GET api/profile
-// @desc    Test route
-// @access  Public
 profileRoute.route('/')
     .get(auth, getProfiles)
     .post(auth, postProfile)
