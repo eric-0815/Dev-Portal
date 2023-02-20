@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { getProfile, addProfile } from "../controllers/profiles";
+import { postProfile } from "../controllers/profiles";
 import auth from '../middleware/auth'
 
 const profileRoute = express.Router();
@@ -8,7 +8,7 @@ const profileRoute = express.Router();
 // @desc    Test route
 // @access  Public
 profileRoute.route('/')
-    .get(auth, getProfile)
-    .post(auth, addProfile)
+    //.get(auth, getProfile)
+    .post(auth, postProfile)
 
 export default profileRoute;

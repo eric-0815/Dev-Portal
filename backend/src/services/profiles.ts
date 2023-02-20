@@ -1,6 +1,7 @@
-import Profile from "../models/Profile"
+import Profile, { ProfileType, Social } from "../models/Profile"
+
 import { createErrorMsg } from "../utils/error"
-import { Social } from '../models/Profile'
+import mongoose from "mongoose";
 
 export interface ProfileInfo {
     company: string;
@@ -9,7 +10,7 @@ export interface ProfileInfo {
     bio: string;
     status: string;
     githubusername: string;
-    skills: Social,
+    skills: string,
     youtube: string;
     twitter: string;
     instagram: string;
@@ -18,17 +19,17 @@ export interface ProfileInfo {
     userId: string;
 }
 
-export const findProfile = async (userId: string) => {
-    // use populate to work with the user table and get name and avatar 
-    const profile = await Profile.findOne({ userId }).populate('user',
-        ['name', 'avatar'])
+// export const findProfileByUserId = async (userId: string) => {
+//     // use populate to work with the user table and get name and avatar 
+//     const profile = await Profile.findOne({ userId }).populate('user',
+//         ['name', 'avatar'])
 
-    if (!profile) return createErrorMsg('There is not profile for this user')
+//     if (!profile) return createErrorMsg('There is not profile for this user')
 
-    return profile
-}
+//     return profile
+// }
 
-export const createProfile = async (profile: ProfileInfo) => {
+export const addOrCreateProfile = async (profileInfo: ProfileInfo) => {
     const {
         company,
         website,
@@ -43,9 +44,9 @@ export const createProfile = async (profile: ProfileInfo) => {
         linkedin,
         facebook,
         userId
-    } = profile
+    } = profileInfo
 
-    const profileFields = {} as ProfileInfo;
+    const profileFields = {} as ProfileType;
 
     if (company) profileFields.company = company;
     if (website) profileFields.website = website;
@@ -53,12 +54,46 @@ export const createProfile = async (profile: ProfileInfo) => {
     if (bio) profileFields.bio = bio;
     if (status) profileFields.status = status;
     if (githubusername) profileFields.githubusername = githubusername;
-    if (skills) {
-        profileFields.skills.facebook = skills.facebook;
-        profileFields.skills.instagram = skills.instagram;
-        profileFields.skills.linkedin = skills.linkedin;
-        profileFields.skills.twitter = skills.twitter;
-        profileFields.skills.youtube = skills.youtube;
+    if (skills) profileFields.skills = skills.split(",").map((skill) => skill.trim());
+
+    // Build social object
+    profileFields.social = {} as Social;
+    if (youtube) profileFields.social.youtube = youtube;
+    if (twitter) profileFields.social.twitter = twitter;
+    if (instagram) profileFields.social.instagram = instagram;
+    if (linkedin) profileFields.social.linkedin = linkedin;
+    if (facebook) profileFields.social.facebook = facebook;
+    if (userId) profileFields.userId = userId;
+
+    const profile = await findProfileByUserId(userId);
+    if (profile) {
+        const updatedProfile = await updateProfile(profileFields);
+        return updatedProfile;
     }
 
+    // Create
+    const createdProfile = await createProfile(profileFields)
+    return createdProfile
+}
+
+const createProfile = async (profileFields: ProfileType) => {
+    const createdProfile = new Profile(profileFields);
+    await createdProfile.save();
+    return createdProfile;
+}
+
+const updateProfile = async (profileFields: ProfileType) => {
+    const { userId } = profileFields
+    // Update
+    const updatedProfile = await Profile.findOneAndUpdate(
+        { userId },
+        { $set: profileFields },
+        { new: true }
+    )
+    return updatedProfile
+}
+
+const findProfileByUserId = async (userId: string) => {
+    const profile = await Profile.findOne({ userId })
+    return profile
 }
