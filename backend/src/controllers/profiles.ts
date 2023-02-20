@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { StatusCodes } from 'http-status-codes';
-import { addOrCreateProfile, findProfile, findProfiles, removeProfile, updateExperience } from "../services/profiles";
+import { addOrCreateProfile, findProfile, findProfiles, removeExperience, removeProfile, updateExperience } from "../services/profiles";
 
 export const getProfiles = async (req: Request, res: Response) => {
     try {
@@ -50,6 +50,18 @@ export const deleteProfile = async (req: Request, res: Response) => {
 export const putExperience = async (req: Request, res: Response) => {
     try {
         const result = await updateExperience(req.body)
+        res.send(result)
+    } catch (err: any) {
+        console.error(err.message)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+    }
+}
+
+export const deleteExperience = async (req: Request, res: Response) => {
+    try {
+        const { userId } = req.body
+        const { expId } = req.params
+        const result = await removeExperience(userId, expId)
         res.send(result)
     } catch (err: any) {
         console.error(err.message)

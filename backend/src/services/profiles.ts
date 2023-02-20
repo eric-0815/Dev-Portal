@@ -158,3 +158,21 @@ export const updateExperience = async (experience: ExperienceInfo) => {
 
     return profile
 }
+
+export const removeExperience = async (userId: string, expId: string) => {
+    const profile = await findProfileByUserId(userId);
+
+    const removeIndex = profile?.experience
+        .map((item: any) => item.id)
+        .indexOf(expId)
+
+    if (removeIndex) {
+        console.log(`before: ${profile}`)
+        profile?.experience.splice(removeIndex, 1)
+        await profile?.save();
+        console.log(`after: ${profile}`)
+        return profile
+    }
+
+
+}

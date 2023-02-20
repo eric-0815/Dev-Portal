@@ -1,5 +1,12 @@
 import express from "express";
-import { postProfile, getProfiles, getProfile, deleteProfile, putExperience } from "../controllers/profiles";
+import {
+    postProfile,
+    getProfiles,
+    getProfile,
+    deleteProfile,
+    putExperience,
+    deleteExperience
+} from "../controllers/profiles";
 import auth from '../middleware/auth'
 
 const profileRoute = express.Router();
@@ -12,8 +19,9 @@ profileRoute.route('/')
 profileRoute.route('/user/:userId')
     .get(auth, getProfile)
 
-profileRoute.route('/experience/')
+profileRoute.route('/experience/:expId')
     .put(auth, putExperience)
+    .delete(auth, deleteExperience)
 
 
 
