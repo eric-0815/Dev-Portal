@@ -1,19 +1,30 @@
 import { Request, Response } from "express";
 import { StatusCodes } from 'http-status-codes';
-import { addOrCreateProfile } from "../services/profiles";
+import { addOrCreateProfile, findProfile, findProfiles } from "../services/profiles";
+
+export const getProfiles = async (req: Request, res: Response) => {
+    try {
+        // const userId = req.body.user.id
+        const result = await findProfiles()
+        return res.send(result)
+    } catch (err: any) {
+        console.error(err.message)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+    }
+}
+
+export const getProfile = async (req: Request, res: Response) => {
+    try {
+        // const userId = req.body.user.id
+        const result = await findProfile(req.params.userId)
+        return res.send(result)
+    } catch (err: any) {
+        console.error(err.message)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+    }
+}
 
 
-
-// export const getProfile = async (req: Request, res: Response) => {
-//     try {
-//         const userId = req.body.user.id
-//         const result = await findProfileByUserId(userId)
-//         return res.send(result)
-//     } catch (err: any) {
-//         console.error(err.message)
-//         res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
-//     }
-// }
 
 export const postProfile = async (req: Request, res: Response) => {
     try {

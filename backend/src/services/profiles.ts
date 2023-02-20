@@ -19,15 +19,20 @@ export interface ProfileInfo {
     userId: string;
 }
 
-// export const findProfileByUserId = async (userId: string) => {
-//     // use populate to work with the user table and get name and avatar 
-//     const profile = await Profile.findOne({ userId }).populate('user',
-//         ['name', 'avatar'])
 
-//     if (!profile) return createErrorMsg('There is not profile for this user')
+export const findProfiles = async () => {
+    const profiles = await Profile.find().populate("user", ["name", "avatar"]);
+    return profiles
+}
 
-//     return profile
-// }
+export const findProfile = async (userId: string) => {
+    // use populate to work with the user table and get name and avatar 
+    const profile = await Profile.findOne({ user: userId }).populate('user', ['name', 'avatar'])
+
+    if (!profile) return createErrorMsg('There is not profile for this user')
+
+    return profile
+}
 
 export const addOrCreateProfile = async (profileInfo: ProfileInfo) => {
     const {
@@ -63,16 +68,19 @@ export const addOrCreateProfile = async (profileInfo: ProfileInfo) => {
     if (instagram) profileFields.social.instagram = instagram;
     if (linkedin) profileFields.social.linkedin = linkedin;
     if (facebook) profileFields.social.facebook = facebook;
-    if (userId) profileFields.userId = userId;
-
-    const profile = await findProfileByUserId(userId);
+    // @ts-ignore
+    if (userId) profileFields.user = new mongoose.Types.ObjectId(userId);
+    // @ts-ignore
+    const profile = await findProfileByUserId(profileFields.user);
     if (profile) {
         const updatedProfile = await updateProfile(profileFields);
+        console.log(`updatedProfile`)
         return updatedProfile;
     }
 
     // Create
     const createdProfile = await createProfile(profileFields)
+    console.log(`createdProfile`)
     return createdProfile
 }
 
@@ -83,17 +91,17 @@ const createProfile = async (profileFields: ProfileType) => {
 }
 
 const updateProfile = async (profileFields: ProfileType) => {
-    const { userId } = profileFields
+    const { user } = profileFields
     // Update
     const updatedProfile = await Profile.findOneAndUpdate(
-        { userId },
+        { userId: user },
         { $set: profileFields },
         { new: true }
     )
     return updatedProfile
 }
 
-const findProfileByUserId = async (userId: string) => {
+const findProfileByUserId = async (userId: mongoose.Types.ObjectId) => {
     const profile = await Profile.findOne({ userId })
     return profile
 }

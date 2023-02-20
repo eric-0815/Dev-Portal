@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export interface ProfileType {
-    userId: string;// mongoose.Schema.Types.ObjectId;
+    user: mongoose.Schema.Types.ObjectId;
     company: string;
     website: string;
     location: string;
@@ -45,8 +45,8 @@ export interface Social {
 
 
 const ProfileSchema = new mongoose.Schema({
-    userId: {
-        type: String, // mongoose.Schema.Types.ObjectId,
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
     company: {
