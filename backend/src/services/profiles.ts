@@ -1,7 +1,8 @@
 import Profile, { ProfileType, Social } from "../models/Profile"
-
+import User from "../models/User";
 import { createErrorMsg } from "../utils/error"
 import mongoose from "mongoose";
+
 
 export interface ProfileInfo {
     company: string;
@@ -104,4 +105,12 @@ const updateProfile = async (profileFields: ProfileType) => {
 const findProfileByUserId = async (userId: mongoose.Types.ObjectId) => {
     const profile = await Profile.findOne({ userId })
     return profile
+}
+
+export const removeProfile = async (userId: string) => {
+    await Profile.findOneAndRemove({ user: userId })
+
+    await User.findOneAndRemove({ _id: userId })
+
+    return ({ msg: 'User deleted' })
 }
