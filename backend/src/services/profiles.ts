@@ -120,7 +120,7 @@ const updateProfile = async (profileFields: ProfileType) => {
     const { user } = profileFields
     // Update
     const updatedProfile = await Profile.findOneAndUpdate(
-        { userId: user },
+        { user },
         { $set: profileFields },
         { new: true }
     )
