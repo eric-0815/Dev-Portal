@@ -17,6 +17,7 @@ export const getProfile = async (req: Request, res: Response) => {
     try {
         // const userId = req.body.user.id
         const result = await findProfile(req.params.userId)
+        if (result?.errors) return res.status(StatusCodes.BAD_REQUEST).send(result)
         return res.send(result)
     } catch (err: any) {
         console.error(err.message)
@@ -72,6 +73,7 @@ export const deleteExperience = async (req: Request, res: Response) => {
 export const putEducation = async (req: Request, res: Response) => {
     try {
         const result = await updateEducation(req.body)
+        if (result?.errors) return res.status(StatusCodes.BAD_REQUEST).send(result)
         res.send(result)
     } catch (err: any) {
         console.error(err.message)

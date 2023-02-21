@@ -1,6 +1,7 @@
 import * as EmailValidator from 'email-validator';
 import { ValidateMethod } from '../constants/ValidateMethod';
 import { Education, Experience } from '../models/Profile';
+import { PostInput } from '../services/posts';
 
 export const validateUserInfo = (userInput: any, method: string) => {
     const errors = []
@@ -29,4 +30,11 @@ export const validateEducationInput = (education: Education) => {
     if (!education.from) errors.push('From date is required');
     return errors
 }
+
+export const validatePostInput = (post: PostInput) => {
+    const errors = []
+    if (!post.text) errors.push('Text is required');
+    return errors
+}
+
 

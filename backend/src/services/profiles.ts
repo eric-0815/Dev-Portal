@@ -152,7 +152,7 @@ export const updateExperience = async (experience: ExperienceInfo) => {
         userId
     } = experience;
 
-    const errors = await validateExperienceInput(experience);
+    const errors = validateExperienceInput(experience);
     if (errors.length > 0) return ({ errors })
 
     const newExp = {
@@ -200,7 +200,7 @@ export const updateEducation = async (education: EducationInfo) => {
         userId
     } = education;
 
-    const errors = await validateEducationInput(education);
+    const errors = validateEducationInput(education);
     if (errors.length > 0) return ({ errors })
 
     const newEdu = {
@@ -228,10 +228,8 @@ export const removeEducation = async (userId: string, eduId: string) => {
         .indexOf(eduId)
 
     if (removeIndex) {
-        console.log(`before: ${profile}`)
         profile?.education.splice(removeIndex, 1)
         await profile?.save();
-        console.log(`after: ${profile}`)
         return profile
     }
 }
