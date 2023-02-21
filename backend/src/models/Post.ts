@@ -77,6 +77,6 @@ const PostSchema = new mongoose.Schema({
     }
 });
 
-const Post = mongoose.model<PostType>("Profile", PostSchema);
+const Post = mongoose.model<PostType>("Post", PostSchema);
 
 export default Post

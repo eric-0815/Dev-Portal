@@ -5,6 +5,7 @@ import { createPost } from "../services/posts";
 export const addPost = async (req: Request, res: Response) => {
     try {
         const result = await createPost(req.body)
+        if (result?.errors) return res.status(StatusCodes.BAD_REQUEST).send(result)
         return res.send(result)
     } catch (err: any) {
         console.error(err.message)
