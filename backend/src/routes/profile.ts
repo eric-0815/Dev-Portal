@@ -5,7 +5,9 @@ import {
     getProfile,
     deleteProfile,
     putExperience,
-    deleteExperience
+    deleteExperience,
+    putEducation,
+    deleteEducation
 } from "../controllers/profiles";
 import auth from '../middleware/auth'
 
@@ -16,13 +18,24 @@ profileRoute.route('/')
     .post(auth, postProfile)
     .delete(auth, deleteProfile)
 
+// USER PROFILE
 profileRoute.route('/user/:userId')
     .get(auth, getProfile)
 
-profileRoute.route('/experience/:expId')
+// EXP
+profileRoute.route('/experience')
     .put(auth, putExperience)
+
+profileRoute.route('/experience/:expId')
     .delete(auth, deleteExperience)
 
+
+// EDU
+profileRoute.route('/education')
+    .put(auth, putEducation)
+
+profileRoute.route('/education/:eduId')
+    .delete(auth, deleteEducation)
 
 
 export default profileRoute;

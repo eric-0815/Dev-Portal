@@ -2,7 +2,7 @@ import Profile, { Experience, ProfileType, Social } from "../models/Profile"
 import User from "../models/User";
 import { createErrorMsg } from "../utils/error"
 import mongoose from "mongoose";
-import { validateExperienceInput } from "../utils/validator";
+import { validateEducationInput, validateExperienceInput } from "../utils/validator";
 
 
 export interface ProfileInfo {
@@ -32,6 +32,16 @@ interface ExperienceInfo {
     userId: string;
 }
 
+interface EducationInfo {
+    school: string;
+    degree: string;
+    fieldofstudy: string;
+    from: Date;
+    to: Date;
+    current: boolean;
+    description: string;
+    userId: string;
+}
 
 export const findProfiles = async () => {
     const profiles = await Profile.find().populate("user", ["name", "avatar"]);
@@ -173,6 +183,52 @@ export const removeExperience = async (userId: string, expId: string) => {
         console.log(`after: ${profile}`)
         return profile
     }
+}
 
+export const updateEducation = async (education: EducationInfo) => {
+    const {
+        school,
+        degree,
+        fieldofstudy,
+        from,
+        to,
+        current,
+        description,
+        userId
+    } = education;
 
+    const errors = await validateEducationInput(education);
+    if (errors.length > 0) return ({ errors })
+
+    const newEdu = {
+        school,
+        degree,
+        fieldofstudy,
+        from,
+        to,
+        current,
+        description,
+    };
+
+    const profile = await findProfileByUserId(userId);
+    profile?.education?.unshift(newEdu);
+    profile?.save();
+
+    return profile
+}
+
+export const removeEducation = async (userId: string, eduId: string) => {
+    const profile = await findProfileByUserId(userId);
+
+    const removeIndex = profile?.education
+        .map((item: any) => item.id)
+        .indexOf(eduId)
+
+    if (removeIndex) {
+        console.log(`before: ${profile}`)
+        profile?.education.splice(removeIndex, 1)
+        await profile?.save();
+        console.log(`after: ${profile}`)
+        return profile
+    }
 }
