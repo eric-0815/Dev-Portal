@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { StatusCodes } from 'http-status-codes';
-import { addOrCreateProfile, findProfile, findProfiles, removeEducation, removeExperience, removeProfile, updateEducation, updateExperience } from "../services/profiles";
+import { addOrCreateProfile, findProfile, findProfiles, getGitHubResponse, removeEducation, removeExperience, removeProfile, updateEducation, updateExperience } from "../services/profiles";
 
 export const getProfiles = async (req: Request, res: Response) => {
     try {
@@ -84,6 +84,17 @@ export const deleteEducation = async (req: Request, res: Response) => {
         const { userId } = req.body
         const { eduId } = req.params
         const result = await removeEducation(userId, eduId)
+        res.send(result)
+    } catch (err: any) {
+        console.error(err.message)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+    }
+}
+
+export const getGithub = async (req: Request, res: Response) => {
+    try {
+        const { userName } = req.params
+        const result = await getGitHubResponse(userName)
         res.send(result)
     } catch (err: any) {
         console.error(err.message)

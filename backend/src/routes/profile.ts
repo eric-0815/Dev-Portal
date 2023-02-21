@@ -7,7 +7,8 @@ import {
     putExperience,
     deleteExperience,
     putEducation,
-    deleteEducation
+    deleteEducation,
+    getGithub
 } from "../controllers/profiles";
 import auth from '../middleware/auth'
 
@@ -36,6 +37,10 @@ profileRoute.route('/education')
 
 profileRoute.route('/education/:eduId')
     .delete(auth, deleteEducation)
+
+// GITHUB
+profileRoute.route('/github/:userName')
+    .get(getGithub)
 
 
 export default profileRoute;

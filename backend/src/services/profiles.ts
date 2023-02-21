@@ -1,8 +1,11 @@
+import axios from 'axios'
 import Profile, { Experience, ProfileType, Social } from "../models/Profile"
 import User from "../models/User";
 import { createErrorMsg } from "../utils/error"
 import mongoose from "mongoose";
 import { validateEducationInput, validateExperienceInput } from "../utils/validator";
+import config from "config";
+import request, { Response } from 'request';
 
 
 export interface ProfileInfo {
@@ -232,3 +235,24 @@ export const removeEducation = async (userId: string, eduId: string) => {
         return profile
     }
 }
+
+export const getGitHubResponse = async (userName: string) => {
+    const options = {
+        uri: `https://api.github.com/users/${userName
+            }/repos?per_page=5&sort=created:asc&client_id=${config.get(
+                "githubClientId"
+            )}&client_secret=${config.get("githubSecret")}`,
+        method: "GET",
+        headers: { "user-agent": "node.js" },
+    };
+
+    request(options, (error: any, response: Response, body: string) => {
+        if (error) console.error(error);
+        if (response.statusCode !== 200) {
+            return ({ msg: "No GitHub profile found" });
+        }
+        console.log(JSON.parse(body))
+        return JSON.parse(body)
+    });
+}
+
