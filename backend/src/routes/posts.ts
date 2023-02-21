@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { addPost } from "../controllers/posts";
+import { addPost, getPosts } from "../controllers/posts";
 import auth from "../middleware/auth";
 
 const postsRoute = express.Router();
@@ -8,6 +8,7 @@ const postsRoute = express.Router();
 // @desc    Test route
 // @access  Public
 postsRoute.route('/')
+    .get(auth, getPosts)
     .post(auth, addPost)
 
 export default postsRoute;

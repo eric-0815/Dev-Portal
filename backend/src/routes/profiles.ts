@@ -12,35 +12,35 @@ import {
 } from "../controllers/profiles";
 import auth from '../middleware/auth'
 
-const profileRoute = express.Router();
+const profilesRoute = express.Router();
 
-profileRoute.route('/')
+profilesRoute.route('/')
     .get(auth, getProfiles)
     .post(auth, postProfile)
     .delete(auth, deleteProfile)
 
 // USER PROFILE
-profileRoute.route('/user/:userId')
+profilesRoute.route('/user/:userId')
     .get(auth, getProfile)
 
 // EXP
-profileRoute.route('/experience')
+profilesRoute.route('/experience')
     .put(auth, putExperience)
 
-profileRoute.route('/experience/:expId')
+profilesRoute.route('/experience/:expId')
     .delete(auth, deleteExperience)
 
 
 // EDU
-profileRoute.route('/education')
+profilesRoute.route('/education')
     .put(auth, putEducation)
 
-profileRoute.route('/education/:eduId')
+profilesRoute.route('/education/:eduId')
     .delete(auth, deleteEducation)
 
 // GITHUB
-profileRoute.route('/github/:userName')
+profilesRoute.route('/github/:userName')
     .get(getGithub)
 
 
-export default profileRoute;
+export default profilesRoute;

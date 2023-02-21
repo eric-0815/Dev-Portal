@@ -9,6 +9,12 @@ export interface PostInput {
     userId: string;
 }
 
+export const findAllPosts = async () => {
+    // descending
+    const posts = await Post.find().sort({ date: -1 });
+    return posts
+}
+
 export const createPost = async (postInput: PostInput) => {
     const errors = validatePostInput(postInput)
     if (errors.length > 0) return ({ errors })
