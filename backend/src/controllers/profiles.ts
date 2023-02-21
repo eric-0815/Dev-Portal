@@ -51,6 +51,7 @@ export const deleteProfile = async (req: Request, res: Response) => {
 export const putExperience = async (req: Request, res: Response) => {
     try {
         const result = await updateExperience(req.body)
+        if (result?.errors) return res.status(StatusCodes.BAD_REQUEST).send(result)
         res.send(result)
     } catch (err: any) {
         console.error(err.message)
