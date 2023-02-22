@@ -1,4 +1,3 @@
-import axios from 'axios'
 import Profile, { Experience, ProfileType, Social } from "../models/Profile"
 import User from "../models/User";
 import { createErrorMsg } from "../utils/error"

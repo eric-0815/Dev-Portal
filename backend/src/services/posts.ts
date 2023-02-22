@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Post, { PostType } from "../models/Post";
 import User from "../models/User";
 import { createErrorMsg } from "../utils/error";
@@ -51,4 +52,19 @@ export const createPost = async (postInput: PostInput) => {
     const post = await newPost.save();
 
     return post
+}
+
+export const addLike = async (postId: string, userId: string) => {
+    const post = await findPostById(postId);
+
+    // Check if the post has already been liked
+    if (post.likes.filter((like) => like.user.toString() === userId).length > 0) return createErrorMsg("Post already liked");
+    
+    const ObjectId = new mongoose.Types.ObjectId(userId)
+    // @ts-ignore
+    post.likes.unshift({ user: ObjectId });
+    // @ts-ignore
+    await post.save();
+
+    return post.likes;
 }
