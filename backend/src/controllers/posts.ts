@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { StatusCodes } from 'http-status-codes';
-import { addLike, createPost, findAllPosts, findPostById, removePostById } from "../services/posts";
+import { addLike, addUnLike, createPost, findAllPosts, findPostById, removePostById } from "../services/posts";
 
 export const getPosts = async (req: Request, res: Response) => {
     try {
@@ -68,3 +68,16 @@ export const putLike = async (req: Request, res: Response) => {
     }
 }
 
+export const putUnLike = async (req: Request, res: Response) => {
+    try {
+        const {postId} = req.params
+        const {userId} = req.body
+        const result = await addUnLike(postId, userId)
+        // @ts-ignore
+        if (result?.errors) return res.status(StatusCodes.BAD_REQUEST).send(result)
+        return res.send(result)
+    } catch (err: any) {
+        console.error(err.message)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+    }
+}

@@ -68,3 +68,20 @@ export const addLike = async (postId: string, userId: string) => {
 
     return post.likes;
 }
+
+export const addUnLike = async (postId: string, userId: string) => {
+    const post = await findPostById(postId);
+
+    // Check if the post has already been liked
+    if (!post.likes.some((like) => like.user.toString() === userId)) return createErrorMsg("Post has not yet been liked");
+    
+    // remove the like
+    const removeIndex = post.likes
+      .map((like) => like.user.toString())
+      .indexOf(userId);
+    post.likes.splice(removeIndex, 1);
+    // @ts-ignore
+    await post.save();
+
+    return (post.likes);
+}
