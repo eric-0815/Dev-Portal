@@ -1,7 +1,7 @@
 import * as EmailValidator from 'email-validator';
 import { ValidateMethod } from '../constants/ValidateMethod';
 import { Education, Experience } from '../models/Profile';
-import { PostInput } from '../services/posts';
+import { CommentInput, PostInput } from '../services/posts';
 
 export const validateUserInfo = (userInput: any, method: string) => {
     const errors = []
@@ -31,9 +31,9 @@ export const validateEducationInput = (education: Education) => {
     return errors
 }
 
-export const validatePostInput = (post: PostInput) => {
+export const validatePostOrCommentInput = (postOrComment: PostInput | CommentInput) => {
     const errors = []
-    if (!post.text) errors.push('Text is required');
+    if (!postOrComment.text) errors.push('Text is required');
     return errors
 }
 

@@ -1,8 +1,12 @@
 import mongoose from "mongoose";
-import Post, { PostType } from "../models/Post";
+import Post, { Comment, PostType } from "../models/Post";
 import User from "../models/User";
 import { createErrorMsg } from "../utils/error";
-import { validatePostInput } from "../utils/validator";
+import { validatePostOrCommentInput } from "../utils/validator";
+
+export interface CommentInput extends Comment{
+    userId: string;
+}
 
 export interface PostInput {
     text: string;
@@ -22,6 +26,11 @@ export const findPostById = async (postId: string) => {
     return post
 }
 
+export const findUserByIdWithoutPassword = async(userId: string) => {
+    const user = await User.findById(userId).select("-password");
+    return user
+}
+
 export const removePostById = async (postId: string, userId: string) => {
     const post = await findPostById(postId);
 
@@ -36,11 +45,11 @@ export const removePostById = async (postId: string, userId: string) => {
 }
 
 export const createPost = async (postInput: PostInput) => {
-    const errors = validatePostInput(postInput)
+    const errors = validatePostOrCommentInput(postInput)
     if (errors.length > 0) return ({ errors })
 
     // dont' send the password back
-    const user = await User.findById(postInput.userId).select("-password");
+    const user = await findUserByIdWithoutPassword(postInput.userId);
 
     const newPost = new Post({
         text: postInput.text,
@@ -84,4 +93,26 @@ export const addUnLike = async (postId: string, userId: string) => {
     await post.save();
 
     return (post.likes);
+}
+
+export const addComment = async (postId: string, comment: CommentInput) => {
+    const errors = validatePostOrCommentInput(comment)
+    if (errors.length > 0) return ({ errors })
+
+    const user = await findUserByIdWithoutPassword(comment.userId);
+    const post = await Post.findById(postId);
+
+    const newComment = {
+        text: comment.text,
+        name: user?.name,
+        avatar: user?.avatar,
+        user: user?.id,
+      };
+
+    // @ts-ignore
+    post?.comments.unshift(newComment);
+
+    await post?.save();
+
+    return post?.comments;
 }

@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { addPost, deletePost, getPost, getPosts, putLike, putUnLike } from "../controllers/posts";
+import { addPost, deletePost, getPost, getPosts, postComment, putLike, putUnLike } from "../controllers/posts";
 import auth from "../middleware/auth";
 
 const postsRoute = express.Router();
@@ -17,5 +17,8 @@ export default postsRoute;
 postsRoute.route('/like/:postId')
     .put(auth, putLike)
 
-    postsRoute.route('/unlike/:postId')
+postsRoute.route('/unlike/:postId')
     .put(auth, putUnLike)
+
+postsRoute.route('/comment/:postId')
+    .post(auth, postComment)

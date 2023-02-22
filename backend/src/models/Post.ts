@@ -17,15 +17,15 @@ export interface PostType {
             user: mongoose.Schema.Types.ObjectId
         }
     ],
-    comments: [
-        {
-            user: mongoose.Schema.Types.ObjectId,
-            text: String,
-            name: String,
-            avatar: String,
-            date: Date
-        }
-    ],
+    comments: Comment[],
+    date: Date
+}
+
+export interface Comment {
+    user: mongoose.Schema.Types.ObjectId,
+    text: String,
+    name: String,
+    avatar: String,
     date: Date
 }
 
