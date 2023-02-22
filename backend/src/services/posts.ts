@@ -100,7 +100,7 @@ export const addComment = async (postId: string, comment: CommentInput) => {
     if (errors.length > 0) return ({ errors })
 
     const user = await findUserByIdWithoutPassword(comment.userId);
-    const post = await Post.findById(postId);
+    const post = await findPostById(postId);
 
     const newComment = {
         text: comment.text,
@@ -111,8 +111,31 @@ export const addComment = async (postId: string, comment: CommentInput) => {
 
     // @ts-ignore
     post?.comments.unshift(newComment);
-
+      // @ts-ignore
     await post?.save();
 
     return post?.comments;
+}
+
+export const removeComment = async (postId: string, commentId: string, userId: string) => {
+    
+    const post = await findPostById(postId);
+
+    // Pull out comment
+    const comment = post.comments.find(
+        (comment: any) => comment.id === commentId
+      );
+
+    // Make sure comment exists
+    if (!comment) return createErrorMsg("Comment does not exist");
+    console.log(comment)
+    // Check user
+    if (comment.user.toString() !== userId) return createErrorMsg("User not authorized");
+      
+    // @ts-ignore
+    post.comments = post.comments.filter(({id}) => id !== commentId);
+    // @ts-ignore
+    await post.save();
+
+    return post
 }

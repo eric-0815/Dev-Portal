@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { addPost, deletePost, getPost, getPosts, postComment, putLike, putUnLike } from "../controllers/posts";
+import { addPost, deleteComment, deletePost, getPost, getPosts, postComment, putLike, putUnLike } from "../controllers/posts";
 import auth from "../middleware/auth";
 
 const postsRoute = express.Router();
@@ -22,3 +22,6 @@ postsRoute.route('/unlike/:postId')
 
 postsRoute.route('/comment/:postId')
     .post(auth, postComment)
+
+postsRoute.route('/comment/:postId/:commentId')
+    .delete(auth, deleteComment)
