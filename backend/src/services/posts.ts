@@ -128,7 +128,7 @@ export const removeComment = async (postId: string, commentId: string, userId: s
 
     // Make sure comment exists
     if (!comment) return createErrorMsg("Comment does not exist");
-    console.log(comment)
+    
     // Check user
     if (comment.user.toString() !== userId) return createErrorMsg("User not authorized");
       
