@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { StatusCodes } from 'http-status-codes';
-import { addOrCreateProfile, findProfile, findProfiles, getGitHubResponse, removeEducation, removeExperience, removeProfile, updateEducation, updateExperience } from "../services/profiles";
+import { addOrCreateProfile, findProfile, findProfiles, getGitHubResponse, removeEducation, removeExperience, removeProfile, updateEducation, updateExperience } from "../services/profiles.service";
 
 export const getProfiles = async (req: Request, res: Response) => {
     try {

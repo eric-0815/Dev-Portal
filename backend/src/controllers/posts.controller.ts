@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { StatusCodes } from 'http-status-codes';
-import { addComment, addLike, addUnLike, createPost, findAllPosts, findPostById, removeComment, removePostById } from "../services/posts";
+import { addComment, addLike, addUnLike, createPost, findAllPosts, findPostById, removeComment, removePostById } from "../services/posts.service";
 
 export const getPosts = async (req: Request, res: Response) => {
     try {
@@ -56,8 +56,8 @@ export const addPost = async (req: Request, res: Response) => {
 
 export const putLike = async (req: Request, res: Response) => {
     try {
-        const {postId} = req.params
-        const {userId} = req.body
+        const { postId } = req.params
+        const { userId } = req.body
         const result = await addLike(postId, userId)
         // @ts-ignore
         if (result?.errors) return res.status(StatusCodes.BAD_REQUEST).send(result)
@@ -70,8 +70,8 @@ export const putLike = async (req: Request, res: Response) => {
 
 export const putUnLike = async (req: Request, res: Response) => {
     try {
-        const {postId} = req.params
-        const {userId} = req.body
+        const { postId } = req.params
+        const { userId } = req.body
         const result = await addUnLike(postId, userId)
         // @ts-ignore
         if (result?.errors) return res.status(StatusCodes.BAD_REQUEST).send(result)
@@ -84,7 +84,7 @@ export const putUnLike = async (req: Request, res: Response) => {
 
 export const postComment = async (req: Request, res: Response) => {
     try {
-        const {postId} = req.params
+        const { postId } = req.params
 
         const result = await addComment(postId, req.body)
         // @ts-ignore
@@ -98,8 +98,8 @@ export const postComment = async (req: Request, res: Response) => {
 
 export const deleteComment = async (req: Request, res: Response) => {
     try {
-        const {postId, commentId} = req.params
-        const {userId} = req.body
+        const { postId, commentId } = req.params
+        const { userId } = req.body
 
         const result = await removeComment(postId, commentId, userId)
         // @ts-ignore

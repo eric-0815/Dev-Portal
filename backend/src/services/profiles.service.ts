@@ -1,5 +1,5 @@
-import Profile, { Experience, ProfileType, Social } from "../models/Profile"
-import User from "../models/User";
+import Profile, { Experience, ProfileType, Social } from "../models/Profile.model"
+import User from "../models/User.model";
 import { createErrorMsg } from "../utils/error"
 import mongoose from "mongoose";
 import { validateEducationInput, validateExperienceInput } from "../utils/validator";

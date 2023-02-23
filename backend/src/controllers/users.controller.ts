@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createUser, authenticateUser } from "../services/users";
+import { createUser, authenticateUser } from "../services/users.service";
 import { StatusCodes } from 'http-status-codes';
 
 export const register = async (req: Request, res: Response) => {

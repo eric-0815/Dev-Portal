@@ -1,7 +1,7 @@
 import * as EmailValidator from 'email-validator';
 import { ValidateMethod } from '../constants/ValidateMethod';
-import { Education, Experience } from '../models/Profile';
-import { CommentInput, PostInput } from '../services/posts';
+import { Education, Experience } from '../models/Profile.model';
+import { CommentInput, PostInput } from '../services/posts.service';
 
 export const validateUserInfo = (userInput: any, method: string) => {
     const errors = []

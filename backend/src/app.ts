@@ -4,14 +4,12 @@ import usersRouter from "./routes/users";
 import authRouter from "./routes/auth";
 import profilesRoute from "./routes/profiles";
 import postsRoute from "./routes/posts";
+import createServer from "./utils/server";
 
-const app = express();
+
+const app = createServer();
 
 connectDB();
-
-// Init Middleware
-app.use(express.json())
-
 
 app.get('/', (req: Request, res: Response) => res.send('API Running'));
 

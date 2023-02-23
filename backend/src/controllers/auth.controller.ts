@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { StatusCodes } from 'http-status-codes';
-import { getUser } from "../services/auth";
+import { getUser } from "../services/auth.service";
 
 export const getAuth = async (req: Request, res: Response) => {
     try {

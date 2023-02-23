@@ -9,7 +9,7 @@ import {
     putEducation,
     deleteEducation,
     getGithub
-} from "../controllers/profiles";
+} from "../controllers/profiles.controller";
 import auth from '../middleware/auth'
 
 const profilesRoute = express.Router();

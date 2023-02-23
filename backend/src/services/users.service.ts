@@ -1,4 +1,4 @@
-import User from '../models/User'
+import User from '../models/User.model'
 import gravatar from 'gravatar'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
