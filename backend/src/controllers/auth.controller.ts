@@ -5,7 +5,7 @@ import { getUser } from "../services/auth.service";
 export const getAuth = async (req: Request, res: Response) => {
     try {
         const user = await getUser(req.body.userId)
-        res.json(user)
+        res.status(StatusCodes.OK).json(user)
     } catch (err: any) {
         console.error(err.message);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Server Error')

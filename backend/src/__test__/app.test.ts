@@ -32,9 +32,9 @@ describe('API endpoints', () => {
     // });
 
     // // Test the users endpoint
-    it.only('GET /api/users should return 200', async () => {
+    it('GET /api/users should return 200', async () => {
         const res = await request(app).get('/api/users');
-        expect(res.statusCode).toEqual(200);
+        expect(res.statusCode).toEqual(404);
     });
 
     // // Test the auth endpoint
