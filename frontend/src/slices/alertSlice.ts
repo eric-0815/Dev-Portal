@@ -27,7 +27,7 @@ export const alertSlice = createSlice({
           } as AlertState
           state.alerts = [...state.alerts, newAlert]
         },
-        removeAlert: (state, action) => {
+        removeAlert: (state) => {
           state.alerts.shift()
         },
     }

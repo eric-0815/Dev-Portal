@@ -27,7 +27,7 @@ const Register = () => {
     if (password !== password2) {
       console.log("Passwords do not match");
       dispatch(setAlert({msg: 'Password do not match', alertType: 'danger'}))
-      setTimeout(() => dispatch(removeAlert({})), 5000)
+      setTimeout(() => dispatch(removeAlert()), 5000)
     } else {
       const newUser = {
         name,
