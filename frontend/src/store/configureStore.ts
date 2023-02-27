@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit"
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { alertSlice } from "../slices/alertSlice";
 import { counterSlice } from "../slices/counterSlice";
 
 
@@ -9,7 +10,8 @@ import { counterSlice } from "../slices/counterSlice";
 
 export const store = configureStore({
     reducer: {
-        counter: counterSlice.reducer
+        counter: counterSlice.reducer,
+        alert: alertSlice.reducer,
     }
 })
 

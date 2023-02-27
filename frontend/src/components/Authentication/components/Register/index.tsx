@@ -1,8 +1,16 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../store/configureStore";
+
 import axios from "axios";
+import { setAlert } from "../../../../slices/alertSlice";
 
 const Register = () => {
+  const dispatch = useAppDispatch();
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,6 +27,7 @@ const Register = () => {
     e.preventDefault();
     if (password !== password2) {
       console.log("Passwords do not match");
+      dispatch(setAlert({msg: 'Password do not match', alertType: 'danger'}))
     } else {
       const newUser = {
         name,
@@ -45,6 +54,7 @@ const Register = () => {
 
   return (
     <Fragment>
+      <div className="container">
       <h1 className="large text-primary">Sign Up</h1>
       <p className="lead">
         <i className="fas fa-user"></i> Create Your Account
@@ -101,6 +111,7 @@ const Register = () => {
       <p className="my-1">
         Already have an account? <Link to="/login">Sign In</Link>
       </p>
+      </div>
     </Fragment>
   );
 };
