@@ -3,6 +3,7 @@ import { createUser, authenticateUser } from "../services/users.service";
 import { StatusCodes } from 'http-status-codes';
 
 export const register = async (req: Request, res: Response) => {
+    console.log('register: ', req.body)
     try {
         const { body } = req
         const result = await createUser(body)

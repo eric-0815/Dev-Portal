@@ -5,10 +5,11 @@ import authRouter from "./routes/auth";
 import profilesRoute from "./routes/profiles";
 import postsRoute from "./routes/posts";
 import createServer from "./utils/server";
-
+import cors from 'cors'
 
 const app = createServer();
 
+app.use(cors())
 connectDB();
 
 app.get('/', (req: Request, res: Response) => res.send('API Running'));

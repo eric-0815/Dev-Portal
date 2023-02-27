@@ -1,4 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import agent from "../api/agent";
+import { setAlert } from "./alertSlice";
 
 export interface AuthenticationState {
   token: string | null,
@@ -7,12 +9,40 @@ export interface AuthenticationState {
   user: any
 }
 
-const initialState: AuthenticationState =  {
+const initialState: AuthenticationState = {
   token: localStorage.getItem('token'),
   isAuthenticated: false,
   loading: true,
   user: null
 }
+
+export const loginAsync = createAsyncThunk(
+  'authentication/login',
+  async (data, thunkAPI) => {
+    try {
+      return await agent.Authentication.login(data);
+    } catch (err: any) {
+      const errors = err.response.data.errors;
+
+      if (errors) errors.forEach((error: any) => thunkAPI.dispatch(setAlert({ msg: error.msg, alertType: "danger" })));
+      return thunkAPI.rejectWithValue({ error: errors });
+    }
+  }
+)
+
+export const registerAsync = createAsyncThunk<any, any>(
+  'authentication/registerAsync',
+  async (data, thunkAPI) => {
+    try {
+      const result = await agent.Authentication.register(data);
+      if (result) thunkAPI.dispatch(registerSuccess(result))
+      return result
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue({ error: error.data });
+    }
+  }
+)
+
 
 export const authenticationSlice = createSlice({
   name: 'authentication',
@@ -33,7 +63,7 @@ export const authenticationSlice = createSlice({
     },
     registerFail: (state) => {
       localStorage.removeItem('token');
-  
+
       state = {
         ...state,
         token: null,
@@ -44,4 +74,4 @@ export const authenticationSlice = createSlice({
   }
 })
 
-export const {registerSuccess} = authenticationSlice.actions;
+export const { registerSuccess } = authenticationSlice.actions;

@@ -6,6 +6,7 @@ const createServer = () => {
     // Init Middleware
     app.use(express.json())
 
+
     return app
 }
 
