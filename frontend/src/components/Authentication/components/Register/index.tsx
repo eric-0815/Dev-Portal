@@ -5,7 +5,7 @@ import {
 } from "../../../../store/configureStore";
 
 import axios from "axios";
-import { setAlert } from "../../../../slices/alertSlice";
+import { setAlert, removeAlert } from "../../../../slices/alertSlice";
 
 const Register = () => {
   const dispatch = useAppDispatch();
@@ -27,6 +27,7 @@ const Register = () => {
     if (password !== password2) {
       console.log("Passwords do not match");
       dispatch(setAlert({msg: 'Password do not match', alertType: 'danger'}))
+      setTimeout(() => dispatch(removeAlert({})), 5000)
     } else {
       const newUser = {
         name,

@@ -15,6 +15,11 @@ const initialState: Alerts =  {
   alerts: []
 }
 
+// const removeAlert = (alerts: any, alertId: string) => {
+//   console.log('alerts: ', alerts)
+//   return alerts.filter((alert: AlertState) => alert.id !== alertId)
+// }
+
 export const alertSlice = createSlice({
     name: 'alert',
     initialState,
@@ -27,7 +32,10 @@ export const alertSlice = createSlice({
           } as AlertState
           state.alerts = [...state.alerts, newAlert]
         },
+        removeAlert: (state, action) => {
+          state.alerts.shift()
+        },
     }
 })
 
-export const {setAlert} = alertSlice.actions;
+export const {setAlert, removeAlert} = alertSlice.actions;
