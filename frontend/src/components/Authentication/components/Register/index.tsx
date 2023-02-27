@@ -35,26 +35,26 @@ const Register = () => {
         password,
       };
 
-      // try {
-      //   await dispatch(registerAsync(newUser));
-      // } catch (error) {
-      //   console.log(error);
-      // }
-
       try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
-
-        const body = JSON.stringify(newUser);
-
-        const res = await axios.post("/api/users/register", body, config);
-        console.log(res.data);
-      } catch (err: any) {
-        console.error(err.response.data);
+        await dispatch(registerAsync(newUser));
+      } catch (error) {
+        console.log(error);
       }
+
+      // try {
+      //   const config = {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   };
+
+      //   const body = JSON.stringify(newUser);
+
+      //   const res = await axios.post("/api/users/register", body, config);
+      //   console.log(res.data);
+      // } catch (err: any) {
+      //   console.error(err.response.data);
+      // }
     }
   };
 
