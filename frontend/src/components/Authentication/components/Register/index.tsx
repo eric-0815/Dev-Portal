@@ -4,7 +4,6 @@ import { useAppDispatch } from "../../../../store/configureStore";
 
 import { setAlert, removeAlert } from "../../../../slices/alertSlice";
 import { registerAsync } from "../../../../slices/authenticationSlice";
-import axios from "axios";
 
 const Register = () => {
   const dispatch = useAppDispatch();

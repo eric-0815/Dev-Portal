@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import agent from "../api/agent";
-import { setAlert } from "./alertSlice";
+import { removeAlert, setAlert } from "./alertSlice";
 
 export interface AuthenticationState {
   token: string | null,
@@ -24,7 +24,10 @@ export const loginAsync = createAsyncThunk(
     } catch (err: any) {
       const errors = err.response.data.errors;
 
-      if (errors) errors.forEach((error: any) => thunkAPI.dispatch(setAlert({ msg: error.msg, alertType: "danger" })));
+      if (errors) errors.forEach((error: any) => {
+        thunkAPI.dispatch(setAlert({ msg: error.msg, alertType: "danger" }))
+        thunkAPI.dispatch(removeAlert());
+      });
       return thunkAPI.rejectWithValue({ error: errors });
     }
   }
@@ -37,8 +40,13 @@ export const registerAsync = createAsyncThunk<any, any>(
       const result = await agent.Authentication.register(data);
       if (result) thunkAPI.dispatch(registerSuccess(result))
       return result
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue({ error: error.data });
+    } catch (err: any) {
+      const errors = err.response.data.errors;
+      if (errors) errors.forEach((error: any) => {
+        thunkAPI.dispatch(setAlert({ msg: error.msg, alertType: "danger" }))
+        setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
+      });
+      return thunkAPI.rejectWithValue({ error: errors });
     }
   }
 )
