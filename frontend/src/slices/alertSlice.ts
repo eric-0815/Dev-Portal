@@ -1,16 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit"
 import {v4 as uuid} from 'uuid'
 
-interface AlertState {
+export interface AlertState {
     id: string;
     msg: string;
     alertType: string;
 }
 
-const initialState: AlertState = {
-  id: '',
-  msg: '',
-  alertType: '',
+export interface Alerts {
+  alerts: AlertState[] | [];
+}
+
+const initialState: Alerts =  {
+  alerts: []
 }
 
 export const alertSlice = createSlice({
@@ -18,9 +20,12 @@ export const alertSlice = createSlice({
     initialState,
     reducers: {
         setAlert: (state, action) => {
-          state.id = uuid();
-          state.msg = action.payload.msg;
-          state.alertType = action.payload.alertType;
+          const newAlert = {
+            id: uuid(),
+            msg: action.payload.msg,
+            alertType: action.payload.alertType
+          } as AlertState
+          state.alerts = [...state.alerts, newAlert]
         },
     }
 })

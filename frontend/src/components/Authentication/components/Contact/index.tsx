@@ -6,9 +6,9 @@ import {
 
 const Contact = () => {
   const dispatch = useAppDispatch(); //useDispatch();
-  const { data, title } = useAppSelector((state) => state.counter); //useSelector((state: CounterState) => state);
+  const { data, title } = useAppSelector((state) => state.counterState); //useSelector((state: CounterState) => state);
   return (
-    <div className="container">
+    <div>
       <h5>{title}</h5>
       <h2>{data.toString()}</h2>
       <button onClick={() => dispatch(decrement(1))}>Decrement</button>

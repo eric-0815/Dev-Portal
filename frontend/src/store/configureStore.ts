@@ -10,8 +10,8 @@ import { counterSlice } from "../slices/counterSlice";
 
 export const store = configureStore({
     reducer: {
-        counter: counterSlice.reducer,
-        alert: alertSlice.reducer,
+        counterState: counterSlice.reducer,
+        alertState: alertSlice.reducer,
     }
 })
 
