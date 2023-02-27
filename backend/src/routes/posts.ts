@@ -12,7 +12,6 @@ postsRoute.route('/')
 postsRoute.route('/:postId')
     .get(auth, getPost)
     .delete(auth, deletePost)
-export default postsRoute;
 
 postsRoute.route('/like/:postId')
     .put(auth, putLike)
@@ -25,3 +24,5 @@ postsRoute.route('/comment/:postId')
 
 postsRoute.route('/comment/:postId/:commentId')
     .delete(auth, deleteComment)
+
+export default postsRoute;
