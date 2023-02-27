@@ -15,11 +15,6 @@ const initialState: Alerts =  {
   alerts: []
 }
 
-// const removeAlert = (alerts: any, alertId: string) => {
-//   console.log('alerts: ', alerts)
-//   return alerts.filter((alert: AlertState) => alert.id !== alertId)
-// }
-
 export const alertSlice = createSlice({
     name: 'alert',
     initialState,
