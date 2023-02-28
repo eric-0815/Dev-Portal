@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from "axios";
-import { request } from "http";
 
 const responseBody = (response: AxiosResponse) => response.data;
 

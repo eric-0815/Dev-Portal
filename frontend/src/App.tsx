@@ -11,18 +11,18 @@ import { loadUserAsync } from "./slices/authenticationSlice";
 import setAuthToken from "./utils/setAuthToken";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
-import PrivateRoute from "./components/PrivateRoute";
 
-if (localStorage.token) setAuthToken(localStorage.token)
-
+if (localStorage.token) setAuthToken(localStorage.token);
 
 const App = () => {
   const dispatch = useAppDispatch();
-  const { isAuthenticated } = useAppSelector((state) => state.authenticationState);
+  const { isAuthenticated } = useAppSelector(
+    (state) => state.authenticationState
+  );
 
   useEffect(() => {
     dispatch(loadUserAsync());
-  }, [dispatch])
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
@@ -30,13 +30,17 @@ const App = () => {
         <Navbar />
         <Alert />
         <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        {isAuthenticated && <Route path="/dashboard" element={<Dashboard/>}/>}
-        <Route path="/contact" element={<Contact />} />
-        {!isAuthenticated &&<Route path="*" element={<p>UNAUTHORIZED: 401!</p>} />}
-      </Routes> 
+          <Route path="/" element={<Landing />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          {isAuthenticated && (
+            <Route path="/dashboard" element={<Dashboard />} />
+          )}
+          <Route path="/contact" element={<Contact />} />
+          {!isAuthenticated && (
+            <Route path="*" element={<p>UNAUTHORIZED: 401!</p>} />
+          )}
+        </Routes>
       </Fragment>
     </BrowserRouter>
   );
