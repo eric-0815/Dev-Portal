@@ -26,7 +26,7 @@ export const loadUserAsync = createAsyncThunk(
        if (result) thunkAPI.dispatch(userLoaded(result))
        return result
     } catch (err: any) {
-      thunkAPI.dispatch(authFail())
+      thunkAPI.dispatch(authFailOrLogout())
       return thunkAPI.rejectWithValue({ error: err });
     }
   }
@@ -43,7 +43,7 @@ export const loginAsync = createAsyncThunk<any, any>(
     } catch (err: any) {
       const errors = err.response.data.errors;
       if (errors) errors.forEach((error: any) => {
-        thunkAPI.dispatch(authFail())
+        thunkAPI.dispatch(authFailOrLogout())
         thunkAPI.dispatch(setAlert({ msg: error.msg, alertType: "danger" }))
         setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
       });
@@ -62,7 +62,7 @@ export const registerAsync = createAsyncThunk<any, any>(
     } catch (err: any) {
       const errors = err.response.data.errors;
       if (errors) errors.forEach((error: any) => {
-        thunkAPI.dispatch(authFail())
+        thunkAPI.dispatch(authFailOrLogout())
         thunkAPI.dispatch(setAlert({ msg: error.msg, alertType: "danger" }))
         setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
       });
@@ -70,7 +70,6 @@ export const registerAsync = createAsyncThunk<any, any>(
     }
   }
 )
-
 
 export const authenticationSlice = createSlice({
   name: 'authentication',
@@ -102,17 +101,14 @@ export const authenticationSlice = createSlice({
       //   token: action.payload.token,
       // };
     },
-    authFail: (state) => {
+    authFailOrLogout: (state) => {
       localStorage.removeItem('token');
-
-      state = {
-        ...state,
-        token: null,
-        isAuthenticated: false,
-        loading: false,
-      };
+      state.token = null;
+      state.user = null;
+      state.isAuthenticated = false;
+      state.loading = false; 
     },
   }
 })
 
-export const { authSuccess, userLoaded, authFail } = authenticationSlice.actions;
+export const { authSuccess, userLoaded, authFailOrLogout } = authenticationSlice.actions;

@@ -1,13 +1,14 @@
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
-import { useAppDispatch } from "../../../../store/configureStore";
+import { Link, Navigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../../store/configureStore";
 
 import { setAlert, removeAlert } from "../../../../slices/alertSlice";
 import { registerAsync } from "../../../../slices/authenticationSlice";
 
 const Register = () => {
   const dispatch = useAppDispatch();
-
+  const { isAuthenticated } = useAppSelector((state) => state.authenticationState);
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -56,6 +57,8 @@ const Register = () => {
       // }
     }
   };
+
+  if (isAuthenticated) return <Navigate to = "/dashboard" />
 
   return (
     <Fragment>
