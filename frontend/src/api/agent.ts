@@ -15,8 +15,9 @@ const requests = {
 }
 
 const Authentication = {
-  login: (data: any) => requests.post('/users/login', data),
+  login: (data: any) => requests.post('/api/users/login', data),
   register: (body: any) => requests.post('/api/users/register', body),
+  getUser: () => requests.get('/api/auth'),
 }
 
 const agent = {

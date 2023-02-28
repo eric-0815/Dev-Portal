@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import agent from "../api/agent";
+import setAuthToken from "../utils/setAuthToken";
 import { removeAlert, setAlert } from "./alertSlice";
 
 export interface AuthenticationState {
@@ -16,19 +17,33 @@ const initialState: AuthenticationState = {
   user: null
 }
 
-export const loginAsync = createAsyncThunk(
-  'authentication/login',
-  async (data, thunkAPI) => {
-    try {
-      return await agent.Authentication.login(data);
+export const loadUserAsync = createAsyncThunk(
+  'authentication/loadUserAsync',
+  async (_, thunkAPI) => {
+    if (localStorage.token) setAuthToken(localStorage.token)
+    try{
+      const result = agent.Authentication.getUser();
+       if (result) thunkAPI.dispatch(userLoaded(result))
+       return result
     } catch (err: any) {
-      const errors = err.response.data.errors;
+      thunkAPI.dispatch(authFail())
+      return thunkAPI.rejectWithValue({ error: err });
+    }
+  }
+)
 
-      if (errors) errors.forEach((error: any) => {
-        thunkAPI.dispatch(setAlert({ msg: error.msg, alertType: "danger" }))
-        thunkAPI.dispatch(removeAlert());
-      });
-      return thunkAPI.rejectWithValue({ error: errors });
+
+export const loginAsync = createAsyncThunk<any, any>(
+  'authentication/loginAsync',
+  async (data, thunkAPI) => {
+    if (localStorage.token) setAuthToken(localStorage.token)
+    try{
+       const result = agent.Authentication.login(data);
+       if (result) thunkAPI.dispatch(loginSuccess(result))
+       return result
+    } catch (err: any) {
+      thunkAPI.dispatch(authFail())
+      return thunkAPI.rejectWithValue({ error: err });
     }
   }
 )
@@ -43,6 +58,7 @@ export const registerAsync = createAsyncThunk<any, any>(
     } catch (err: any) {
       const errors = err.response.data.errors;
       if (errors) errors.forEach((error: any) => {
+        thunkAPI.dispatch(authFail())
         thunkAPI.dispatch(setAlert({ msg: error.msg, alertType: "danger" }))
         setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
       });
@@ -68,9 +84,25 @@ export const authenticationSlice = createSlice({
         token: action.payload.token,
         isAuthenticated: true,
         loading: false,
-      }
+      };
     },
-    registerFail: (state) => {
+    loginSuccess: (state, action) => {
+      state = {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        user: action.payload
+      };
+    },
+    userLoaded: (state, action) => {
+      state = {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        user: action.payload
+      };
+    },
+    authFail: (state) => {
       localStorage.removeItem('token');
 
       state = {
@@ -78,9 +110,9 @@ export const authenticationSlice = createSlice({
         token: null,
         isAuthenticated: false,
         loading: false,
-      }
-    }
+      };
+    },
   }
 })
 
-export const { registerSuccess } = authenticationSlice.actions;
+export const { registerSuccess, loginSuccess, userLoaded, authFail } = authenticationSlice.actions;

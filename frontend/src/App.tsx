@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Contact from "./components/Authentication/components/Contact";
 import Login from "./components/Authentication/components/Login";
@@ -7,8 +7,20 @@ import Landing from "./components/Landing";
 import Navbar from "./components/Navbar";
 import "./App.css";
 import Alert from "./components/Alert";
+import { useAppDispatch } from "./store/configureStore";
+import { loadUserAsync } from "./slices/authenticationSlice";
+import setAuthToken from "./utils/setAuthToken";
+
+if (localStorage.token) setAuthToken(localStorage.token)
+
 
 const App = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(loadUserAsync());
+  }, [dispatch])
+
   return (
     <BrowserRouter>
       <Fragment>
