@@ -10,12 +10,7 @@ const Login = () => {
   const authenticationState = useAppSelector((state) => state.authenticationState);
 
   const {isAuthenticated} = authenticationState
-  const userId = authenticationState.user?._id
 
-  useEffect(() => {
-    dispatch(getCurrentProfileAsync(userId))
-  }, [])
-  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
