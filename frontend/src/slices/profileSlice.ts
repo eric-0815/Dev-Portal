@@ -11,11 +11,11 @@ interface ProfileState {
 }
 
 const initialState: ProfileState = {
-    profile: null,
-    profiles: [],
-    repos: [],
-    loading: true,
-    error: {}
+  profile: null,
+  profiles: [],
+  repos: [],
+  loading: true,
+  error: {}
 }
 
 export const getCurrentProfileAsync = createAsyncThunk<any, any>(
@@ -43,10 +43,15 @@ export const profileSlice = createSlice({
   reducers: {
     getProfileSuccess: (state, action) => {
       state.profile = action.payload;
-      state.loading = false; 
+      state.loading = false;
     },
     profileError: (state, action) => {
       state.error = action.payload;
+      state.loading = false;
+    },
+    clearProfile: (state) => {
+      state.profile = null;
+      state.repos = [];
       state.loading = false;
     }
   }

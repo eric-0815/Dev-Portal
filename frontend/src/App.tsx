@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Contact from "./components/Authentication/components/Contact";
 import Login from "./components/Authentication/components/Login";
@@ -26,7 +26,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Fragment>
+      <>
         <Navbar />
         <Alert />
         <Routes>
@@ -41,7 +41,7 @@ const App = () => {
             <Route path="*" element={<p>UNAUTHORIZED: 401!</p>} />
           )}
         </Routes>
-      </Fragment>
+      </>
     </BrowserRouter>
   );
 };

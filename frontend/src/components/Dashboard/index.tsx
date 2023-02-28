@@ -1,8 +1,6 @@
-import React, { Fragment, useEffect } from "react";
-import {
-  getCurrentProfileAsync,
-  profileSlice,
-} from "../../slices/profileSlice";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { getCurrentProfileAsync } from "../../slices/profileSlice";
 import { useAppDispatch, useAppSelector } from "../../store/configureStore";
 import Spinner from "../Spinner";
 
@@ -25,12 +23,22 @@ const Dashboard = () => {
   return loading && profile === null ? (
     <Spinner />
   ) : (
-    <Fragment>
+    <>
       <h1 className="large text-primary">Dashboard</h1>
       <p className="lead">
         <i className="fas fa-user"></i> Welcome {user?.name}
       </p>
-    </Fragment>
+      {profile !== null ? (
+        <>has</>
+      ) : (
+        <>
+          <p>You have not yet setup a profile, please add some info</p>
+          <Link to="/create-profile" className="btn btn-primary my-1">
+            Create Profile
+          </Link>
+        </>
+      )}
+    </>
   );
 };
 

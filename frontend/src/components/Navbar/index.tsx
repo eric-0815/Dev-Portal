@@ -1,5 +1,5 @@
-import React, { Fragment } from "react";
-import { Link, Navigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { authFailOrLogout } from "../../slices/authenticationSlice";
 import { useAppDispatch, useAppSelector } from "../../store/configureStore";
 
@@ -11,7 +11,6 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     await dispatch(authFailOrLogout());
-    <Navigate to="/login" />;
   };
 
   const authLinks = (
@@ -23,7 +22,7 @@ const Navbar = () => {
         </Link>
       </li>
       <li>
-        <a onClick={() => handleLogout()} href="#!">
+        <a onClick={() => handleLogout()} href="/">
           <i className="fas fa-sign-out-alt" />
           <span className="hide-sm">Logout</span>
         </a>
@@ -52,9 +51,7 @@ const Navbar = () => {
           <i className="fas fa-code"></i> DevCenter{" "}
         </Link>
       </h1>
-      {!loading && (
-        <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
-      )}
+      {!loading && <>{isAuthenticated ? authLinks : guestLinks}</>}
     </nav>
   );
 };

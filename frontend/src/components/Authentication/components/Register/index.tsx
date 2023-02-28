@@ -1,14 +1,19 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../../store/configureStore";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../store/configureStore";
 
 import { setAlert, removeAlert } from "../../../../slices/alertSlice";
 import { registerAsync } from "../../../../slices/authenticationSlice";
 
 const Register = () => {
   const dispatch = useAppDispatch();
-  const { isAuthenticated } = useAppSelector((state) => state.authenticationState);
-  
+  const { isAuthenticated } = useAppSelector(
+    (state) => state.authenticationState
+  );
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -58,10 +63,10 @@ const Register = () => {
     }
   };
 
-  if (isAuthenticated) return <Navigate to = "/dashboard" />
+  if (isAuthenticated) return <Navigate to="/dashboard" />;
 
   return (
-    <Fragment>
+    <>
       <div className="container">
         <h1 className="large text-primary">Sign Up</h1>
         <p className="lead">
@@ -122,7 +127,7 @@ const Register = () => {
           Already have an account? <Link to="/login">Sign In</Link>
         </p>
       </div>
-    </Fragment>
+    </>
   );
 };
 

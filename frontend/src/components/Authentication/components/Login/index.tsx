@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { loginAsync } from "../../../../slices/authenticationSlice";
 import {
@@ -44,7 +44,7 @@ const Login = () => {
   if (isAuthenticated) return <Navigate to="/dashboard" />;
 
   return (
-    <Fragment>
+    <>
       <div className="container">
         <h1 className="large text-primary">Sign In</h1>
         <p className="lead">
@@ -85,7 +85,7 @@ const Login = () => {
           Don't have an account? <Link to="/register">Sign Up</Link>
         </p>
       </div>
-    </Fragment>
+    </>
   );
 };
 
