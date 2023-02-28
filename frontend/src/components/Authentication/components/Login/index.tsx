@@ -1,10 +1,15 @@
-import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { Fragment, useState, useEffect } from "react";
+import { Link, Navigate  } from "react-router-dom";
 import { loginAsync } from "../../../../slices/authenticationSlice";
-import { useAppDispatch } from "../../../../store/configureStore";
+import { useAppDispatch, useAppSelector } from "../../../../store/configureStore";
 
 const Login = () => {
   const dispatch = useAppDispatch();
+  const { isAuthenticated } = useAppSelector((state) => state.authenticationState);
+  
+  useEffect(() => {
+    
+  }, [isAuthenticated])
   
   const [formData, setFormData] = useState({
     email: "",
@@ -16,6 +21,7 @@ const Login = () => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
@@ -25,11 +31,14 @@ const Login = () => {
     };
     try {
       await dispatch(loginAsync(loginInfo));
+      // Redirect if logged in
     } catch (error) {
       console.log(error);
     }
   };
-
+  
+  if (isAuthenticated) return <Navigate to = "/dashboard" />
+  
   return (
     <Fragment>
       <div className="container">

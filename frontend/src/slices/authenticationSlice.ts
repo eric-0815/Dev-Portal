@@ -22,7 +22,7 @@ export const loadUserAsync = createAsyncThunk(
   async (_, thunkAPI) => {
     if (localStorage.token) setAuthToken(localStorage.token)
     try{
-      const result = agent.Authentication.getUser();
+      const result = await agent.Authentication.getUser();
        if (result) thunkAPI.dispatch(userLoaded(result))
        return result
     } catch (err: any) {
@@ -77,26 +77,30 @@ export const authenticationSlice = createSlice({
   initialState,
   reducers: {
     userLoaded: (state, action) => {
-      state = {
-        ...state,
-        isAuthenticated: true,
-        loading: false,
-        user: action.payload
-      };
+      // state = {
+      //   ...state,
+      //   isAuthenticated: true,
+      //   loading: false,
+      //   user: action.payload
+      // };
+      state.user = action.payload;
+      state.isAuthenticated = true;
+      state.loading = false; 
     },
     authSuccess: (state, action) => {
       localStorage.setItem('token', action.payload.token);
-      // state.token = action.payload.token;
-      // state.user = action.payload.user;
-      // state.isAuthenticated = true;
-      // state.loading = false; 
-      state = {
-        ...state,
-        ...action.payload,
-        token: action.payload.token,
-        isAuthenticated: true,
-        loading: false,
-      };
+
+      state.token = action.payload.token;
+      state.user = action.payload.name;
+      state.isAuthenticated = true;
+      state.loading = false; 
+      // state = {
+      //   ...state,
+      //   //...action.payload,
+      //   isAuthenticated: true,
+      //   loading: false,
+      //   token: action.payload.token,
+      // };
     },
     authFail: (state) => {
       localStorage.removeItem('token');
