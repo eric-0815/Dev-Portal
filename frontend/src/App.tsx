@@ -10,6 +10,8 @@ import { useAppDispatch } from "./store/configureStore";
 import { loadUserAsync } from "./slices/authenticationSlice";
 import setAuthToken from "./utils/setAuthToken";
 import "./App.css";
+import Dashboard from "./components/Dashboard";
+import PrivateRoute from "./components/PrivateRoute";
 
 if (localStorage.token) setAuthToken(localStorage.token)
 
@@ -30,6 +32,7 @@ const App = () => {
         <Route path="/" element={<Landing />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<PrivateRoute element={<Dashboard/>} />} />
         <Route path="/contact" element={<Contact />} />
       </Routes> 
       </Fragment>
