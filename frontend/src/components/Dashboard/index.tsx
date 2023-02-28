@@ -12,7 +12,7 @@ const Dashboard = () => {
   
   useEffect(()=> {
     dispatch(getCurrentProfileAsync(userId));
-  })
+  }, [dispatch, userId])
 
   return <div>Dashboard</div>
 }
