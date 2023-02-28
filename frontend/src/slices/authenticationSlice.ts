@@ -36,14 +36,18 @@ export const loadUserAsync = createAsyncThunk(
 export const loginAsync = createAsyncThunk<any, any>(
   'authentication/loginAsync',
   async (data, thunkAPI) => {
-    if (localStorage.token) setAuthToken(localStorage.token)
-    try{
-       const result = agent.Authentication.login(data);
-       if (result) thunkAPI.dispatch(loginSuccess(result))
-       return result
+    try {
+      const result = await agent.Authentication.login(data);
+      if (result) thunkAPI.dispatch(authSuccess(result))
+      return result
     } catch (err: any) {
-      thunkAPI.dispatch(authFail())
-      return thunkAPI.rejectWithValue({ error: err });
+      const errors = err.response.data.errors;
+      if (errors) errors.forEach((error: any) => {
+        thunkAPI.dispatch(authFail())
+        thunkAPI.dispatch(setAlert({ msg: error.msg, alertType: "danger" }))
+        setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
+      });
+      return thunkAPI.rejectWithValue({ error: errors });
     }
   }
 )
@@ -53,7 +57,7 @@ export const registerAsync = createAsyncThunk<any, any>(
   async (data, thunkAPI) => {
     try {
       const result = await agent.Authentication.register(data);
-      if (result) thunkAPI.dispatch(registerSuccess(result))
+      if (result) thunkAPI.dispatch(authSuccess(result))
       return result
     } catch (err: any) {
       const errors = err.response.data.errors;
@@ -72,7 +76,15 @@ export const authenticationSlice = createSlice({
   name: 'authentication',
   initialState,
   reducers: {
-    registerSuccess: (state, action) => {
+    userLoaded: (state, action) => {
+      state = {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        user: action.payload
+      };
+    },
+    authSuccess: (state, action) => {
       localStorage.setItem('token', action.payload.token);
       // state.token = action.payload.token;
       // state.user = action.payload.user;
@@ -84,22 +96,6 @@ export const authenticationSlice = createSlice({
         token: action.payload.token,
         isAuthenticated: true,
         loading: false,
-      };
-    },
-    loginSuccess: (state, action) => {
-      state = {
-        ...state,
-        isAuthenticated: true,
-        loading: false,
-        user: action.payload
-      };
-    },
-    userLoaded: (state, action) => {
-      state = {
-        ...state,
-        isAuthenticated: true,
-        loading: false,
-        user: action.payload
       };
     },
     authFail: (state) => {
@@ -115,4 +111,4 @@ export const authenticationSlice = createSlice({
   }
 })
 
-export const { registerSuccess, loginSuccess, userLoaded, authFail } = authenticationSlice.actions;
+export const { authSuccess, userLoaded, authFail } = authenticationSlice.actions;

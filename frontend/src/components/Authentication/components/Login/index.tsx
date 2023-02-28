@@ -1,7 +1,11 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
+import { loginAsync } from "../../../../slices/authenticationSlice";
+import { useAppDispatch } from "../../../../store/configureStore";
 
 const Login = () => {
+  const dispatch = useAppDispatch();
+  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -14,7 +18,16 @@ const Login = () => {
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("SUCCESS");
+    
+    const loginInfo = {
+      email,
+      password,
+    };
+    try {
+      await dispatch(loginAsync(loginInfo));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -5,11 +5,11 @@ import Login from "./components/Authentication/components/Login";
 import Register from "./components/Authentication/components/Register";
 import Landing from "./components/Landing";
 import Navbar from "./components/Navbar";
-import "./App.css";
 import Alert from "./components/Alert";
 import { useAppDispatch } from "./store/configureStore";
 import { loadUserAsync } from "./slices/authenticationSlice";
 import setAuthToken from "./utils/setAuthToken";
+import "./App.css";
 
 if (localStorage.token) setAuthToken(localStorage.token)
 
