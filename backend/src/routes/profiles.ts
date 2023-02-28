@@ -30,7 +30,6 @@ profilesRoute.route('/experience')
 profilesRoute.route('/experience/:expId')
     .delete(auth, deleteExperience)
 
-
 // EDU
 profilesRoute.route('/education')
     .put(auth, putEducation)

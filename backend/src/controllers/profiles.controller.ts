@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { StatusCodes } from 'http-status-codes';
 import { addOrCreateProfile, findProfile, findProfiles, getGitHubResponse, removeEducation, removeExperience, removeProfile, updateEducation, updateExperience } from "../services/profiles.service";
+import { createErrorMsg } from "../utils/error";
 
 export const getProfiles = async (req: Request, res: Response) => {
     try {
@@ -9,7 +10,7 @@ export const getProfiles = async (req: Request, res: Response) => {
         return res.send(result)
     } catch (err: any) {
         console.error(err.message)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
 }
 
@@ -21,7 +22,7 @@ export const getProfile = async (req: Request, res: Response) => {
         return res.send(result)
     } catch (err: any) {
         console.error(err.message)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
 }
 
@@ -32,7 +33,7 @@ export const postProfile = async (req: Request, res: Response) => {
         res.send(result)
     } catch (err: any) {
         console.error(err.message)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
 
 }
@@ -44,7 +45,7 @@ export const deleteProfile = async (req: Request, res: Response) => {
         res.send(result)
     } catch (err: any) {
         console.error(err.message)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
 }
 
@@ -55,7 +56,7 @@ export const putExperience = async (req: Request, res: Response) => {
         res.send(result)
     } catch (err: any) {
         console.error(err.message)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
 }
 
@@ -67,7 +68,7 @@ export const deleteExperience = async (req: Request, res: Response) => {
         res.send(result)
     } catch (err: any) {
         console.error(err.message)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
 }
 
@@ -78,7 +79,7 @@ export const putEducation = async (req: Request, res: Response) => {
         res.send(result)
     } catch (err: any) {
         console.error(err.message)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
 }
 
@@ -90,7 +91,7 @@ export const deleteEducation = async (req: Request, res: Response) => {
         res.send(result)
     } catch (err: any) {
         console.error(err.message)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
 }
 
@@ -101,6 +102,6 @@ export const getGithub = async (req: Request, res: Response) => {
         res.send(result)
     } catch (err: any) {
         console.error(err.message)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
 }

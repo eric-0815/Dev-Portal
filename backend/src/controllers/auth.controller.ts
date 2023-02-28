@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { StatusCodes } from 'http-status-codes';
 import { getUser } from "../services/auth.service";
+import { createErrorMsg } from "../utils/error";
 
 export const getAuth = async (req: Request, res: Response) => {
     try {
@@ -8,6 +9,6 @@ export const getAuth = async (req: Request, res: Response) => {
         res.status(StatusCodes.OK).json(user)
     } catch (err: any) {
         console.error(err.message);
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Server Error')
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg('Server Error'))
     }
 }

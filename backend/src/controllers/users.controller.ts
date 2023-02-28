@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { createUser, authenticateUser } from "../services/users.service";
 import { StatusCodes } from 'http-status-codes';
+import { createErrorMsg } from "../utils/error";
 
 export const register = async (req: Request, res: Response) => {
     console.log('register: ', req.body)
@@ -13,7 +14,7 @@ export const register = async (req: Request, res: Response) => {
 
     } catch (err: any) {
         console.error(err.message)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
 
 }
@@ -29,7 +30,7 @@ export const login = async (req: Request, res: Response) => {
 
     } catch (err: any) {
         console.error(err.message)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
 }
 

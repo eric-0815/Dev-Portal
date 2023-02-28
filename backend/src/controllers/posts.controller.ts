@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { StatusCodes } from 'http-status-codes';
 import { addComment, addLike, addUnLike, createPost, findAllPosts, findPostById, removeComment, removePostById } from "../services/posts.service";
+import { createErrorMsg } from "../utils/error";
 
 export const getPosts = async (req: Request, res: Response) => {
     try {
@@ -8,7 +9,7 @@ export const getPosts = async (req: Request, res: Response) => {
         return res.send(result)
     } catch (err: any) {
         console.error(err.message)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
 }
 
@@ -20,7 +21,7 @@ export const getPost = async (req: Request, res: Response) => {
         return res.send(result)
     } catch (err: any) {
         console.error(err.message)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
 }
 
@@ -38,7 +39,7 @@ export const deletePost = async (req: Request, res: Response) => {
         return res.send(result)
     } catch (err: any) {
         console.error(err.message)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
 }
 
@@ -50,7 +51,7 @@ export const addPost = async (req: Request, res: Response) => {
         return res.send(result)
     } catch (err: any) {
         console.error(err.message)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
 }
 
@@ -64,7 +65,7 @@ export const putLike = async (req: Request, res: Response) => {
         return res.send(result)
     } catch (err: any) {
         console.error(err.message)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
 }
 
@@ -78,7 +79,7 @@ export const putUnLike = async (req: Request, res: Response) => {
         return res.send(result)
     } catch (err: any) {
         console.error(err.message)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
 }
 
@@ -92,7 +93,7 @@ export const postComment = async (req: Request, res: Response) => {
         return res.send(result)
     } catch (err: any) {
         console.error(err.message)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
 }
 
@@ -111,6 +112,6 @@ export const deleteComment = async (req: Request, res: Response) => {
         return res.send(result)
     } catch (err: any) {
         console.error(err.message)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
 }

@@ -1,15 +1,20 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Link, Navigate  } from "react-router-dom";
 import { loginAsync } from "../../../../slices/authenticationSlice";
+import { getCurrentProfileAsync } from "../../../../slices/profileSlice";
 import { useAppDispatch, useAppSelector } from "../../../../store/configureStore";
 
 const Login = () => {
   const dispatch = useAppDispatch();
-  const { isAuthenticated } = useAppSelector((state) => state.authenticationState);
-  
+
+  const authenticationState = useAppSelector((state) => state.authenticationState);
+
+  const {isAuthenticated} = authenticationState
+  const userId = authenticationState.user?._id
+
   useEffect(() => {
-    
-  }, [isAuthenticated])
+    dispatch(getCurrentProfileAsync(userId))
+  }, [])
   
   const [formData, setFormData] = useState({
     email: "",
