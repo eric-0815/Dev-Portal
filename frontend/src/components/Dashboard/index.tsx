@@ -1,20 +1,21 @@
-import React, {useEffect} from 'react'
-import { getCurrentProfileAsync } from '../../slices/profileSlice';
-import { useAppDispatch, useAppSelector } from '../../store/configureStore';
+import React, { useEffect } from "react";
+import { getCurrentProfileAsync } from "../../slices/profileSlice";
+import { useAppDispatch, useAppSelector } from "../../store/configureStore";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
 
-  const authenticationState = useAppSelector((state) => state.authenticationState);
-  
-  const userId = authenticationState.user?._id
+  const authenticationState = useAppSelector(
+    (state) => state.authenticationState
+  );
 
-  
-  useEffect(()=> {
-    dispatch(getCurrentProfileAsync(userId));
-  }, [dispatch, userId])
+  const userId = authenticationState.user?._id;
 
-  return <div>Dashboard</div>
-}
+  useEffect(() => {
+    if (userId) dispatch(getCurrentProfileAsync(userId));
+  }, [dispatch, userId]);
 
-export default Dashboard
+  return <div>Dashboard</div>;
+};
+
+export default Dashboard;

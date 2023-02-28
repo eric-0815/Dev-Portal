@@ -21,8 +21,8 @@ const App = () => {
   );
 
   useEffect(() => {
-    dispatch(loadUserAsync());
-  }, [dispatch]);
+    if (isAuthenticated) dispatch(loadUserAsync());
+  }, [dispatch, isAuthenticated]);
 
   return (
     <BrowserRouter>
