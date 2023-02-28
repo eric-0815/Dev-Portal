@@ -1,6 +1,10 @@
-import React, { useEffect } from "react";
-import { getCurrentProfileAsync } from "../../slices/profileSlice";
+import React, { Fragment, useEffect } from "react";
+import {
+  getCurrentProfileAsync,
+  profileSlice,
+} from "../../slices/profileSlice";
 import { useAppDispatch, useAppSelector } from "../../store/configureStore";
+import Spinner from "../Spinner";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
@@ -9,13 +13,25 @@ const Dashboard = () => {
     (state) => state.authenticationState
   );
 
-  const userId = authenticationState.user?._id;
+  const { profile, loading } = useAppSelector((state) => state.profileState);
+
+  const user = authenticationState.user;
+  const userId = user?._id;
 
   useEffect(() => {
     if (userId) dispatch(getCurrentProfileAsync(userId));
   }, [dispatch, userId]);
 
-  return <div>Dashboard</div>;
+  return loading && profile === null ? (
+    <Spinner />
+  ) : (
+    <Fragment>
+      <h1 className="large text-primary">Dashboard</h1>
+      <p className="lead">
+        <i className="fas fa-user"></i> Welcome {user?.name}
+      </p>
+    </Fragment>
+  );
 };
 
 export default Dashboard;
