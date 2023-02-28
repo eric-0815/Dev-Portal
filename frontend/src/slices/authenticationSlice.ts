@@ -65,6 +65,7 @@ export const authenticationSlice = createSlice({
       state = {
         ...state,
         ...action.payload,
+        token: action.payload.token,
         isAuthenticated: true,
         loading: false,
       }
