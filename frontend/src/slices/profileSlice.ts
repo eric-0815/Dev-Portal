@@ -32,7 +32,7 @@ export const getCurrentProfileAsync = createAsyncThunk<any, any>(
   }
 )
 
-export const createProfileAsync = createAsyncThunk<any, any>(
+export const createOrUpdateProfileAsync = createAsyncThunk<any, any>(
   'profile/createProfileAsync',
   async (data, thunkAPI) => {
     try {

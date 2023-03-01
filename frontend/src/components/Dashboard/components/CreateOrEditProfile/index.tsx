@@ -1,31 +1,65 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { createProfileAsync } from "../../../../slices/profileSlice";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useMatch } from "react-router-dom";
+import {
+  createOrUpdateProfileAsync,
+  getCurrentProfileAsync,
+} from "../../../../slices/profileSlice";
 import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../store/configureStore";
 
-const CreateProfile = () => {
+const initialState = {
+  company: "",
+  website: "",
+  location: "",
+  status: "",
+  skills: "",
+  githubusername: "",
+  bio: "",
+  twitter: "",
+  facebook: "",
+  linkedin: "",
+  youtube: "",
+  instagram: "",
+};
+
+const CreateOrEditProfile = () => {
+  const [formData, setFormData] = useState(initialState);
+
+  const creatingProfile = useMatch("/create-profile");
+
   const dispatch = useAppDispatch();
 
-  const navigate = useNavigate();
-  const { loading, error } = useAppSelector((state) => state.profileState);
+  const { user } = useAppSelector((state) => state.authenticationState);
+  const userId = user?._id;
 
-  const [formData, setFormData] = useState({
-    company: "",
-    website: "",
-    location: "",
-    status: "",
-    skills: "",
-    githubusername: "",
-    bio: "",
-    twitter: "",
-    facebook: "",
-    linkedin: "",
-    youtube: "",
-    instagram: "",
-  });
+  const { profile } = useAppSelector((state) => state.profileState);
+  const { loading, error } = useAppSelector((state) => state.profileState);
+  useEffect(() => {
+    // if there is no profile, attempt to fetch one
+    if (!profile) dispatch(getCurrentProfileAsync(userId));
+
+    // if we finished loading and we do have a profile
+    // then build our profileData
+    if (!loading && profile) {
+      const profileData = { ...initialState } as any;
+      for (const key in profile) {
+        if (key in profileData) profileData[key] = profile[key];
+      }
+      for (const key in profile.social) {
+        if (key in profileData) profileData[key] = profile.social[key];
+      }
+      // the skills may be an array from our API response
+      if (Array.isArray(profileData.skills))
+        profileData.skills = profileData.skills.join(", ");
+      // set local state with the profileData
+
+      setFormData(profileData);
+    }
+  }, [dispatch, loading, profile, userId]);
+
+  const navigate = useNavigate();
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
@@ -54,29 +88,25 @@ const CreateProfile = () => {
   };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //const editing = profile ? true : false;
     e.preventDefault();
-    // createProfile(formData, editing).then(() => {
-    //   if (!editing) navigate('/dashboard');
-    // });
     const data = {
       formData,
-      isEdit: false,
+      isEdit: creatingProfile ? false : true,
     };
-    dispatch(createProfileAsync(data));
+    dispatch(createOrUpdateProfileAsync(data));
     if (!loading && !error) navigate("/dashboard");
   };
 
   return (
     <section className="container">
       <h1 className="large text-primary">
-        {/* {creatingProfile ? 'Create Your Profile' : 'Edit Your Profile'} */}
+        {creatingProfile ? "Create Your Profile" : "Edit Your Profile"}
       </h1>
       <p className="lead">
         <i className="fas fa-user" />
-        {/* {creatingProfile
-        ? ` Let's get some information to make your`
-        : ' Add some changes to your profile'} */}
+        {creatingProfile
+          ? ` Let's get some information to make your`
+          : " Add some changes to your profile"}
       </p>
       <small>* = required field</small>
       <form
@@ -265,4 +295,4 @@ const CreateProfile = () => {
   );
 };
 
-export default CreateProfile;
+export default CreateOrEditProfile;

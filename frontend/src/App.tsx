@@ -9,9 +9,10 @@ import Alert from "./components/Alert";
 import { useAppDispatch, useAppSelector } from "./store/configureStore";
 import { loadUserAsync } from "./slices/authenticationSlice";
 import setAuthToken from "./utils/setAuthToken";
-import "./App.css";
 import Dashboard from "./components/Dashboard";
-import CreateProfile from "./components/Dashboard/components/CreateProfile";
+import CreateOrEditProfile from "./components/Dashboard/components/CreateOrEditProfile";
+
+import "./App.css";
 
 if (localStorage.token) setAuthToken(localStorage.token);
 
@@ -38,7 +39,7 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />} />
           )}
           {isAuthenticated && (
-            <Route path="/create-profile" element={<CreateProfile />} />
+            <Route path="/edit-profile" element={<CreateOrEditProfile />} />
           )}
           <Route path="/contact" element={<Contact />} />
 

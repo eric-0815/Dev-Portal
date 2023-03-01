@@ -21,10 +21,10 @@ export const loadUserAsync = createAsyncThunk(
   'authentication/loadUserAsync',
   async (_, thunkAPI) => {
     if (localStorage.token) setAuthToken(localStorage.token)
-    try{
+    try {
       const result = await agent.Authentication.getUser();
-       if (result) thunkAPI.dispatch(userLoaded(result))
-       return result
+      if (result) thunkAPI.dispatch(userLoaded(result))
+      return result
     } catch (err: any) {
       handleError(err, authFailOrLogout, thunkAPI)
     }
@@ -71,7 +71,7 @@ export const authenticationSlice = createSlice({
       // };
       state.user = action.payload;
       state.isAuthenticated = true;
-      state.loading = false; 
+      state.loading = false;
     },
     authSuccess: (state, action) => {
       localStorage.setItem('token', action.payload.token);
@@ -79,7 +79,7 @@ export const authenticationSlice = createSlice({
       state.token = action.payload.token;
       state.user = action.payload.name;
       state.isAuthenticated = true;
-      state.loading = false; 
+      state.loading = false;
       // state = {
       //   ...state,
       //   //...action.payload,
@@ -93,7 +93,7 @@ export const authenticationSlice = createSlice({
       state.token = null;
       state.user = null;
       state.isAuthenticated = false;
-      state.loading = false; 
+      state.loading = false;
     },
   }
 })
