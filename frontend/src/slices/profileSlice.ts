@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import agent from "../api/agent";
 import handleError from "../utils/handleError";
-import { removeAlert, setAlert } from "./alertSlice";
+import { setAlert } from "./alertSlice";
 
 interface ProfileState {
   profile: any;
@@ -34,18 +34,18 @@ export const getCurrentProfileAsync = createAsyncThunk<any, any>(
 
 export const createProfileAsync = createAsyncThunk<any, any>(
   'profile/createProfileAsync',
-  async(data, thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
-      const {formData} = data
+      const { formData, isEdit } = data
       const result = await agent.Profile.createProfile(formData)
+      thunkAPI.dispatch(setAlert({ msg: isEdit ? 'Profile Updated' : 'Profile Created', alertType: 'success' }))
+      return result
     }
     catch (err: any) {
       handleError(err, profileError, thunkAPI)
     }
   }
 )
-
-
 
 export const profileSlice = createSlice({
   name: 'profile',

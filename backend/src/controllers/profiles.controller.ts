@@ -29,7 +29,9 @@ export const getProfile = async (req: Request, res: Response) => {
 export const postProfile = async (req: Request, res: Response) => {
     try {
         const { body } = req
+        console.log(`postProfile body: ${JSON.stringify(body)}`)
         const result = await addOrCreateProfile(body)
+        if (result?.errors) return res.status(StatusCodes.BAD_REQUEST).send(result)
         res.send(result)
     } catch (err: any) {
         console.error(err.message)

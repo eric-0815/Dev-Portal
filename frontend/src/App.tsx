@@ -41,9 +41,8 @@ const App = () => {
             <Route path="/create-profile" element={<CreateProfile />} />
           )}
           <Route path="/contact" element={<Contact />} />
-          {!isAuthenticated && (
-            <Route path="*" element={<p>UNAUTHORIZED: 401!</p>} />
-          )}
+
+          {/* <Route path="*" element={<p>UNAUTHORIZED: 401!</p>} /> */}
         </Routes>
       </>
     </BrowserRouter>

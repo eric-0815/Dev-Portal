@@ -2,7 +2,7 @@ import Profile, { Experience, ProfileType, Social } from "../models/Profile.mode
 import User from "../models/User.model";
 import { createErrorMsg } from "../utils/error"
 import mongoose from "mongoose";
-import { validateEducationInput, validateExperienceInput } from "../utils/validator";
+import { validateEducationInput, validateExperienceInput, validateProfile } from "../utils/validator";
 import config from "config";
 import request, { Response } from 'request';
 
@@ -75,6 +75,9 @@ export const addOrCreateProfile = async (profileInfo: ProfileInfo) => {
         facebook,
         userId
     } = profileInfo
+
+    const errors = validateProfile(profileInfo);
+    if (errors.length > 0) return ({ errors })
 
     const profileFields = {} as ProfileType;
 

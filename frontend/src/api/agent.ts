@@ -22,7 +22,7 @@ const Authentication = {
 
 const Profile = {
   getCurrentProfile: (userId: string) => requests.get(`/api/profiles/user/${userId}`),
-  createProfile: (data: any) => requests.post('/api/profile', data),
+  createProfile: (data: any) => requests.post('/api/profiles', data),
 }
 
 const agent = {

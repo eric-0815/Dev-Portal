@@ -1,7 +1,8 @@
 import * as EmailValidator from 'email-validator';
 import { ValidateMethod } from '../constants/ValidateMethod';
-import { Education, Experience } from '../models/Profile.model';
+import Profile, { Education, Experience } from '../models/Profile.model';
 import { CommentInput, PostInput } from '../services/posts.service';
+import { ProfileInfo } from '../services/profiles.service';
 
 export const validateUserInfo = (userInput: any, method: string) => {
     const errors = []
@@ -37,4 +38,14 @@ export const validatePostOrCommentInput = (postOrComment: PostInput | CommentInp
     return errors
 }
 
+export const validateProfile = (profileInfo: ProfileInfo) => {
+    const errors = []
 
+    if (!profileInfo.company) errors.push({ msg: 'Company is required' });
+    if (!profileInfo.website) errors.push({ msg: 'Website is required' });
+    if (!profileInfo.location) errors.push({ msg: 'Location of study is required' });
+    if (!profileInfo.status) errors.push({ msg: 'Status date is required' });
+    if (!profileInfo.skills) errors.push({ msg: 'Skills date is required' });
+    return errors
+}
+// errors: [{msg: "Invalid Credentials"}]
