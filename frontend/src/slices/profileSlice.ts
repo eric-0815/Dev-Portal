@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import agent from "../api/agent";
+import handleError from "../utils/handleError";
 import { removeAlert, setAlert } from "./alertSlice";
 
 interface ProfileState {
@@ -26,16 +27,25 @@ export const getCurrentProfileAsync = createAsyncThunk<any, any>(
       if (result) thunkAPI.dispatch(getProfileSuccess(result))
       return result
     } catch (err: any) {
-      const errors = err.response.data.errors;
-      if (errors) errors.forEach((error: any) => {
-        thunkAPI.dispatch(profileError(error))
-        thunkAPI.dispatch(setAlert({ msg: error.msg, alertType: "danger" }))
-        setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
-      });
-      return thunkAPI.rejectWithValue({ error: errors });
+      handleError(err, profileError, thunkAPI)
     }
   }
 )
+
+export const createProfileAsync = createAsyncThunk<any, any>(
+  'profile/createProfileAsync',
+  async(data, thunkAPI) => {
+    try {
+      const {formData} = data
+      const result = await agent.Profile.createProfile(formData)
+    }
+    catch (err: any) {
+      handleError(err, profileError, thunkAPI)
+    }
+  }
+)
+
+
 
 export const profileSlice = createSlice({
   name: 'profile',

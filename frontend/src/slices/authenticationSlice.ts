@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import agent from "../api/agent";
+import handleError from "../utils/handleError";
 import setAuthToken from "../utils/setAuthToken";
-import { removeAlert, setAlert } from "./alertSlice";
 
 export interface AuthenticationState {
   token: string | null,
@@ -26,8 +26,7 @@ export const loadUserAsync = createAsyncThunk(
        if (result) thunkAPI.dispatch(userLoaded(result))
        return result
     } catch (err: any) {
-      thunkAPI.dispatch(authFailOrLogout())
-      return thunkAPI.rejectWithValue({ error: err });
+      handleError(err, authFailOrLogout, thunkAPI)
     }
   }
 )
@@ -41,13 +40,7 @@ export const loginAsync = createAsyncThunk<any, any>(
       if (result) thunkAPI.dispatch(authSuccess(result))
       return result
     } catch (err: any) {
-      const errors = err.response.data.errors;
-      if (errors) errors.forEach((error: any) => {
-        thunkAPI.dispatch(authFailOrLogout())
-        thunkAPI.dispatch(setAlert({ msg: error.msg, alertType: "danger" }))
-        setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
-      });
-      return thunkAPI.rejectWithValue({ error: errors });
+      handleError(err, authFailOrLogout, thunkAPI)
     }
   }
 )
@@ -60,13 +53,7 @@ export const registerAsync = createAsyncThunk<any, any>(
       if (result) thunkAPI.dispatch(authSuccess(result))
       return result
     } catch (err: any) {
-      const errors = err.response.data.errors;
-      if (errors) errors.forEach((error: any) => {
-        thunkAPI.dispatch(authFailOrLogout())
-        thunkAPI.dispatch(setAlert({ msg: error.msg, alertType: "danger" }))
-        setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
-      });
-      return thunkAPI.rejectWithValue({ error: errors });
+      handleError(err, authFailOrLogout, thunkAPI)
     }
   }
 )
