@@ -7,34 +7,34 @@ import { ProfileInfo } from '../services/profiles.service';
 export const validateUserInfo = (userInput: any, method: string) => {
     const errors = []
 
-    if (method !== ValidateMethod.LOGIN && !userInput.name) errors.push('Name is required');
-    if (!userInput.email || !EmailValidator.validate(userInput.email)) errors.push('Please include a valid email');
-    if (!userInput.password || userInput.password?.length < 6) errors.push('Please enter a password with 6 or more characters')
+    if (method !== ValidateMethod.LOGIN && !userInput.name) errors.push({ msg: 'Name is required' });
+    if (!userInput.email || !EmailValidator.validate(userInput.email)) errors.push({ msg: 'Please include a valid email' });
+    if (!userInput.password || userInput.password?.length < 6) errors.push({ msg: 'Please enter a password with 6 or more characters' })
     return errors
 }
 
 export const validateExperienceInput = (experience: Experience) => {
     const errors = []
 
-    if (!experience.title) errors.push('Title is required');
-    if (!experience.company) errors.push('Company is required');
-    if (!experience.from) errors.push('From date is required');
+    if (!experience.title) errors.push({ msg: 'Title is required' });
+    if (!experience.company) errors.push({ msg: 'Company is required' });
+    if (!experience.from) errors.push({ msg: 'From date is required' });
     return errors
 }
 
 export const validateEducationInput = (education: Education) => {
     const errors = []
 
-    if (!education.school) errors.push('School is required');
-    if (!education.degree) errors.push('Degree is required');
-    if (!education.fieldofstudy) errors.push('Field of study is required');
-    if (!education.from) errors.push('From date is required');
+    if (!education.school) errors.push({ msg: 'School is required' });
+    if (!education.degree) errors.push({ msg: 'Degree is required' });
+    if (!education.fieldofstudy) errors.push({ msg: 'Field of study is required' });
+    if (!education.from) errors.push({ msg: 'From date is required' });
     return errors
 }
 
 export const validatePostOrCommentInput = (postOrComment: PostInput | CommentInput) => {
     const errors = []
-    if (!postOrComment.text) errors.push('Text is required');
+    if (!postOrComment.text) errors.push({ msg: 'Text is required' });
     return errors
 }
 
