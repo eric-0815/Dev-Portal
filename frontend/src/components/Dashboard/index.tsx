@@ -4,6 +4,8 @@ import { getCurrentProfileAsync } from "../../slices/profileSlice";
 import { useAppDispatch, useAppSelector } from "../../store/configureStore";
 import Spinner from "../Spinner";
 import DashboardActions from "./components/DashboardActions";
+import Education from "./Education";
+import Experience from "./Experience";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
@@ -30,7 +32,11 @@ const Dashboard = () => {
         <i className="fas fa-user"></i> Welcome {user?.name}
       </p>
       {profile !== null ? (
-        <DashboardActions />
+        <>
+          <DashboardActions />
+          <Experience />
+          <Education />
+        </>
       ) : (
         <>
           <p>You have not yet setup a profile, please add some info</p>

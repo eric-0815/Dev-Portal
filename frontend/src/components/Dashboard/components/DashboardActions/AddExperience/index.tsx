@@ -1,25 +1,28 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { addEducationAsync } from "../../../../slices/profileSlice";
-import { useAppDispatch, useAppSelector } from "../../../../store/configureStore";
+import React, {useState} from 'react'
 
-const AddEducation = () => {
+import { Link, useNavigate } from "react-router-dom";
+import { addExperienceAsync } from '../../../../../slices/profileSlice';
+import { useAppDispatch, useAppSelector } from '../../../../../store/configureStore';
+
+const AddExperience = () =>{
   const navigate = useNavigate();
 
   const { loading, error } = useAppSelector((state) => state.profileState);
   const dispatch = useAppDispatch();
-
+  
   const [formData, setFormData] = useState({
-    school: '',
-    degree: '',
-    fieldofstudy: '',
+    company: '',
+    title: '',
+    location: '',
     from: '',
     to: '',
     current: false,
     description: ''
   });
 
-  const { school, degree, fieldofstudy, from, to, description, current } = formData;
+  // const [toDateDisabled, toogleDisabled] = useState(false);
+  
+  const { company, title, location, from, to, current, description } = formData;
 
   const onChange = (
     e:
@@ -29,28 +32,29 @@ const AddEducation = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  
   return (
     <>
-     <h1 className="large text-primary">Add Your Education</h1>
+      <h1 className="large text-primary">Add An Experience</h1>
       <p className="lead">
-        <i className="fas fa-code-branch" /> Add any school or bootcamp that you
-        have attended
+        <i className="fas fa-code-branch" /> Add any developer/programming
+        positions that you have had in the past
       </p>
       <small>* = required field</small>
       <form
         className="form"
         onSubmit={(e) => {
           e.preventDefault();
-          dispatch(addEducationAsync(formData));
+          dispatch(addExperienceAsync(formData));
           if (!loading && !error) navigate("/dashboard");
         }}
       >
         <div className="form-group">
           <input
             type="text"
-            placeholder="* School or Bootcamp"
-            name="school"
-            value={school}
+            placeholder="* Job Title"
+            name="title"
+            value={title}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
             required
           />
@@ -58,9 +62,9 @@ const AddEducation = () => {
         <div className="form-group">
           <input
             type="text"
-            placeholder="* Degree or Certificate"
-            name="degree"
-            value={degree}
+            placeholder="* Company"
+            name="company"
+            value={company}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
             required
           />
@@ -68,9 +72,9 @@ const AddEducation = () => {
         <div className="form-group">
           <input
             type="text"
-            placeholder="Field of Study"
-            name="fieldofstudy"
-            value={fieldofstudy}
+            placeholder="Location"
+            name="location"
+            value={location}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
           />
         </div>
@@ -80,7 +84,7 @@ const AddEducation = () => {
             type="date" 
             name="from" 
             value={from} 
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)} 
           />
         </div>
         <div className="form-group">
@@ -91,9 +95,11 @@ const AddEducation = () => {
               checked={current}
               // @ts-ignore
               value={current}
-              onChange={() => setFormData({ ...formData, current: !current })}
+              onChange={() => {
+                setFormData({ ...formData, current: !current });
+              }}
             />{' '}
-            Current School
+            Current Job
           </p>
         </div>
         <div className="form-group">
@@ -102,7 +108,7 @@ const AddEducation = () => {
             type="date"
             name="to"
             value={to}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)} 
             disabled={current}
           />
         </div>
@@ -111,7 +117,7 @@ const AddEducation = () => {
             name="description"
             cols={30}
             rows={5}
-            placeholder="Program Description"
+            placeholder="Job Description"
             value={description}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => onChange(e)} 
           />
@@ -124,4 +130,5 @@ const AddEducation = () => {
     </>
   );
 };
-export default AddEducation
+
+export default AddExperience

@@ -3,11 +3,11 @@ import { Link, useNavigate, useMatch } from "react-router-dom";
 import {
   createOrUpdateProfileAsync,
   getCurrentProfileAsync,
-} from "../../../../slices/profileSlice";
+} from "../../../../../slices/profileSlice";
 import {
   useAppDispatch,
   useAppSelector,
-} from "../../../../store/configureStore";
+} from "../../../../../store/configureStore";
 
 const initialState = {
   company: "",

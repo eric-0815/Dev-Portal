@@ -10,11 +10,11 @@ import { useAppDispatch, useAppSelector } from "./store/configureStore";
 import { loadUserAsync } from "./slices/authenticationSlice";
 import setAuthToken from "./utils/setAuthToken";
 import Dashboard from "./components/Dashboard";
-import CreateOrEditProfile from "./components/Dashboard/components/CreateOrEditProfile";
+import CreateOrEditProfile from "./components/Dashboard/components/DashboardActions/CreateOrEditProfile";
 
 import "./App.css";
-import AddExperience from "./components/Dashboard/components/AddExperience";
-import AddEducation from "./components/Dashboard/components/AddEducation";
+import AddExperience from "./components/Dashboard/components/DashboardActions/AddExperience";
+import AddEducation from "./components/Dashboard/components/DashboardActions/AddEducation";
 
 if (localStorage.token) setAuthToken(localStorage.token);
 
