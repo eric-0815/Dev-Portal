@@ -14,7 +14,7 @@ const Experience = () => {
 
   const { experience } = useAppSelector((state) => state.profileState.profile);
 
-  const experiences = experience.map((exp: any) => (
+  const experiences = experience?.map((exp: any) => (
     <tr key={exp._id}>
       <td>{exp.company}</td>
       <td className="hide-sm">{exp.title}</td>

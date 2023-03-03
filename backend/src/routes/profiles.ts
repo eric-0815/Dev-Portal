@@ -15,7 +15,7 @@ import auth from '../middleware/auth'
 const profilesRoute = express.Router();
 
 profilesRoute.route('/')
-    .get(auth, getProfiles)
+    .get(getProfiles)
     .post(auth, postProfile)
     .delete(auth, deleteProfile)
 

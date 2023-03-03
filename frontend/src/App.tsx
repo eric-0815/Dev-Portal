@@ -11,11 +11,12 @@ import { loadUserAsync } from "./slices/authenticationSlice";
 import setAuthToken from "./utils/setAuthToken";
 import Dashboard from "./components/Dashboard";
 import CreateOrEditProfile from "./components/Dashboard/components/DashboardActions/CreateOrEditProfile";
-
-import "./App.css";
 import AddExperience from "./components/Dashboard/components/DashboardActions/AddExperience";
 import AddEducation from "./components/Dashboard/components/DashboardActions/AddEducation";
 import { removeAllAlerts } from "./slices/alertSlice";
+
+import "./App.css";
+import Profiles from "./components/Profiles";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -41,6 +42,7 @@ const App = () => {
           <Route path="/" element={<Landing />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profiles" element={<Profiles />} />
           {isAuthenticated && (
             <Route path="/dashboard" element={<Dashboard />} />
           )}

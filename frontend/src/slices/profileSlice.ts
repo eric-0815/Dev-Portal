@@ -34,12 +34,12 @@ export const getProfileAsync = createAsyncThunk<any, string>(
   }
 )
 
-export const getProfilesAsync = createAsyncThunk<any, any>(
+export const getProfilesAsync = createAsyncThunk<any, undefined>(
   'profile/getProfilesAsync',
   async (_, thunkAPI) => {
     try {
       const result = await agent.Profile.getProfiles();
-      if (result) thunkAPI.dispatch(getProfileSuccess(result))
+      if (result) thunkAPI.dispatch(getProfilesSuccess(result))
       return result
     } catch (err: any) {
       handleError(err, profileError, thunkAPI)
@@ -189,5 +189,5 @@ export const profileSlice = createSlice({
   }
 })
 
-export const { getProfileSuccess, profileError, clearProfile } = profileSlice.actions;
+export const { getProfilesSuccess, getProfileSuccess, profileError, clearProfile } = profileSlice.actions;
 

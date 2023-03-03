@@ -1,19 +1,19 @@
-import formatDate from '../../../utils/formtDate';
-import { useAppDispatch, useAppSelector } from '../../../store/configureStore';
-import { deleteEducationAsync } from '../../../slices/profileSlice';
+import formatDate from "../../../utils/formtDate";
+import { useAppDispatch, useAppSelector } from "../../../store/configureStore";
+import { deleteEducationAsync } from "../../../slices/profileSlice";
 
 const Education = () => {
   const { profile } = useAppSelector((state) => state.profileState);
   const dispatch = useAppDispatch();
-  
-  const { education } = profile
-  
-  const educations = education.map((edu: any) => (
+
+  const { education } = profile;
+
+  const educations = education?.map((edu: any) => (
     <tr key={edu._id}>
       <td>{edu.school}</td>
       <td className="hide-sm">{edu.degree}</td>
       <td>
-        {formatDate(edu.from)} - {edu.to ? formatDate(edu.to) : 'Now'}
+        {formatDate(edu.from)} - {edu.to ? formatDate(edu.to) : "Now"}
       </td>
       <td>
         <button
