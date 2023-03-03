@@ -20,11 +20,38 @@ const initialState: ProfileState = {
   error: {}
 }
 
-export const getProfileAsync = createAsyncThunk<any, any>(
+export const getProfileAsync = createAsyncThunk<any, string>(
   'profile/getProfileAsync',
   async (userId, thunkAPI) => {
     try {
+      thunkAPI.dispatch(clearProfile())
       const result = await agent.Profile.getProfile(userId);
+      if (result) thunkAPI.dispatch(getProfileSuccess(result))
+      return result
+    } catch (err: any) {
+      handleError(err, profileError, thunkAPI)
+    }
+  }
+)
+
+export const getProfilesAsync = createAsyncThunk<any, any>(
+  'profile/getProfilesAsync',
+  async (_, thunkAPI) => {
+    try {
+      const result = await agent.Profile.getProfiles();
+      if (result) thunkAPI.dispatch(getProfileSuccess(result))
+      return result
+    } catch (err: any) {
+      handleError(err, profileError, thunkAPI)
+    }
+  }
+)
+
+export const getGithubReposAsync = createAsyncThunk<any, string>(
+  'profile/getGithubReposAsync',
+  async (userName, thunkAPI) => {
+    try {
+      const result = await agent.Profile.getGithubRepos(userName)
       if (result) thunkAPI.dispatch(getProfileSuccess(result))
       return result
     } catch (err: any) {
@@ -140,6 +167,14 @@ export const profileSlice = createSlice({
   reducers: {
     getProfileSuccess: (state, action) => {
       state.profile = action.payload;
+      state.loading = false;
+    },
+    getProfilesSuccess: (state, action) => {
+      state.profiles = action.payload;
+      state.loading = false;
+    },
+    getRepos: (state, action) => {
+      state.repos = action.payload;
       state.loading = false;
     },
     profileError: (state, action) => {

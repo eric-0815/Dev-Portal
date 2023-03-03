@@ -22,7 +22,10 @@ const Authentication = {
 }
 
 const Profile = {
+  getProfiles: () => requests.get(`/api/profiles`),
   getProfile: (userId: string) => requests.get(`/api/profiles/user/${userId}`),
+  getGithubRepos: (userName: string) => requests.get(`/api/profiles/github/${userName}`),
+
   createProfile: (data: any) => requests.post('/api/profiles', data),
 
   putExperience: (data: any) => requests.put('/api/profiles/experience', data),
