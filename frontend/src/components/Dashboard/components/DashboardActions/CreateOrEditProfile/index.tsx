@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useMatch } from "react-router-dom";
 import {
   createOrUpdateProfileAsync,
-  getCurrentProfileAsync,
+  getProfileAsync,
 } from "../../../../../slices/profileSlice";
 import {
   useAppDispatch,
@@ -38,7 +38,7 @@ const CreateOrEditProfile = () => {
   const { loading, error } = useAppSelector((state) => state.profileState);
   useEffect(() => {
     // if there is no profile, attempt to fetch one
-    if (!profile) dispatch(getCurrentProfileAsync(userId));
+    if (!profile) dispatch(getProfileAsync(userId));
 
     // if we finished loading and we do have a profile
     // then build our profileData

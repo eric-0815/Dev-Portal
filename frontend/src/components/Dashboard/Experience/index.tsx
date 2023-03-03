@@ -1,14 +1,17 @@
-import React, { useEffect }  from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { useAppDispatch, useAppSelector } from '../../../store/configureStore';
-import { deleteExperienceAsync, getCurrentProfileAsync } from '../../../slices/profileSlice';
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../store/configureStore";
+import {
+  deleteExperienceAsync,
+  getProfileAsync,
+} from "../../../slices/profileSlice";
 //import { deleteExperience } from '../../actions/profile';
-import formatDate from '../../../utils/formtDate';
+import formatDate from "../../../utils/formtDate";
 
 const Experience = () => {
   const dispatch = useAppDispatch();
-  
+
   const { experience } = useAppSelector((state) => state.profileState.profile);
 
   const experiences = experience.map((exp: any) => (
@@ -16,7 +19,7 @@ const Experience = () => {
       <td>{exp.company}</td>
       <td className="hide-sm">{exp.title}</td>
       <td>
-        {formatDate(exp.from)} - {exp.to ? formatDate(exp.to) : 'Now'}
+        {formatDate(exp.from)} - {exp.to ? formatDate(exp.to) : "Now"}
       </td>
       <td>
         <button
@@ -49,4 +52,4 @@ const Experience = () => {
   );
 };
 
-export default (Experience);
+export default Experience;

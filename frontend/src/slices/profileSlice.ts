@@ -20,11 +20,11 @@ const initialState: ProfileState = {
   error: {}
 }
 
-export const getCurrentProfileAsync = createAsyncThunk<any, any>(
-  'profile/getCurrentProfileAsync',
+export const getProfileAsync = createAsyncThunk<any, any>(
+  'profile/getProfileAsync',
   async (userId, thunkAPI) => {
     try {
-      const result = await agent.Profile.getCurrentProfile(userId);
+      const result = await agent.Profile.getProfile(userId);
       if (result) thunkAPI.dispatch(getProfileSuccess(result))
       return result
     } catch (err: any) {
@@ -58,7 +58,7 @@ export const addExperienceAsync = createAsyncThunk<any, any>(
       thunkAPI.dispatch(setAlert({ msg: 'Experience Added', alertType: 'success' }))
       setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
       return result
-    } 
+    }
     catch (err: any) {
       handleError(err, profileError, thunkAPI)
     }
@@ -74,7 +74,7 @@ export const addEducationAsync = createAsyncThunk<any, any>(
       thunkAPI.dispatch(setAlert({ msg: 'Education Added', alertType: 'success' }))
       setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
       return result
-    } 
+    }
     catch (err: any) {
       handleError(err, profileError, thunkAPI)
     }
@@ -90,7 +90,7 @@ export const deleteExperienceAsync = createAsyncThunk<any, any>(
       thunkAPI.dispatch(setAlert({ msg: 'Experience Removed', alertType: 'success' }))
       setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
       return result
-    } 
+    }
     catch (err: any) {
       handleError(err, profileError, thunkAPI)
     }
@@ -106,7 +106,7 @@ export const deleteEducationAsync = createAsyncThunk<any, any>(
       thunkAPI.dispatch(setAlert({ msg: 'Education Removed', alertType: 'success' }))
       setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
       return result
-    } 
+    }
     catch (err: any) {
       handleError(err, profileError, thunkAPI)
     }
@@ -116,7 +116,7 @@ export const deleteEducationAsync = createAsyncThunk<any, any>(
 export const deleteAccountAsync = createAsyncThunk<any, undefined>(
   'profile/deleteAccountAsync',
   async (_, thunkAPI) => {
-    if (window.confirm('Are you sure? This can NOT be undone!')){
+    if (window.confirm('Are you sure? This can NOT be undone!')) {
       try {
         const result = await agent.Profile.deleteAccount();
         if (result) {
@@ -126,7 +126,7 @@ export const deleteAccountAsync = createAsyncThunk<any, undefined>(
         thunkAPI.dispatch(setAlert({ msg: 'Your account has been permanantly deleted', alertType: 'success' }))
         setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
         return result
-      } 
+      }
       catch (err: any) {
         handleError(err, profileError, thunkAPI)
       }

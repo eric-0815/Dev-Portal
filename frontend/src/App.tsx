@@ -17,19 +17,16 @@ import AddExperience from "./components/Dashboard/components/DashboardActions/Ad
 import AddEducation from "./components/Dashboard/components/DashboardActions/AddEducation";
 import { removeAllAlerts } from "./slices/alertSlice";
 
-
 const App = () => {
   const dispatch = useAppDispatch();
   const { isAuthenticated } = useAppSelector(
     (state) => state.authenticationState
   );
 
-  const { alerts } = useAppSelector(
-    (state) => state.alertState
-  );
-  
+  const { alerts } = useAppSelector((state) => state.alertState);
+
   useEffect(() => {
-    if (alerts.length > 0) dispatch(removeAllAlerts())
+    if (alerts.length > 0) dispatch(removeAllAlerts());
 
     if (localStorage.token) setAuthToken(localStorage.token);
     if (isAuthenticated) dispatch(loadUserAsync());
@@ -61,7 +58,7 @@ const App = () => {
           )}
           <Route path="/contact" element={<Contact />} />
 
-          {<Route path="*" element={<p>UNAUTHORIZED: 401!</p>} />}
+          {<Route path="*" element={<Landing />} />}
         </Routes>
       </>
     </BrowserRouter>
