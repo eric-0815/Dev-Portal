@@ -112,6 +112,22 @@ export const deleteEducationAsync = createAsyncThunk<any, any>(
   }
 )
 
+export const deleteAccountAsync = createAsyncThunk<any, any>(
+  'profile/deleteAccountAsync',
+  async (_, thunkAPI) => {
+    try {
+      const result = await agent.Profile.deleteAccount();
+      if (result) thunkAPI.dispatch(clearProfile())
+      thunkAPI.dispatch(setAlert({ msg: 'Your account has been permanantly deleted', alertType: 'success' }))
+      setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
+      return result
+    } 
+    catch (err: any) {
+      handleError(err, profileError, thunkAPI)
+    }
+  }
+)
+
 export const profileSlice = createSlice({
   name: 'profile',
   initialState,
@@ -132,5 +148,5 @@ export const profileSlice = createSlice({
   }
 })
 
-export const { getProfileSuccess, profileError } = profileSlice.actions;
+export const { getProfileSuccess, profileError, clearProfile } = profileSlice.actions;
 
