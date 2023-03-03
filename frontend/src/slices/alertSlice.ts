@@ -30,7 +30,10 @@ export const alertSlice = createSlice({
     removeAlert: (state) => {
       state.alerts.shift()
     },
+    removeAllAlerts: (state) => {
+      state.alerts = []
+    },
   }
 })
 
-export const { setAlert, removeAlert } = alertSlice.actions;
+export const { setAlert, removeAlert, removeAllAlerts } = alertSlice.actions;

@@ -15,6 +15,7 @@ import CreateOrEditProfile from "./components/Dashboard/components/DashboardActi
 import "./App.css";
 import AddExperience from "./components/Dashboard/components/DashboardActions/AddExperience";
 import AddEducation from "./components/Dashboard/components/DashboardActions/AddEducation";
+import { removeAllAlerts } from "./slices/alertSlice";
 
 
 const App = () => {
@@ -22,10 +23,15 @@ const App = () => {
   const { isAuthenticated } = useAppSelector(
     (state) => state.authenticationState
   );
+
+  const { alerts } = useAppSelector(
+    (state) => state.alertState
+  );
   
   useEffect(() => {
+    if (alerts.length > 0) dispatch(removeAllAlerts())
+
     if (localStorage.token) setAuthToken(localStorage.token);
-    console.log(isAuthenticated)
     if (isAuthenticated) dispatch(loadUserAsync());
   }, [dispatch, isAuthenticated]);
 
