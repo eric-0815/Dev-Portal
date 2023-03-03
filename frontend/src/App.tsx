@@ -61,7 +61,7 @@ const App = () => {
           )}
           <Route path="/contact" element={<Contact />} />
 
-          {/* <Route path="*" element={<p>UNAUTHORIZED: 401!</p>} /> */}
+          {<Route path="*" element={<p>UNAUTHORIZED: 401!</p>} />}
         </Routes>
       </>
     </BrowserRouter>

@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { deleteAccountAsync, getCurrentProfileAsync } from "../../slices/profileSlice";
 import { useAppDispatch, useAppSelector } from "../../store/configureStore";
+import handleError from "../../utils/handleError";
 import Spinner from "../Spinner";
 import DashboardActions from "./components/DashboardActions";
 import Education from "./Education";
@@ -16,7 +17,8 @@ const Dashboard = () => {
   );
 
   const { profile, loading } = useAppSelector((state) => state.profileState);
-
+  
+  const isAuthenticated = authenticationState.isAuthenticated
   const user = authenticationState.user;
   const userId = user?._id;
 
@@ -24,10 +26,18 @@ const Dashboard = () => {
     if (userId) dispatch(getCurrentProfileAsync(userId));
   }, [dispatch, userId]);
 
+  const handleDeleteAccount = () => {
+    dispatch(deleteAccountAsync())
+    navigate('/')
+  }
+
   return loading && profile === null ? (
     <Spinner />
   ) : (
     <>
+    {profile === null && !isAuthenticated && (
+      <Navigate to="/" />
+    )}
       <h1 className="large text-primary">Dashboard</h1>
       <p className="lead">
         <i className="fas fa-user"></i> Welcome {user?.name}
@@ -39,8 +49,7 @@ const Dashboard = () => {
           <Education />
           <div className="my-2">
             <button className="btn btn-danger" onClick={() =>{
-              dispatch(deleteAccountAsync())
-              if(profile === null && !loading) navigate("/login");
+              handleDeleteAccount()
               }}>
               <i className="fas fa-user-minus"></i> Delete My Account
             </button>
