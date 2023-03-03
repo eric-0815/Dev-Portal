@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import agent from "../api/agent";
 import handleError from "../utils/handleError";
-import { setAlert } from "./alertSlice";
+import { removeAlert, setAlert } from "./alertSlice";
 
 interface ProfileState {
   profile: any;
@@ -37,8 +37,9 @@ export const createOrUpdateProfileAsync = createAsyncThunk<any, any>(
   async (data, thunkAPI) => {
     try {
       const { formData, isEdit } = data
-      const result = await agent.Profile.createProfile(formData)
+      const result = await agent.Profile.createProfile(formData);
       thunkAPI.dispatch(setAlert({ msg: isEdit ? 'Profile Updated' : 'Profile Created', alertType: 'success' }))
+      setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
       return result
     }
     catch (err: any) {
@@ -46,6 +47,40 @@ export const createOrUpdateProfileAsync = createAsyncThunk<any, any>(
     }
   }
 )
+
+export const addExperienceAsync = createAsyncThunk<any, any>(
+  'profile/addExperienceAsync',
+  async (data, thunkAPI) => {
+    try {
+      const result = await agent.Profile.putExperience(data);
+      if (result) thunkAPI.dispatch(getProfileSuccess(result))
+      thunkAPI.dispatch(setAlert({ msg: 'Experience Added', alertType: 'success' }))
+      setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
+      return result
+    } 
+    catch (err: any) {
+      handleError(err, profileError, thunkAPI)
+    }
+  }
+)
+
+export const addEducationAsync = createAsyncThunk<any, any>(
+  'profile/addEducationAsync',
+  async (data, thunkAPI) => {
+    try {
+      const result = await agent.Profile.putEducation(data);
+      if (result) thunkAPI.dispatch(getProfileSuccess(result))
+      thunkAPI.dispatch(setAlert({ msg: 'Education Added', alertType: 'success' }))
+      setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
+      return result
+    } 
+    catch (err: any) {
+      handleError(err, profileError, thunkAPI)
+    }
+  }
+)
+
+
 
 export const profileSlice = createSlice({
   name: 'profile',
@@ -63,7 +98,8 @@ export const profileSlice = createSlice({
       state.profile = null;
       state.repos = [];
       state.loading = false;
-    }
+    },
+    
   }
 })
 

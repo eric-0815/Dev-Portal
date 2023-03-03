@@ -13,6 +13,8 @@ import Dashboard from "./components/Dashboard";
 import CreateOrEditProfile from "./components/Dashboard/components/CreateOrEditProfile";
 
 import "./App.css";
+import AddExperience from "./components/Dashboard/components/AddExperience";
+import AddEducation from "./components/Dashboard/components/AddEducation";
 
 if (localStorage.token) setAuthToken(localStorage.token);
 
@@ -40,6 +42,12 @@ const App = () => {
           )}
           {isAuthenticated && (
             <Route path="/edit-profile" element={<CreateOrEditProfile />} />
+          )}
+          {isAuthenticated && (
+            <Route path="/add-experience" element={<AddExperience />} />
+          )}
+          {isAuthenticated && (
+            <Route path="/add-education" element={<AddEducation />} />
           )}
           <Route path="/contact" element={<Contact />} />
 

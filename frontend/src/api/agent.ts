@@ -23,6 +23,9 @@ const Authentication = {
 const Profile = {
   getCurrentProfile: (userId: string) => requests.get(`/api/profiles/user/${userId}`),
   createProfile: (data: any) => requests.post('/api/profiles', data),
+
+  putExperience: (data: any) => requests.put('/api/profiles/experience', data),
+  putEducation: (data: any) => requests.put('/api/profiles/education', data),
 }
 
 const agent = {
