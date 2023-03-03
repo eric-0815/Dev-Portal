@@ -52,7 +52,7 @@ const Login = () => {
         </p>
         <form
           className="form"
-          action="create-profile.html"
+          action="create-profile"
           onSubmit={(event: React.FormEvent<HTMLFormElement>) =>
             onSubmit(event)
           }

@@ -41,6 +41,9 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />} />
           )}
           {isAuthenticated && (
+            <Route path="/create-profile" element={<CreateOrEditProfile />} />
+          )}
+          {isAuthenticated && (
             <Route path="/edit-profile" element={<CreateOrEditProfile />} />
           )}
           {isAuthenticated && (

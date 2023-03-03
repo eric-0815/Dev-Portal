@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { getCurrentProfileAsync } from "../../slices/profileSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { deleteAccountAsync, getCurrentProfileAsync } from "../../slices/profileSlice";
 import { useAppDispatch, useAppSelector } from "../../store/configureStore";
 import Spinner from "../Spinner";
 import DashboardActions from "./components/DashboardActions";
@@ -8,6 +8,7 @@ import Education from "./Education";
 import Experience from "./Experience";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const authenticationState = useAppSelector(
@@ -36,6 +37,14 @@ const Dashboard = () => {
           <DashboardActions />
           <Experience />
           <Education />
+          <div className="my-2">
+            <button className="btn btn-danger" onClick={() =>{
+              dispatch(deleteAccountAsync())
+              navigate("/");
+              }}>
+              <i className="fas fa-user-minus"></i> Delete My Account
+            </button>
+          </div>
         </>
       ) : (
         <>

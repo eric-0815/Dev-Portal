@@ -30,7 +30,7 @@ const Profile = {
 
   deleteExperience: (experienceId: any) => requests.delete(`api/profiles/experience/${experienceId}`),
   deleteEducation: (educationId: any) => requests.delete(`api/profiles/education/${educationId}`),
-  deleteAccount: () => requests.delete('api/profile'),
+  deleteAccount: () => requests.delete('api/profiles'),
 }
 
 const agent = {

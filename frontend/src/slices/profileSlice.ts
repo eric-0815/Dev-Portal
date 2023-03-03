@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import agent from "../api/agent";
 import handleError from "../utils/handleError";
 import { removeAlert, setAlert } from "./alertSlice";
+import { authFailOrLogout } from "./authenticationSlice";
 
 interface ProfileState {
   profile: any;
@@ -112,18 +113,23 @@ export const deleteEducationAsync = createAsyncThunk<any, any>(
   }
 )
 
-export const deleteAccountAsync = createAsyncThunk<any, any>(
+export const deleteAccountAsync = createAsyncThunk<any, undefined>(
   'profile/deleteAccountAsync',
   async (_, thunkAPI) => {
-    try {
-      const result = await agent.Profile.deleteAccount();
-      if (result) thunkAPI.dispatch(clearProfile())
-      thunkAPI.dispatch(setAlert({ msg: 'Your account has been permanantly deleted', alertType: 'success' }))
-      setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
-      return result
-    } 
-    catch (err: any) {
-      handleError(err, profileError, thunkAPI)
+    if (window.confirm('Are you sure? This can NOT be undone!')){
+      try {
+        const result = await agent.Profile.deleteAccount();
+        if (result) {
+          thunkAPI.dispatch(clearProfile())
+          thunkAPI.dispatch(authFailOrLogout())
+        }
+        thunkAPI.dispatch(setAlert({ msg: 'Your account has been permanantly deleted', alertType: 'success' }))
+        setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
+        return result
+      } 
+      catch (err: any) {
+        handleError(err, profileError, thunkAPI)
+      }
     }
   }
 )
