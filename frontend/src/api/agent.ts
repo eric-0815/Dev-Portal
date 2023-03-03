@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { URLSearchParams } from "url";
 
 const responseBody = (response: AxiosResponse) => response.data;
 
@@ -11,7 +12,7 @@ const requests = {
     { headers: { 'Content-Type': 'application/json' } })
     .then(responseBody),
   put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
-  delete: (url: string) => axios.delete(url).then(responseBody),
+  delete: (url: string, params?: URLSearchParams) => axios.delete(url, { params }).then(responseBody),
 }
 
 const Authentication = {
@@ -26,6 +27,9 @@ const Profile = {
 
   putExperience: (data: any) => requests.put('/api/profiles/experience', data),
   putEducation: (data: any) => requests.put('/api/profiles/education', data),
+
+  deleteExperience: (experienceId: any) => requests.delete(`api/profiles/experience/${experienceId}`),
+  deleteEducation: (educationId: any) => requests.delete(`api/profiles/education/${educationId}`),
 }
 
 const agent = {

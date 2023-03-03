@@ -80,7 +80,37 @@ export const addEducationAsync = createAsyncThunk<any, any>(
   }
 )
 
+export const deleteExperienceAsync = createAsyncThunk<any, any>(
+  'profile/deleteExperienceAsync',
+  async (experienceId, thunkAPI) => {
+    try {
+      const result = await agent.Profile.deleteExperience(experienceId);
+      if (result) thunkAPI.dispatch(getProfileSuccess(result))
+      thunkAPI.dispatch(setAlert({ msg: 'Experience Removed', alertType: 'success' }))
+      setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
+      return result
+    } 
+    catch (err: any) {
+      handleError(err, profileError, thunkAPI)
+    }
+  }
+)
 
+export const deleteEducationAsync = createAsyncThunk<any, any>(
+  'profile/deleteEducationAsync',
+  async (educationId, thunkAPI) => {
+    try {
+      const result = await agent.Profile.deleteEducation(educationId);
+      if (result) thunkAPI.dispatch(getProfileSuccess(result))
+      thunkAPI.dispatch(setAlert({ msg: 'Education Removed', alertType: 'success' }))
+      setTimeout(() => thunkAPI.dispatch(removeAlert()), 5000);
+      return result
+    } 
+    catch (err: any) {
+      handleError(err, profileError, thunkAPI)
+    }
+  }
+)
 
 export const profileSlice = createSlice({
   name: 'profile',
@@ -99,7 +129,6 @@ export const profileSlice = createSlice({
       state.repos = [];
       state.loading = false;
     },
-    
   }
 })
 

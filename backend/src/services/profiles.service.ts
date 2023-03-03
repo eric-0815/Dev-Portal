@@ -176,12 +176,11 @@ export const updateExperience = async (experience: ExperienceInfo) => {
 
 export const removeExperience = async (userId: string, expId: string) => {
     const profile = await findProfileByUserId(userId);
-
     const removeIndex = profile?.experience
         .map((item: any) => item.id)
         .indexOf(expId)
 
-    if (removeIndex) {
+    if (removeIndex !== undefined) {
         console.log(`before: ${profile}`)
         profile?.experience.splice(removeIndex, 1)
         await profile?.save();
@@ -229,7 +228,7 @@ export const removeEducation = async (userId: string, eduId: string) => {
         .map((item: any) => item.id)
         .indexOf(eduId)
 
-    if (removeIndex) {
+    if (removeIndex !== undefined) {
         profile?.education.splice(removeIndex, 1)
         await profile?.save();
         return profile

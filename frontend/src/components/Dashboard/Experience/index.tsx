@@ -2,24 +2,14 @@ import React, { useEffect }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../../store/configureStore';
-import { getCurrentProfileAsync } from '../../../slices/profileSlice';
+import { deleteExperienceAsync, getCurrentProfileAsync } from '../../../slices/profileSlice';
 //import { deleteExperience } from '../../actions/profile';
 import formatDate from '../../../utils/formtDate';
 
 const Experience = () => {
- // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   
-  const { profile } = useAppSelector((state) => state.profileState);
-  
-  // const { _id } = useAppSelector((state) => state.authenticationState.user);
-  // const { loading, error } = useAppSelector((state) => state.profileState);
-  
-  // useEffect(() => {
-  //   // if there is no profile, attempt to fetch one
-  //   if (!profile) dispatch(getCurrentProfileAsync(_id));
-  // }, [dispatch, profile, _id]);
-
-  const {experience} = profile
+  const { experience } = useAppSelector((state) => state.profileState.profile);
 
   const experiences = experience.map((exp: any) => (
     <tr key={exp._id}>
@@ -30,7 +20,9 @@ const Experience = () => {
       </td>
       <td>
         <button
-          onClick={() => console.log('deleteExperience')/*deleteExperience(exp._id)*/}
+          onClick={() => {
+            dispatch(deleteExperienceAsync(exp._id));
+          }}
           className="btn btn-danger"
         >
           Delete

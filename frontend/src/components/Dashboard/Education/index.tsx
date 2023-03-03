@@ -1,13 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-// import { deleteEducation } from '../../actions/profile';
 import formatDate from '../../../utils/formtDate';
-import { useAppSelector } from '../../../store/configureStore';
+import { useAppDispatch, useAppSelector } from '../../../store/configureStore';
+import { deleteEducationAsync } from '../../../slices/profileSlice';
 
 const Education = () => {
   const { profile } = useAppSelector((state) => state.profileState);
-
+  const dispatch = useAppDispatch();
+  
   const { education } = profile
   
   const educations = education.map((edu: any) => (
@@ -19,7 +17,9 @@ const Education = () => {
       </td>
       <td>
         <button
-          onClick={() => console.log('deleteEducation')/*deleteEducation(edu._id)*/}
+          onClick={() => {
+            dispatch(deleteEducationAsync(edu._id));
+          }}
           className="btn btn-danger"
         >
           Delete
