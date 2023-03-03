@@ -40,7 +40,7 @@ const Dashboard = () => {
           <div className="my-2">
             <button className="btn btn-danger" onClick={() =>{
               dispatch(deleteAccountAsync())
-              navigate("/");
+              if(profile === null && !loading) navigate("/login");
               }}>
               <i className="fas fa-user-minus"></i> Delete My Account
             </button>

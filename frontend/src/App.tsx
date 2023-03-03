@@ -16,15 +16,16 @@ import "./App.css";
 import AddExperience from "./components/Dashboard/components/DashboardActions/AddExperience";
 import AddEducation from "./components/Dashboard/components/DashboardActions/AddEducation";
 
-if (localStorage.token) setAuthToken(localStorage.token);
 
 const App = () => {
   const dispatch = useAppDispatch();
   const { isAuthenticated } = useAppSelector(
     (state) => state.authenticationState
   );
-
+  
   useEffect(() => {
+    if (localStorage.token) setAuthToken(localStorage.token);
+    console.log(isAuthenticated)
     if (isAuthenticated) dispatch(loadUserAsync());
   }, [dispatch, isAuthenticated]);
 
