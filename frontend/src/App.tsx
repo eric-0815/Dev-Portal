@@ -17,9 +17,8 @@ import { removeAllAlerts } from "./slices/alertSlice";
 
 import "./App.css";
 import Profiles from "./components/Profiles";
+import Profile from "./components/Profiles/Profile";
 import Posts from "./components/Posts";
-import Post from "./components/Posts/components/Post";
-import Profile from "./components/Profiles/components/Profile";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -63,7 +62,7 @@ const App = () => {
             <Route path="/add-education" element={<AddEducation />} />
           )}
           {isAuthenticated && <Route path="/posts" element={<Posts />} />}
-          {isAuthenticated && <Route path="/posts/:id" element={<Post />} />}
+
           <Route path="/contact" element={<Contact />} />
           {<Route path="*" element={<Landing />} />}
         </Routes>

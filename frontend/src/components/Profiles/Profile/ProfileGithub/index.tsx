@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { getGithubReposAsync } from "../../../../../../slices/profileSlice";
+import { getGithubReposAsync } from "../../../../slices/profileSlice";
 import {
   useAppDispatch,
   useAppSelector,
-} from "../../../../../../store/configureStore";
+} from "../../../../store/configureStore";
 
 const ProfileGithub = ({ username }: any) => {
   const dispatch = useAppDispatch();

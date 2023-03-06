@@ -1,16 +1,13 @@
 import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getProfileAsync } from "../../../../slices/profileSlice";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../../../store/configureStore";
-import Spinner from "../../../Spinner";
-import ProfileAbout from "./components/ProfileAbout";
-import ProfileEducation from "./components/ProfileEducation";
-import ProfileExperience from "./components/ProfileExperience";
-import ProfileTop from "./components/ProfileTop";
-// import ProfileGithub from "./components/ProfileGithub";
+import { getProfileAsync } from "../../../slices/profileSlice";
+import { useAppDispatch, useAppSelector } from "../../../store/configureStore";
+import Spinner from "../../Spinner";
+import ProfileAbout from "./ProfileAbout";
+import ProfileEducation from "./ProfileEducation";
+import ProfileExperience from "./ProfileExperience";
+import ProfileGithub from "./ProfileGithub";
+import ProfileTop from "./ProfileTop";
 
 const Profile = () => {
   const { id } = useParams();
