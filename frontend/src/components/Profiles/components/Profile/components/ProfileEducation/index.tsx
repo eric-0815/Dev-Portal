@@ -1,9 +1,8 @@
 import React from "react";
-import formatDate from "../../../../utils/formtDate";
+import formatDate from "../../../../../../utils/formtDate";
 
 const ProfileEducation = ({ education }: any) => {
-  const { school, degree, fieldofstudy, current, to, from, description } =
-    education;
+  const { school, degree, fieldofstudy, to, from, description } = education;
   return (
     <div>
       <h3 className="text-dark">{school}</h3>

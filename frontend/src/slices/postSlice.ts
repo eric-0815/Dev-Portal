@@ -30,6 +30,20 @@ export const getPostsAsync = createAsyncThunk<any, undefined>(
     }
 )
 
+export const getPostAsync = createAsyncThunk<any, string>(
+    'profile/getPostAsync',
+    async (postId, thunkAPI) => {
+        try {
+            const result = await agent.Post.getPost(postId);
+            if (result) thunkAPI.dispatch(getPostSuccess(result))
+            return result
+        } catch (err: any) {
+            handleError(err, postError, thunkAPI)
+        }
+    }
+)
+
+
 export const addLikeAsync = createAsyncThunk<any, string>(
     'profile/addLikeAsync',
     async (postId, thunkAPI) => {
@@ -88,6 +102,39 @@ export const deletePostAsync = createAsyncThunk<any, string>(
     }
 )
 
+export const addCommentAsync = createAsyncThunk<any, any>(
+    'profile/addCommentAsync',
+    async (data, thunkAPI) => {
+        try {
+            const { postId, text } = data
+            const result = await agent.Post.addComment(postId, { text });
+            if (result) {
+                thunkAPI.dispatch(addCommentSuccess(result))
+                thunkAPI.dispatch(setAlert({ msg: 'Comment added', alertType: 'success' }))
+                return result
+            }
+        } catch (err: any) {
+            handleError(err, postError, thunkAPI)
+        }
+    }
+)
+
+export const deleteCommentAsync = createAsyncThunk<any, any>(
+    'profile/deleteCommentAsync',
+    async (data, thunkAPI) => {
+        try {
+            const { postId, commentId } = data
+            const result = await agent.Post.deleteComment(postId, commentId);
+            if (result) {
+                thunkAPI.dispatch(removeComment(result))
+                thunkAPI.dispatch(setAlert({ msg: 'Post removed', alertType: 'success' }))
+                return result
+            }
+        } catch (err: any) {
+            handleError(err, postError, thunkAPI)
+        }
+    }
+)
 
 export const postSlice = createSlice({
     name: 'post',
@@ -97,6 +144,11 @@ export const postSlice = createSlice({
             state.posts = action.payload;
             state.loading = false;
         },
+        getPostSuccess: (state, action) => {
+            state.post = action.payload;
+            state.loading = false;
+        },
+
         postError: (state, action) => {
             state.error = action.payload;
             state.loading = false;
@@ -117,8 +169,16 @@ export const postSlice = createSlice({
         deletePost: (state, action) => {
             state.posts = state.posts.filter((post: any) => post._id !== action.payload);
             state.loading = false;
+        },
+        addCommentSuccess: (state, action) => {
+            state.post.comment = action.payload;
+            state.loading = false;
+        },
+        removeComment: (state, action) => {
+            state.post = action.payload;
+            state.loading = false;
         }
     }
 })
 
-export const { getPostsSuccess, postError, addLike, removeLike, addPostSuccess, deletePost } = postSlice.actions;
+export const { getPostsSuccess, getPostSuccess, postError, addLike, removeLike, addPostSuccess, deletePost, addCommentSuccess, removeComment } = postSlice.actions;
