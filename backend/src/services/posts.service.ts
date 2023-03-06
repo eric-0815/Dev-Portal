@@ -41,7 +41,7 @@ export const removePostById = async (postId: string, userId: string) => {
     // @ts-ignore
     await post.remove();
 
-    return ({ msg: "Post removed" });
+    return postId // ({ msg: "Post removed" });
 }
 
 export const createPost = async (postInput: PostInput) => {

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import agent from "../api/agent";
 import handleError from "../utils/handleError";
+import { setAlert } from "./alertSlice";
 
 interface CounterState {
     posts: any;
@@ -55,6 +56,22 @@ export const removeLikeAsync = createAsyncThunk<any, string>(
     }
 )
 
+export const deletePostAsync = createAsyncThunk<any, string>(
+    'profile/deletePostAsync',
+    async (postId, thunkAPI) => {
+        try {
+            const result = await agent.Post.deletePost(postId);
+            if (result) {
+                thunkAPI.dispatch(deletePost(result))
+                thunkAPI.dispatch(setAlert({ msg: 'Post removed', alertType: 'success' }))
+                return result
+            }
+        } catch (err: any) {
+            handleError(err, postError, thunkAPI)
+        }
+    }
+)
+
 
 export const postSlice = createSlice({
     name: 'post',
@@ -76,8 +93,12 @@ export const postSlice = createSlice({
             state.posts = state.posts?.map((post: any) => post.user === action.payload[0].user ?
                 { ...post, likes: post.likes.filter((like: any) => like._id !== action.payload[0]._id) } : post)
             state.loading = false;
+        },
+        deletePost: (state, action) => {
+            state.posts = state.posts.filter((post: any) => post._id !== action.payload)
+            state.loading = false
         }
     }
 })
 
-export const { getPostsSuccess, postError, addLike, removeLike } = postSlice.actions;
+export const { getPostsSuccess, postError, addLike, removeLike, deletePost } = postSlice.actions;
