@@ -42,6 +42,7 @@ const Post = {
   putLike: (postId: string) => requests.put(`/api/posts/like/${postId}`),
   removeLike: (postId: string) => requests.put(`/api/posts/unlike/${postId}`),
 
+  addPost: (formData: any) => requests.post('/api/posts', formData),
   deletePost: (postId: string) => requests.delete(`/api/posts/${postId}`),
 }
 

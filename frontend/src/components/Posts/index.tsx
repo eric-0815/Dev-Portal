@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { getPostsAsync } from "../../slices/postSlice";
 import { useAppDispatch, useAppSelector } from "../../store/configureStore";
+import PostForm from "./PostForm";
 import PostItem from "./PostItem";
 
 const Posts = () => {
@@ -18,7 +19,7 @@ const Posts = () => {
       <p className="lead">
         <i className="fas fa-user" /> Welcome to the community
       </p>
-      {/* <PostForm /> */}
+      <PostForm />
       <div className="posts">
         {posts?.map((post: any) => (
           <PostItem key={post?._id} post={post} />

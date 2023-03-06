@@ -56,6 +56,22 @@ export const removeLikeAsync = createAsyncThunk<any, string>(
     }
 )
 
+export const addPostAsync = createAsyncThunk<any, any>(
+    'profile/addPostAsync',
+    async (formData, thunkAPI) => {
+        try {
+            const result = await agent.Post.addPost(formData);
+            if (result) {
+                thunkAPI.dispatch(addPostSuccess(result))
+                thunkAPI.dispatch(setAlert({ msg: 'Post created', alertType: 'success' }))
+                return result
+            }
+        } catch (err: any) {
+            handleError(err, postError, thunkAPI)
+        }
+    }
+)
+
 export const deletePostAsync = createAsyncThunk<any, string>(
     'profile/deletePostAsync',
     async (postId, thunkAPI) => {
@@ -94,11 +110,15 @@ export const postSlice = createSlice({
                 { ...post, likes: post.likes.filter((like: any) => like._id !== action.payload[0]._id) } : post)
             state.loading = false;
         },
+        addPostSuccess: (state, action) => {
+            state.posts = [...state.posts, action.payload];
+            state.loading = false;
+        },
         deletePost: (state, action) => {
-            state.posts = state.posts.filter((post: any) => post._id !== action.payload)
-            state.loading = false
+            state.posts = state.posts.filter((post: any) => post._id !== action.payload);
+            state.loading = false;
         }
     }
 })
 
-export const { getPostsSuccess, postError, addLike, removeLike, deletePost } = postSlice.actions;
+export const { getPostsSuccess, postError, addLike, removeLike, addPostSuccess, deletePost } = postSlice.actions;
