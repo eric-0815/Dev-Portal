@@ -36,9 +36,15 @@ const Profile = {
   deleteAccount: () => requests.delete('api/profiles'),
 }
 
+const Post = {
+  getPosts: () => requests.get(`/api/posts`),
+}
+
+
 const agent = {
   Authentication,
-  Profile
+  Profile,
+  Post
 }
 
 export default agent;

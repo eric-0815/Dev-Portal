@@ -74,9 +74,9 @@ const Profile = () => {
               )}
             </div>
 
-            {profile.githubusername && (
+            {/* {profile.githubusername && (
               <ProfileGithub username={profile.githubusername} />
-            )}
+            )} */}
           </div>
         </>
       )}

@@ -182,6 +182,7 @@ export const profileSlice = createSlice({
     profileError: (state, action) => {
       state.error = action.payload;
       state.loading = false;
+      state.profile = null;
     },
     clearProfile: (state) => {
       state.profile = null;
