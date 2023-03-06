@@ -51,8 +51,10 @@ export const getGithubReposAsync = createAsyncThunk<any, string>(
   'profile/getGithubReposAsync',
   async (userName, thunkAPI) => {
     try {
+      console.log(userName)
       const result = await agent.Profile.getGithubRepos(userName)
       if (result) thunkAPI.dispatch(getProfileSuccess(result))
+      console.log(result)
       return result
     } catch (err: any) {
       handleError(err, profileError, thunkAPI)

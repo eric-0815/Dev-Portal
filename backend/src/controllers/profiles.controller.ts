@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { StatusCodes } from 'http-status-codes';
 import { addOrCreateProfile, findProfile, findProfiles, getGitHubResponse, removeEducation, removeExperience, removeProfile, updateEducation, updateExperience } from "../services/profiles.service";
 import { createErrorMsg } from "../utils/error";
+import config from "config";
+import request, { Response as GithubResponse } from 'request';
 
 export const getProfiles = async (req: Request, res: Response) => {
     try {
@@ -100,8 +102,25 @@ export const deleteEducation = async (req: Request, res: Response) => {
 export const getGithub = async (req: Request, res: Response) => {
     try {
         const { userName } = req.params
-        const result = await getGitHubResponse(userName)
-        res.send(result)
+        // const result = await getGitHubResponse(userName)
+        // res.send(result)
+        const options = {
+            uri: `https://api.github.com/users/${userName
+                }/repos?per_page=1&sort=created:asc&client_id=${config.get(
+                    "githubClientId"
+                )}&client_secret=${config.get("githubSecret")}`,
+            method: "GET",
+            headers: { "user-agent": "node.js" },
+        };
+
+        request(options, (error: any, response: GithubResponse, body: string) => {
+            if (error) console.error(error);
+            if (response.statusCode !== 200) {
+                return ({ msg: "No GitHub profile found" });
+            }
+            console.log(JSON.parse(body))
+            return res.send(JSON.parse(body))
+        });
     } catch (err: any) {
         console.error(err.message)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))

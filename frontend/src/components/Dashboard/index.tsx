@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { deleteAccountAsync, getProfileAsync } from "../../slices/profileSlice";
 import { useAppDispatch, useAppSelector } from "../../store/configureStore";
-import handleError from "../../utils/handleError";
 import Spinner from "../Spinner";
 import DashboardActions from "./components/DashboardActions";
 import Education from "./Education";
