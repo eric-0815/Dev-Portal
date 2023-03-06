@@ -1,9 +1,8 @@
 import React from "react";
-import formatDate from "../../../../utils/formtDate";
+import formatDate from "../../../../../../utils/formtDate";
 
 const ProfileExperience = ({ experience }: any) => {
-  const { company, title, location, current, to, from, description } =
-    experience;
+  const { company, title, location, to, from, description } = experience;
   return (
     <div>
       <h3 className="text-dark">{company}</h3>

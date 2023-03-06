@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { getPostsAsync } from "../../slices/postSlice";
 import { useAppDispatch, useAppSelector } from "../../store/configureStore";
-import PostForm from "./PostForm";
-import PostItem from "./PostItem";
+import PostForm from "./components/PostForm";
+import PostItem from "./components/PostItem";
 
 const Posts = () => {
   const dispatch = useAppDispatch();

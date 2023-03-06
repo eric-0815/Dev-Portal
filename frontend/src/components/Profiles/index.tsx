@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { getProfilesAsync } from "../../slices/profileSlice";
 import { useAppDispatch, useAppSelector } from "../../store/configureStore";
 import Spinner from "../Spinner";
-import ProfileItem from "./ProfileItem";
+import ProfileItem from "./components/ProfileItem";
 
 const Profiles = () => {
   const dispatch = useAppDispatch();

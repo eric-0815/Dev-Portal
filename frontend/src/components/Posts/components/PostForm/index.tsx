@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { useAppDispatch } from "../../../store/configureStore";
-import { addPostAsync } from "../../../slices/postSlice";
+import { useState } from "react";
+import { useAppDispatch } from "../../../../store/configureStore";
+import { addPostAsync } from "../../../../slices/postSlice";
 
 const PostForm = () => {
   const [text, setText] = useState("");

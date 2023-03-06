@@ -38,12 +38,16 @@ const Profile = {
 
 const Post = {
   getPosts: () => requests.get(`/api/posts`),
+  getPost: (postId: string) => requests.get(`/api/posts/${postId}`),
 
   putLike: (postId: string) => requests.put(`/api/posts/like/${postId}`),
   removeLike: (postId: string) => requests.put(`/api/posts/unlike/${postId}`),
 
   addPost: (formData: any) => requests.post('/api/posts', formData),
   deletePost: (postId: string) => requests.delete(`/api/posts/${postId}`),
+
+  addComment: (postId: string, formData: any) => requests.post(`/api/posts/comment/${postId}`, formData),
+  deleteComment: (postId: string, commentId: string) => requests.delete(`/api/posts/comment/${postId}/${commentId}`)
 }
 
 

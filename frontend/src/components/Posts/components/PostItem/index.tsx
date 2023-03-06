@@ -1,12 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import formatDate from "../../../utils/formtDate";
-import { useAppDispatch, useAppSelector } from "../../../store/configureStore";
+import formatDate from "../../../../utils/formtDate";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../store/configureStore";
 import {
   addLikeAsync,
   deletePostAsync,
   removeLikeAsync,
-} from "../../../slices/postSlice";
+} from "../../../../slices/postSlice";
 // import { addLike, removeLike, deletePost } from '../../actions/post';
 
 const PostItem = ({ post }: any) => {
