@@ -11,7 +11,7 @@ const requests = {
   post: (url: string, body: {}) => axios.post(url, body,
     { headers: { 'Content-Type': 'application/json' } })
     .then(responseBody),
-  put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
+  put: (url: string, body?: {}) => axios.put(url, body).then(responseBody),
   delete: (url: string, params?: URLSearchParams) => axios.delete(url, { params }).then(responseBody),
 }
 
@@ -38,6 +38,9 @@ const Profile = {
 
 const Post = {
   getPosts: () => requests.get(`/api/posts`),
+
+  putLike: (postId: string) => requests.put(`/api/posts/like/${postId}`),
+  removeLike: (postId: string) => requests.put(`/api/posts/unlike/${postId}`),
 }
 
 

@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import formatDate from "../../../utils/formtDate";
-import { useAppSelector } from "../../../store/configureStore";
+import { useAppDispatch, useAppSelector } from "../../../store/configureStore";
+import { addLikeAsync, removeLikeAsync } from "../../../slices/postSlice";
 // import { addLike, removeLike, deletePost } from '../../actions/post';
 
 const PostItem = ({ post }: any) => {
@@ -10,6 +11,8 @@ const PostItem = ({ post }: any) => {
   const { user, loading } = useAppSelector(
     (state) => state.authenticationState
   );
+
+  const dispatch = useAppDispatch();
 
   return (
     <div className="post bg-white p-1 my-1">
@@ -24,15 +27,15 @@ const PostItem = ({ post }: any) => {
         <p className="post-date">Posted on {formatDate(date)}</p>
 
         <button
-          //onClick={() => addLike(_id)}
+          onClick={() => dispatch(addLikeAsync(_id))}
           type="button"
           className="btn btn-light"
         >
           <i className="fas fa-thumbs-up" />{" "}
-          <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
+          <span>{<span>{likes?.length}</span>}</span>
         </button>
         <button
-          //onClick={() => removeLike(_id)}
+          onClick={() => dispatch(removeLikeAsync(_id))}
           type="button"
           className="btn btn-light"
         >

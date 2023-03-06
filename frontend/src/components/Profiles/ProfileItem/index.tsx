@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useAppDispatch } from "../../../store/configureStore";
 
 interface ProfileItemType {
   user: { _id: string; name: string; avatar: string };
@@ -15,6 +16,7 @@ interface ProfileItemProp {
 
 const ProfileItem = ({ key, profile }: ProfileItemProp) => {
   const { user, status, company, location, skills } = profile;
+
   return (
     <div className="profile bg-light">
       <img src={user?.avatar} alt="" className="round-img" />

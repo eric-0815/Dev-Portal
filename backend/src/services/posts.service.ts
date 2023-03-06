@@ -84,6 +84,7 @@ export const addUnLike = async (postId: string, userId: string) => {
     // Check if the post has already been liked
     if (!post.likes.some((like) => like.user.toString() === userId)) return createErrorMsg("Post has not yet been liked");
 
+    const like = post.likes.filter((like: any) => userId === like.user.toString())
     // remove the like
     const removeIndex = post.likes
         .map((like) => like.user.toString())
@@ -92,7 +93,7 @@ export const addUnLike = async (postId: string, userId: string) => {
     // @ts-ignore
     await post.save();
 
-    return (post.likes);
+    return (like);
 }
 
 export const addComment = async (postId: string, comment: CommentInput) => {

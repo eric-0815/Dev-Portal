@@ -29,6 +29,32 @@ export const getPostsAsync = createAsyncThunk<any, undefined>(
     }
 )
 
+export const addLikeAsync = createAsyncThunk<any, string>(
+    'profile/addLikeAsync',
+    async (postId, thunkAPI) => {
+        try {
+            const result = await agent.Post.putLike(postId);
+            if (result) thunkAPI.dispatch(addLike(result))
+            return result
+        } catch (err: any) {
+            handleError(err, postError, thunkAPI)
+        }
+    }
+)
+
+export const removeLikeAsync = createAsyncThunk<any, string>(
+    'profile/removeLikeAsync',
+    async (postId, thunkAPI) => {
+        try {
+            const result = await agent.Post.removeLike(postId);
+            if (result) thunkAPI.dispatch(removeLike(result))
+            return result
+        } catch (err: any) {
+            handleError(err, postError, thunkAPI)
+        }
+    }
+)
+
 
 export const postSlice = createSlice({
     name: 'post',
@@ -41,8 +67,17 @@ export const postSlice = createSlice({
         postError: (state, action) => {
             state.error = action.payload;
             state.loading = false;
+        },
+        addLike: (state, action) => {
+            state.posts = state.posts?.map((post: any) => post.user === action.payload[0].user ? { ...post, likes: action.payload } : post)
+            state.loading = false;
+        },
+        removeLike: (state, action) => {
+            state.posts = state.posts?.map((post: any) => post.user === action.payload[0].user ?
+                { ...post, likes: post.likes.filter((like: any) => like._id !== action.payload[0]._id) } : post)
+            state.loading = false;
         }
     }
 })
 
-export const { getPostsSuccess, postError } = postSlice.actions;
+export const { getPostsSuccess, postError, addLike, removeLike } = postSlice.actions;

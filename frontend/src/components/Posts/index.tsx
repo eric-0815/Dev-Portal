@@ -7,6 +7,7 @@ const Posts = () => {
   const dispatch = useAppDispatch();
 
   const { posts } = useAppSelector((state) => state.postState);
+
   useEffect(() => {
     dispatch(getPostsAsync());
   }, [dispatch]);
@@ -19,8 +20,8 @@ const Posts = () => {
       </p>
       {/* <PostForm /> */}
       <div className="posts">
-        {posts.map((post: any) => (
-          <PostItem key={post._id} post={post} />
+        {posts?.map((post: any) => (
+          <PostItem key={post?._id} post={post} />
         ))}
       </div>
     </section>
