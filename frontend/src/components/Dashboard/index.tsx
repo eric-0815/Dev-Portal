@@ -33,7 +33,7 @@ const Dashboard = () => {
   return loading && profile === null ? (
     <Spinner />
   ) : (
-    <>
+    <div className="container">
       {profile === null && !isAuthenticated && <Navigate to="/" />}
       <h1 className="large text-primary">Dashboard</h1>
       <p className="lead">
@@ -63,7 +63,7 @@ const Dashboard = () => {
           </Link>
         </>
       )}
-    </>
+    </div>
   );
 };
 

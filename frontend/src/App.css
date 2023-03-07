@@ -335,6 +335,7 @@ button {
   position: relative;
   background: url('./assets/images/altumcode.jpg') no-repeat center center/cover;
   height: 100vh;
+  bottom: 80px;
 }
 
 .landing-inner {

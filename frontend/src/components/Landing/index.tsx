@@ -10,7 +10,7 @@ const Landing = () => {
   if (isAuthenticated) return <Navigate to="/dashboard" />;
 
   return (
-    <section className="landing">
+    <div className="landing">
       <div className="dark-overlay">
         <div className="landing-inner">
           <h1 className="x-large">Developer Center</h1>
@@ -28,7 +28,7 @@ const Landing = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

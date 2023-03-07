@@ -3,7 +3,7 @@ import { URLSearchParams } from "url";
 
 const responseBody = (response: AxiosResponse) => response.data;
 
-axios.defaults.baseURL = process.env.baseUrl;
+axios.defaults.baseURL = 'https://dev-center-backend.onrender.com/api'//process.env.baseUrl;
 axios.defaults.withCredentials = true;
 
 const requests = {
