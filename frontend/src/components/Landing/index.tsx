@@ -12,7 +12,7 @@ const Landing = () => {
   return (
     <div className="landing">
       <div className="dark-overlay">
-        <div className="landing-inner">
+        <div className="landing__inner">
           <h1 className="x-large">Developer Center</h1>
           <p className="lead">
             Create a developer profile/portfolio, share posts and get help from
