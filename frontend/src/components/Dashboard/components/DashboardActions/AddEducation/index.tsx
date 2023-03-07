@@ -49,7 +49,7 @@ const AddEducation = () => {
           if (!loading && !error) navigate("/dashboard");
         }}
       >
-        <div className="form-group">
+        <div className="form__group">
           <input
             type="text"
             placeholder="* School or Bootcamp"
@@ -59,7 +59,7 @@ const AddEducation = () => {
             required
           />
         </div>
-        <div className="form-group">
+        <div className="form__group">
           <input
             type="text"
             placeholder="* Degree or Certificate"
@@ -69,7 +69,7 @@ const AddEducation = () => {
             required
           />
         </div>
-        <div className="form-group">
+        <div className="form__group">
           <input
             type="text"
             placeholder="Field of Study"
@@ -78,7 +78,7 @@ const AddEducation = () => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
           />
         </div>
-        <div className="form-group">
+        <div className="form__group">
           <h4>From Date</h4>
           <input
             type="date"
@@ -87,7 +87,7 @@ const AddEducation = () => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
           />
         </div>
-        <div className="form-group">
+        <div className="form__group">
           <p>
             <input
               type="checkbox"
@@ -100,7 +100,7 @@ const AddEducation = () => {
             Current School
           </p>
         </div>
-        <div className="form-group">
+        <div className="form__group">
           <h4>To Date</h4>
           <input
             type="date"
@@ -110,7 +110,7 @@ const AddEducation = () => {
             disabled={current}
           />
         </div>
-        <div className="form-group">
+        <div className="form__group">
           <textarea
             name="description"
             cols={30}

@@ -57,7 +57,7 @@ const Login = () => {
             onSubmit(event)
           }
         >
-          <div className="form-group">
+          <div className="form__group">
             <input
               type="email"
               placeholder="Email Address"
@@ -67,7 +67,7 @@ const Login = () => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form__group">
             <input
               type="password"
               placeholder="Password"

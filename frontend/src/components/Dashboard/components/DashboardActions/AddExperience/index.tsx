@@ -51,7 +51,7 @@ const AddExperience = () => {
           if (!loading && !error) navigate("/dashboard");
         }}
       >
-        <div className="form-group">
+        <div className="form__group">
           <input
             type="text"
             placeholder="* Job Title"
@@ -61,7 +61,7 @@ const AddExperience = () => {
             required
           />
         </div>
-        <div className="form-group">
+        <div className="form__group">
           <input
             type="text"
             placeholder="* Company"
@@ -71,7 +71,7 @@ const AddExperience = () => {
             required
           />
         </div>
-        <div className="form-group">
+        <div className="form__group">
           <input
             type="text"
             placeholder="Location"
@@ -80,7 +80,7 @@ const AddExperience = () => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
           />
         </div>
-        <div className="form-group">
+        <div className="form__group">
           <h4>From Date</h4>
           <input
             type="date"
@@ -89,7 +89,7 @@ const AddExperience = () => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
           />
         </div>
-        <div className="form-group">
+        <div className="form__group">
           <p>
             <input
               type="checkbox"
@@ -104,7 +104,7 @@ const AddExperience = () => {
             Current Job
           </p>
         </div>
-        <div className="form-group">
+        <div className="form__group">
           <h4>To Date</h4>
           <input
             type="date"
@@ -114,7 +114,7 @@ const AddExperience = () => {
             disabled={current}
           />
         </div>
-        <div className="form-group">
+        <div className="form__group">
           <textarea
             name="description"
             cols={30}

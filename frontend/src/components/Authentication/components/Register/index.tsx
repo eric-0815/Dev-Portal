@@ -64,7 +64,7 @@ const Register = () => {
             onSubmit(event)
           }
         >
-          <div className="form-group">
+          <div className="form__group">
             <input
               type="text"
               placeholder="Name"
@@ -74,7 +74,7 @@ const Register = () => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form__group">
             <input
               type="email"
               placeholder="Email Address"
@@ -84,7 +84,7 @@ const Register = () => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form__group">
             <input
               type="password"
               placeholder="Password"
@@ -95,7 +95,7 @@ const Register = () => {
               minLength={6}
             />
           </div>
-          <div className="form-group">
+          <div className="form__group">
             <input
               type="password"
               placeholder="Confirm Password"

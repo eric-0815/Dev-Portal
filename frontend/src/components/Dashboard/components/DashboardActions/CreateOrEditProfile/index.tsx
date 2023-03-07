@@ -113,7 +113,7 @@ const CreateOrEditProfile = () => {
         className="form"
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}
       >
-        <div className="form-group">
+        <div className="form__group">
           <select
             name="status"
             value={status}
@@ -129,11 +129,11 @@ const CreateOrEditProfile = () => {
             <option value="Intern">Intern</option>
             <option value="Other">Other</option>
           </select>
-          <small className="form-text">
+          <small className="form__text">
             Give us an idea of where you are at in your career
           </small>
         </div>
-        <div className="form-group">
+        <div className="form__group">
           <input
             type="text"
             placeholder="Company"
@@ -141,11 +141,11 @@ const CreateOrEditProfile = () => {
             value={company}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
           />
-          <small className="form-text">
+          <small className="form__text">
             Could be your own company or one you work for
           </small>
         </div>
-        <div className="form-group">
+        <div className="form__group">
           <input
             type="text"
             placeholder="Website"
@@ -153,11 +153,11 @@ const CreateOrEditProfile = () => {
             value={website}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
           />
-          <small className="form-text">
+          <small className="form__text">
             Could be your own or a company website
           </small>
         </div>
-        <div className="form-group">
+        <div className="form__group">
           <input
             type="text"
             placeholder="Location"
@@ -165,11 +165,11 @@ const CreateOrEditProfile = () => {
             value={location}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
           />
-          <small className="form-text">
+          <small className="form__text">
             City & state suggested (eg. Boston, MA)
           </small>
         </div>
-        <div className="form-group">
+        <div className="form__group">
           <input
             type="text"
             placeholder="* Skills"
@@ -177,11 +177,11 @@ const CreateOrEditProfile = () => {
             value={skills}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
           />
-          <small className="form-text">
+          <small className="form__text">
             Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)
           </small>
         </div>
-        <div className="form-group">
+        <div className="form__group">
           <input
             type="text"
             placeholder="Github Username"
@@ -189,12 +189,12 @@ const CreateOrEditProfile = () => {
             value={githubusername}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
           />
-          <small className="form-text">
+          <small className="form__text">
             If you want your latest repos and a Github link, include your
             username
           </small>
         </div>
-        <div className="form-group">
+        <div className="form__group">
           <textarea
             placeholder="A short bio of yourself"
             name="bio"
@@ -203,7 +203,7 @@ const CreateOrEditProfile = () => {
               onChange(e)
             }
           />
-          <small className="form-text">Tell us a little about yourself</small>
+          <small className="form__text">Tell us a little about yourself</small>
         </div>
 
         <div className="my-2">
@@ -219,7 +219,7 @@ const CreateOrEditProfile = () => {
 
         {displaySocialInputs && (
           <>
-            <div className="form-group social-input">
+            <div className="form__group form__social-input">
               <i className="fab fa-twitter fa-2x" />
               <input
                 type="text"
@@ -232,7 +232,7 @@ const CreateOrEditProfile = () => {
               />
             </div>
 
-            <div className="form-group social-input">
+            <div className="form__group form__social-input">
               <i className="fab fa-facebook fa-2x" />
               <input
                 type="text"
@@ -245,7 +245,7 @@ const CreateOrEditProfile = () => {
               />
             </div>
 
-            <div className="form-group social-input">
+            <div className="form__group form__social-input">
               <i className="fab fa-youtube fa-2x" />
               <input
                 type="text"
@@ -258,7 +258,7 @@ const CreateOrEditProfile = () => {
               />
             </div>
 
-            <div className="form-group social-input">
+            <div className="form__group form__social-input">
               <i className="fab fa-linkedin fa-2x" />
               <input
                 type="text"
@@ -271,7 +271,7 @@ const CreateOrEditProfile = () => {
               />
             </div>
 
-            <div className="form-group social-input">
+            <div className="form__group form__social-input">
               <i className="fab fa-instagram fa-2x" />
               <input
                 type="text"

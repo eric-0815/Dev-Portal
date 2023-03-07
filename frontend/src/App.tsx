@@ -19,16 +19,7 @@ import Posts from "./components/Posts";
 import Post from "./components/Posts/components/Post";
 import Profile from "./components/Profiles/components/Profile";
 
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-
 import "./App.scss";
-
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -46,41 +37,38 @@ const App = () => {
   }, [dispatch, isAuthenticated, alerts.length]);
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <BrowserRouter>
-        <>
-          <Navbar />
-          <Alert />
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/profiles" element={<Profiles />} />
-            <Route path="/profile/:id" element={<Profile />} />
-            {isAuthenticated && (
-              <Route path="/dashboard" element={<Dashboard />} />
-            )}
-            {isAuthenticated && (
-              <Route path="/create-profile" element={<CreateOrEditProfile />} />
-            )}
-            {isAuthenticated && (
-              <Route path="/edit-profile" element={<CreateOrEditProfile />} />
-            )}
-            {isAuthenticated && (
-              <Route path="/add-experience" element={<AddExperience />} />
-            )}
-            {isAuthenticated && (
-              <Route path="/add-education" element={<AddEducation />} />
-            )}
-            {isAuthenticated && <Route path="/posts" element={<Posts />} />}
-            {isAuthenticated && <Route path="/posts/:id" element={<Post />} />}
-            <Route path="/contact" element={<Contact />} />
-            {<Route path="*" element={<Landing />} />}
-          </Routes>
-        </>
-      </BrowserRouter>
-    </ThemeProvider>
+    <BrowserRouter>
+      <>
+        <Navbar />
+        <Alert />
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profiles" element={<Profiles />} />
+          <Route path="/profile/:id" element={<Profile />} />
+          {isAuthenticated && (
+            <Route path="/dashboard" element={<Dashboard />} />
+          )}
+          {isAuthenticated && (
+            <Route path="/create-profile" element={<CreateOrEditProfile />} />
+          )}
+          {isAuthenticated && (
+            <Route path="/edit-profile" element={<CreateOrEditProfile />} />
+          )}
+          {isAuthenticated && (
+            <Route path="/add-experience" element={<AddExperience />} />
+          )}
+          {isAuthenticated && (
+            <Route path="/add-education" element={<AddEducation />} />
+          )}
+          {isAuthenticated && <Route path="/posts" element={<Posts />} />}
+          {isAuthenticated && <Route path="/posts/:id" element={<Post />} />}
+          <Route path="/contact" element={<Contact />} />
+          {<Route path="*" element={<Landing />} />}
+        </Routes>
+      </>
+    </BrowserRouter>
   );
 };
 
