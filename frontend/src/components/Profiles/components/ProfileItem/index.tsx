@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useAppDispatch } from "../../../../store/configureStore";
 
 interface ProfileItemType {
   user: { _id: string; name: string; avatar: string };
