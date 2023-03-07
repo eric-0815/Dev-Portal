@@ -1,10 +1,6 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { useAppDispatch, useAppSelector } from "../../../store/configureStore";
 import {
   deleteExperienceAsync,
-  getProfileAsync,
 } from "../../../slices/profileSlice";
 //import { deleteExperience } from '../../actions/profile';
 import formatDate from "../../../utils/formtDate";
