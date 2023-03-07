@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { addEducationAsync } from "../../../../../slices/profileSlice";
-import { useAppDispatch, useAppSelector } from "../../../../../store/configureStore";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../../store/configureStore";
 
 const AddEducation = () => {
   const navigate = useNavigate();
@@ -10,16 +13,17 @@ const AddEducation = () => {
   const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState({
-    school: '',
-    degree: '',
-    fieldofstudy: '',
-    from: '',
-    to: '',
+    school: "",
+    degree: "",
+    fieldofstudy: "",
+    from: "",
+    to: "",
     current: false,
-    description: ''
+    description: "",
   });
 
-  const { school, degree, fieldofstudy, from, to, description, current } = formData;
+  const { school, degree, fieldofstudy, from, to, description, current } =
+    formData;
 
   const onChange = (
     e:
@@ -30,8 +34,8 @@ const AddEducation = () => {
   };
 
   return (
-    <>
-     <h1 className="large text-primary">Add Your Education</h1>
+    <div className="container">
+      <h1 className="large text-primary">Add Your Education</h1>
       <p className="lead">
         <i className="fas fa-code-branch" /> Add any school or bootcamp that you
         have attended
@@ -76,10 +80,10 @@ const AddEducation = () => {
         </div>
         <div className="form-group">
           <h4>From Date</h4>
-          <input 
-            type="date" 
-            name="from" 
-            value={from} 
+          <input
+            type="date"
+            name="from"
+            value={from}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
           />
         </div>
@@ -92,7 +96,7 @@ const AddEducation = () => {
               // @ts-ignore
               value={current}
               onChange={() => setFormData({ ...formData, current: !current })}
-            />{' '}
+            />{" "}
             Current School
           </p>
         </div>
@@ -113,7 +117,9 @@ const AddEducation = () => {
             rows={5}
             placeholder="Program Description"
             value={description}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => onChange(e)} 
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+              onChange(e)
+            }
           />
         </div>
         <input type="submit" className="btn btn-primary my-1" />
@@ -121,7 +127,7 @@ const AddEducation = () => {
           Go Back
         </Link>
       </form>
-    </>
+    </div>
   );
 };
-export default AddEducation
+export default AddEducation;

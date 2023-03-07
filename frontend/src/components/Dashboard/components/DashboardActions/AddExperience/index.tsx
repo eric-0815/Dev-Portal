@@ -1,27 +1,30 @@
-import React, {useState} from 'react'
+import React, { useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
-import { addExperienceAsync } from '../../../../../slices/profileSlice';
-import { useAppDispatch, useAppSelector } from '../../../../../store/configureStore';
+import { addExperienceAsync } from "../../../../../slices/profileSlice";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../../store/configureStore";
 
-const AddExperience = () =>{
+const AddExperience = () => {
   const navigate = useNavigate();
 
   const { loading, error } = useAppSelector((state) => state.profileState);
   const dispatch = useAppDispatch();
-  
+
   const [formData, setFormData] = useState({
-    company: '',
-    title: '',
-    location: '',
-    from: '',
-    to: '',
+    company: "",
+    title: "",
+    location: "",
+    from: "",
+    to: "",
     current: false,
-    description: ''
+    description: "",
   });
 
   // const [toDateDisabled, toogleDisabled] = useState(false);
-  
+
   const { company, title, location, from, to, current, description } = formData;
 
   const onChange = (
@@ -32,9 +35,8 @@ const AddExperience = () =>{
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  
   return (
-    <>
+    <div className="container">
       <h1 className="large text-primary">Add An Experience</h1>
       <p className="lead">
         <i className="fas fa-code-branch" /> Add any developer/programming
@@ -80,11 +82,11 @@ const AddExperience = () =>{
         </div>
         <div className="form-group">
           <h4>From Date</h4>
-          <input 
-            type="date" 
-            name="from" 
-            value={from} 
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)} 
+          <input
+            type="date"
+            name="from"
+            value={from}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
           />
         </div>
         <div className="form-group">
@@ -98,7 +100,7 @@ const AddExperience = () =>{
               onChange={() => {
                 setFormData({ ...formData, current: !current });
               }}
-            />{' '}
+            />{" "}
             Current Job
           </p>
         </div>
@@ -108,7 +110,7 @@ const AddExperience = () =>{
             type="date"
             name="to"
             value={to}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)} 
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
             disabled={current}
           />
         </div>
@@ -119,7 +121,9 @@ const AddExperience = () =>{
             rows={5}
             placeholder="Job Description"
             value={description}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => onChange(e)} 
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+              onChange(e)
+            }
           />
         </div>
         <input type="submit" className="btn btn-primary my-1" />
@@ -127,8 +131,8 @@ const AddExperience = () =>{
           Go Back
         </Link>
       </form>
-    </>
+    </div>
   );
 };
 
-export default AddExperience
+export default AddExperience;
