@@ -100,7 +100,7 @@ const createToken = (userId: string) => {
             id: userId
         }
     };
-    const jwtSecret = config.get<string>('jwtSecret');
+    const jwtSecret = process.env.jwtSecret || config.get<string>('jwtSecret');
     const token = jwt.sign(payload, jwtSecret, { expiresIn: 360000 });
 
     return token;

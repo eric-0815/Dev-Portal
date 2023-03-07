@@ -1,4 +1,3 @@
-import express, { Request, Response } from "express";
 import connectDB from "./utils/connectDB";
 import usersRouter from "./routes/users";
 import authRouter from "./routes/auth";
@@ -12,7 +11,7 @@ const app = createServer();
 app.use(cors())
 connectDB();
 
-app.get('/', (req: Request, res: Response) => res.send('API Running'));
+// app.get('/', (req: Request, res: Response) => res.send('API Running'));
 
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
