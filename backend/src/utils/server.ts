@@ -9,7 +9,7 @@ const createServer = () => {
 
     // Set up CORS options
     const corsOptions = {
-        origin: ['http://localhost:3000', 'https://developer-center.netlify.app'], // Replace with your React.js client URL
+        origin: ['http://localhost:3000', 'https://developer-center-v1.netlify.app'], // Replace with your React.js client URL
         methods: 'GET,PUT,POST,DELETE',
         optionsSuccessStatus: 200,
         credentials: true,
