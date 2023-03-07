@@ -34,7 +34,7 @@ const App = () => {
 
     if (localStorage.token) setAuthToken(localStorage.token);
     if (isAuthenticated) dispatch(loadUserAsync());
-  }, [dispatch, isAuthenticated]);
+  }, [dispatch, isAuthenticated, alerts.length]);
 
   return (
     <BrowserRouter>
