@@ -51,7 +51,7 @@ const PostItem = ({ post }: any) => {
         <Link to={`/posts/${_id}`} className="btn btn-primary">
           Discussion{" "}
           {comments.length > 0 && (
-            <span className="comment-count">{comments.length}</span>
+            <span className="post__comment-count">{comments.length}</span>
           )}
         </Link>
         {!loading && post?.user === user._id && (

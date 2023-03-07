@@ -448,7 +448,7 @@ img {
 }
 
 /* Posts Page */
-.post-form .post-form-header {
+.post-form {
   background: $primary-color;
   padding: 0.5rem;
 }
@@ -458,28 +458,28 @@ img {
   grid-template-columns: 1fr 4fr;
   grid-gap: 2rem;
   align-items: center;
+
+  img {
+    width: 100px;
+  }
+
+  &__comment-count {
+    background: $light-color;
+    color: $primary-color;
+    padding: 0.1rem 0.2rem;
+    border-radius: 5px;
+    font-size: 0.8rem;
+  }
+
+  &__post-date {
+    color: #aaa;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
 }
 
 .post > div:first-child {
   text-align: center;
-}
-
-.post img {
-  width: 100px;
-}
-
-.post .comment-count {
-  background: $light-color;
-  color: $primary-color;
-  padding: 0.1rem 0.2rem;
-  border-radius: 5px;
-  font-size: 0.8rem;
-}
-
-.post .post-date {
-  color: #aaa;
-  font-size: 0.8rem;
-  margin-bottom: 0.5rem;
 }
 
 /* Mobile Styles */
