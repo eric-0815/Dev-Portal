@@ -18,7 +18,7 @@ const Profiles = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <>
+        <div className="container">
           <h1 className="large text-primary">Developers</h1>
           <p className="lead">
             <i className="fab fa-connectdevelop" /> Browse and connect with
@@ -33,7 +33,7 @@ const Profiles = () => {
               <h4>No profiles found...</h4>
             )}
           </div>
-        </>
+        </div>
       )}
     </>
   );
