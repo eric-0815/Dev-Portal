@@ -7,6 +7,7 @@ import createServer from "./utils/server";
 
 const app = createServer();
 
+
 connectDB();
 
 // app.get('/', (req: Request, res: Response) => res.send('API Running'));

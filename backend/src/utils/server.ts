@@ -7,15 +7,16 @@ const createServer = () => {
     // Init Middleware
     app.use(express.json())
 
-    app.use(
-        cors({
-          allowedHeaders: ["x-auth-token", "Content-Type"], // you can change the headers
-          exposedHeaders: ["x-auth-token"], // you can change the headers
-          origin: "*",
-          methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-          preflightContinue: false
-        })
-      );
+    // Set up CORS options
+    const corsOptions = {
+        origin: ['http://localhost:3000', 'https://developer-center.netlify.app'], // Replace with your React.js client URL
+        methods: 'GET,PUT,POST,DELETE',
+        optionsSuccessStatus: 200,
+        credentials: true,
+        allowedHeaders: 'Content-Type, Authorization, x-auth-token',
+    };
+  
+    app.use(cors(corsOptions));
 
     return app
 }
