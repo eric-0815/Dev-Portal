@@ -483,8 +483,8 @@ img {
 }
 
 /* Mobile Styles */
-$large-screen: 700px;
-@media (max-width: $large-screen) {
+$mobile-screen: 700px;
+@media (max-width: $mobile-screen) {
   .container {
     margin-top: 8rem;
   }
