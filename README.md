@@ -5,17 +5,17 @@ Front-end: https://developer-center-v1.netlify.app
 Back-end: https://dev-center-backend.onrender.com
 
 ## Tech Stack
-#Front-end:
+Front-end:
 ReactJS
 Redux tool kit
 SASS CSS
 
 
-#Back-end:
+Back-end:
 NodeJS ExpressJS
 RESTAPI
 JTW
 
 
-#Database:
+Database:
 MongoDB
