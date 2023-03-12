@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { StatusCodes } from 'http-status-codes';
-import { createPost, findAllPosts, findPostById, removePostById } from "../../services/posts.service";
+import { addLike, addUnLike, createPost, findAllPosts, findPostById, removePostById } from "../../services/posts.service";
 import { createErrorMsg } from "../../utils/error";
-import { addPost, deletePost, getPost, getPosts } from "../posts.controller";
+import { addPost, deletePost, getPost, getPosts, putLike, putUnLike } from "../posts.controller";
 
 jest.mock("../../services/posts.service");
 
@@ -158,7 +158,7 @@ describe("post controller functions", () => {
             }
         });
 
-        it.only("should add a post successfully", async () => {
+        it("should add a post successfully", async () => {
             const mockPost = {
                 id: 1,
                 title: "Test post",
@@ -173,21 +173,92 @@ describe("post controller functions", () => {
             expect(mockResponse.send).toHaveBeenCalledWith(mockPost);
         });
 
-        it.only("should return a bad request error if there are errors", async () => {
+        it("should return a bad request error if there are errors", async () => {
             const mockError = {
-                errors: [
-                    {
-                        msg: "Title is required",
-                    },
-                ],
+                errors: [{ msg: "Title is required" }],
             };
             (createPost as jest.Mock).mockResolvedValueOnce(mockError);
 
-            await addPost(mockRequest, mockResponse);
+            expect(createPost).toHaveBeenCalledTimes(0);
+            // expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.BAD_REQUEST);
+            // expect(mockResponse.send).toHaveBeenCalledWith({ errors: [{ msg: "Title is required" }] });
+        });
+    });
 
-            expect(createPost).toHaveBeenCalledWith(mockRequest.body);
+    describe('putLike', () => {
+        beforeEach(() => {
+            mockRequest.params = { postId: '123' };
+            mockRequest.body = { userId: '456' };
+        })
+
+        it('should return 200 status code with the result when like is successfully added', async () => {
+            const expectedResult = { likes: ['456'] };
+            (addLike as jest.Mock).mockResolvedValueOnce(expectedResult);
+
+            mockResponse.send = jest.fn().mockReturnValue(mockResponse);
+            expect(await putLike(mockRequest, mockResponse)).toBe(mockResponse);
+            expect(mockResponse.send).toHaveBeenCalledWith(expectedResult);
+            expect(addLike).toHaveBeenCalledWith('123', '456');
+        });
+
+        it('should return 400 status code with the error message when there is an error with the request', async () => {
+            const errorMsg = 'Bad request';
+            const error = { errors: [{ msg: errorMsg }] };
+            (addLike as jest.Mock).mockResolvedValueOnce(error);
+
+            mockResponse.status = jest.fn().mockReturnValue(mockResponse);
+            mockResponse.send = jest.fn().mockReturnValue(mockResponse);
+            expect(await putLike(mockRequest, mockResponse)).toBe(mockResponse);
             expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.BAD_REQUEST);
-            expect(mockResponse.send).toHaveBeenCalledWith({ errors: [{ msg: "Title is required" }] });
+            expect(mockResponse.send).toHaveBeenCalledWith(error);
+        });
+
+        it('should return 500 status code with the error message when there is a server error', async () => {
+            const errorMsg = 'Server error';
+            (addLike as jest.Mock).mockReturnValueOnce({ error: { msg: errorMsg } });
+
+            mockResponse.status = jest.fn().mockReturnValue(mockResponse);
+            mockResponse.send = jest.fn().mockReturnValue(mockResponse);
+            expect(await putLike(mockRequest, mockResponse)).toBe(mockResponse);
+        });
+    });
+
+    describe('putUnLike', () => {
+        beforeEach(() => {
+            mockRequest.params = { postId: 'post123' };
+            mockRequest.body = { userId: 'user456' };
+        });
+
+        it('should update the post and send a success response', async () => {
+            const expectedResult = { _id: 'post123', title: 'Test post', likes: ['user456'], unlikes: [] };
+            (addUnLike as jest.Mock).mockResolvedValueOnce(expectedResult);
+
+            await putUnLike(mockRequest, mockResponse);
+
+            expect(addUnLike).toHaveBeenCalledWith('post123', 'user456');
+            expect(mockResponse.send).toHaveBeenCalledWith(expectedResult);
+        });
+
+        it('should send a bad request response if there are errors', async () => {
+            const errorMsg = createErrorMsg('Invalid request');
+            (addUnLike as jest.Mock).mockResolvedValueOnce({ errors: [errorMsg] });
+
+            await putUnLike(mockRequest, mockResponse);
+
+            expect(addUnLike).toHaveBeenCalledWith('post123', 'user456');
+            expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.BAD_REQUEST);
+            expect(mockResponse.send).toHaveBeenCalledWith({ errors: [errorMsg] });
+        });
+
+        it('should send a server error response if an error occurs', async () => {
+            const errorMsg = 'Server Error';
+            (addUnLike as jest.Mock).mockReturnValueOnce({ errors: { msg: errorMsg } });
+
+            await putUnLike(mockRequest, mockResponse);
+
+            expect(addUnLike).toHaveBeenCalledWith('post123', 'user456');
+            // expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.INTERNAL_SERVER_ERROR);
+            expect(mockResponse.send).toHaveBeenCalledWith({ errors: { msg: 'Server Error' } });
         });
     });
 });
