@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { StatusCodes } from 'http-status-codes';
-import { findAllPosts, findPostById, removePostById } from "../../services/posts.service";
+import { createPost, findAllPosts, findPostById, removePostById } from "../../services/posts.service";
 import { createErrorMsg } from "../../utils/error";
-import { deletePost, getPost, getPosts } from "../posts.controller";
+import { addPost, deletePost, getPost, getPosts } from "../posts.controller";
 
 jest.mock("../../services/posts.service");
 
@@ -147,6 +147,47 @@ describe("post controller functions", () => {
             expect(removePostById).toHaveBeenCalledTimes(1);
             expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.INTERNAL_SERVER_ERROR);
             expect(mockResponse.send).toHaveBeenCalledWith({ errors: [{ msg: "Server Error" }] });
+        });
+    });
+
+    describe("addPost", () => {
+        beforeEach(() => {
+            mockRequest.body = {
+                title: "Test post",
+                content: "This is a test post.",
+            }
+        });
+
+        it.only("should add a post successfully", async () => {
+            const mockPost = {
+                id: 1,
+                title: "Test post",
+                content: "This is a test post.",
+            };
+
+            (createPost as jest.Mock).mockResolvedValueOnce(mockPost);
+
+            await addPost(mockRequest as Request, mockResponse as Response);
+
+            expect(createPost).toHaveBeenCalledWith(mockRequest.body);
+            expect(mockResponse.send).toHaveBeenCalledWith(mockPost);
+        });
+
+        it.only("should return a bad request error if there are errors", async () => {
+            const mockError = {
+                errors: [
+                    {
+                        msg: "Title is required",
+                    },
+                ],
+            };
+            (createPost as jest.Mock).mockResolvedValueOnce(mockError);
+
+            await addPost(mockRequest, mockResponse);
+
+            expect(createPost).toHaveBeenCalledWith(mockRequest.body);
+            expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.BAD_REQUEST);
+            expect(mockResponse.send).toHaveBeenCalledWith({ errors: [{ msg: "Title is required" }] });
         });
     });
 });
