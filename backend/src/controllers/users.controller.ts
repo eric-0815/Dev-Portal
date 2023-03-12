@@ -4,13 +4,12 @@ import { StatusCodes } from 'http-status-codes';
 import { createErrorMsg } from "../utils/error";
 
 export const register = async (req: Request, res: Response) => {
-    console.log('register: ', req.body)
     try {
         const { body } = req
         const result = await createUser(body)
 
-        if (result?.errors) return res.status(StatusCodes.BAD_REQUEST).send(result)
-        res.send(result)
+        if (result.errors) res.status(StatusCodes.BAD_REQUEST).send(result)
+        res.status(StatusCodes.OK).send(result)
 
     } catch (err: any) {
         console.error(err.message)
@@ -24,9 +23,9 @@ export const login = async (req: Request, res: Response) => {
         const { body } = req
 
         const result = await authenticateUser(body)
-
+        // @ts-ignore
         if (result?.errors) return res.status(StatusCodes.BAD_REQUEST).send(result)
-        res.send(result)
+        res.status(StatusCodes.OK).send(result)
 
     } catch (err: any) {
         console.error(err.message)

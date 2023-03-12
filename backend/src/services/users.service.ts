@@ -25,7 +25,7 @@ export const createUser = async (body: UserRegistration) => {
     if (isExist) return createErrorMsg('User already exists')
 
     const errors = await validateUserInfo(body, ValidateMethod.REGISTER)
-    if (errors.length > 0) return ({ errors })
+    if (errors.length > 0) return ({ errors, token: undefined })
 
     const { name, email, password } = body;
 
