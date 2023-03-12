@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { StatusCodes } from 'http-status-codes';
-import { addLike, addUnLike, createPost, findAllPosts, findPostById, removePostById } from "../../services/posts.service";
+import { addComment, addLike, addUnLike, createPost, findAllPosts, findPostById, removeComment, removePostById } from "../../services/posts.service";
 import { createErrorMsg } from "../../utils/error";
-import { addPost, deletePost, getPost, getPosts, putLike, putUnLike } from "../posts.controller";
+import { addPost, deleteComment, deletePost, getPost, getPosts, postComment, putLike, putUnLike } from "../posts.controller";
 
 jest.mock("../../services/posts.service");
 
@@ -215,7 +215,7 @@ describe("post controller functions", () => {
 
         it('should return 500 status code with the error message when there is a server error', async () => {
             const errorMsg = 'Server error';
-            (addLike as jest.Mock).mockReturnValueOnce({ error: { msg: errorMsg } });
+            (addLike as jest.Mock).mockReturnValueOnce({ error: [{ msg: errorMsg }] });
 
             mockResponse.status = jest.fn().mockReturnValue(mockResponse);
             mockResponse.send = jest.fn().mockReturnValue(mockResponse);
@@ -252,13 +252,152 @@ describe("post controller functions", () => {
 
         it('should send a server error response if an error occurs', async () => {
             const errorMsg = 'Server Error';
-            (addUnLike as jest.Mock).mockReturnValueOnce({ errors: { msg: errorMsg } });
+            (addUnLike as jest.Mock).mockReturnValueOnce({ errors: [{ msg: errorMsg }] });
 
             await putUnLike(mockRequest, mockResponse);
 
             expect(addUnLike).toHaveBeenCalledWith('post123', 'user456');
             // expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.INTERNAL_SERVER_ERROR);
-            expect(mockResponse.send).toHaveBeenCalledWith({ errors: { msg: 'Server Error' } });
+            expect(mockResponse.send).toHaveBeenCalledWith({ errors: [{ msg: 'Server Error' }] });
+        });
+    });
+
+    describe("postComment", () => {
+
+        beforeEach(() => {
+            mockRequest.params = { postId: "123" };
+            mockRequest.body = { text: "Test comment" };
+            (addComment as jest.Mock).mockClear();
+        });
+
+        it("should return 200 and the comment object if the comment was added successfully", async () => {
+            const expectedResult = {
+                _id: "456",
+                postId: "123",
+                text: "Test comment",
+            };
+            (addComment as jest.Mock).mockResolvedValueOnce(expectedResult);
+
+            mockResponse.send = jest.fn().mockReturnValueOnce(mockResponse);
+
+            await postComment(mockRequest, mockResponse);
+
+            expect(addComment).toHaveBeenCalledWith("123", { text: "Test comment" });
+            expect(mockResponse.send).toHaveBeenCalledWith(expectedResult);
+        });
+
+        it("should return 400 and the error message if there was an error adding the comment", async () => {
+            const expectedResult = { errors: ["Error adding comment"] };
+            (addComment as jest.Mock).mockResolvedValueOnce(expectedResult);
+
+            mockResponse.status = jest.fn().mockReturnValueOnce(mockResponse);
+            mockResponse.send = jest.fn().mockReturnValueOnce(mockResponse);
+
+            await postComment(mockRequest, mockResponse);
+
+            expect(addComment).toHaveBeenCalledWith("123", { text: "Test comment" });
+            expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.BAD_REQUEST);
+            expect(mockResponse.send).toHaveBeenCalledWith(expectedResult);
+        });
+
+        it("should return 500 and the error message if there was an internal server error", async () => {
+            const expectedErrorMsg = "Server Error";
+            (addComment as jest.Mock).mockRejectedValueOnce({ errors: [{ msg: expectedErrorMsg }] });
+
+            mockResponse.status = jest.fn().mockReturnValueOnce(mockResponse);
+            mockResponse.send = jest.fn().mockReturnValueOnce(mockResponse);
+
+            await postComment(mockRequest, mockResponse);
+
+            expect(addComment).toHaveBeenCalledWith("123", { text: "Test comment" });
+            expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.INTERNAL_SERVER_ERROR);
+            expect(mockResponse.send).toHaveBeenCalledWith({ errors: [{ msg: expectedErrorMsg }] });
+        });
+    });
+
+    describe("deleteComment", () => {
+        const mockRemoveComment = removeComment as jest.Mock;
+
+        beforeEach(() => {
+            mockRequest.params = {
+                postId: "post123",
+                commentId: "comment123"
+            }
+            mockRequest.body = { userId: "user123" }
+
+            jest.clearAllMocks();
+        });
+
+
+        it("should delete the comment and return the deleted comment", async () => {
+            const expectedResult = {
+                message: "Comment deleted",
+                deletedComment: {
+                    _id: "comment123",
+                    text: "This is a comment",
+                    user: "user123",
+                },
+            };
+
+            mockRemoveComment.mockResolvedValueOnce(expectedResult);
+
+            await deleteComment(mockRequest, mockResponse);
+
+            expect(mockRemoveComment).toHaveBeenCalledWith("post123", "comment123", "user123");
+            expect(mockResponse.send).toHaveBeenCalledWith(expectedResult);
+        });
+
+        it("should return a 400 error if there was an error deleting the comment", async () => {
+            const error = {
+                errors: [
+                    {
+                        msg: "Comment not found",
+                    },
+                ],
+            };
+
+            mockRemoveComment.mockResolvedValueOnce(error);
+
+            await deleteComment(mockRequest, mockResponse);
+
+            expect(mockRemoveComment).toHaveBeenCalledWith("post123", "comment123", "user123");
+            expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.BAD_REQUEST);
+            expect(mockResponse.send).toHaveBeenCalledWith(error);
+        });
+
+        it("should return a 401 error if the user is not authorized to delete the comment", async () => {
+            const error = {
+                errors: [
+                    {
+                        msg: "User not authorized",
+                    },
+                ],
+            };
+
+            mockRemoveComment.mockResolvedValueOnce(error);
+
+            await deleteComment(mockRequest, mockResponse);
+
+            expect(mockRemoveComment).toHaveBeenCalledWith("post123", "comment123", "user123");
+            expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.UNAUTHORIZED);
+            expect(mockResponse.send).toHaveBeenCalledWith(error);
+        });
+
+        it("should return a 500 error if there was a server error", async () => {
+            const error = {
+                errors: [
+                    {
+                        msg: "Server Error",
+                    },
+                ],
+            };
+            mockRemoveComment.mockRejectedValueOnce(error);
+
+            await deleteComment(mockRequest, mockResponse);
+
+            expect(mockRemoveComment).toHaveBeenCalledWith("post123", "comment123", "user123");
+            expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.INTERNAL_SERVER_ERROR);
+            expect(mockResponse.send).toHaveBeenCalledWith(error);
         });
     });
 });
