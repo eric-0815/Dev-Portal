@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import { StatusCodes } from 'http-status-codes';
-import { findAllPosts, findPostById } from "../../services/posts.service";
-import { getPost, getPosts } from "../posts.controller";
+import { findAllPosts, findPostById, removePostById } from "../../services/posts.service";
+import { createErrorMsg } from "../../utils/error";
+import { deletePost, getPost, getPosts } from "../posts.controller";
 
 jest.mock("../../services/posts.service");
 
@@ -11,9 +12,7 @@ describe("post controller functions", () => {
 
     beforeEach(() => {
         mockRequest = {
-            params: {
-                postId: "abc123",
-            },
+
         } as unknown as Request;
         mockResponse = {
             send: jest.fn(),
@@ -50,6 +49,12 @@ describe("post controller functions", () => {
     })
 
     describe("getPost", () => {
+        beforeEach(() => {
+            mockRequest.params = {
+                postId: "abc123",
+            }
+        });
+
         it("returns the post if it exists", async () => {
             const mockPost = {
                 id: "abc123",
@@ -85,6 +90,65 @@ describe("post controller functions", () => {
             expect(mockResponse.send).toHaveBeenCalledWith({ errors: [{ msg: 'Server Error' }] });
         });
     })
+
+    describe("deletePost", () => {
+
+        beforeEach(() => {
+            mockRequest.params = {
+                postId: "postId123",
+            }
+            mockRequest.body = {
+                userId: "userId123",
+            }
+        });
+
+        it("should return a 200 status code when the post is deleted successfully", async () => {
+            (removePostById as jest.Mock).mockResolvedValueOnce("post deleted");
+
+            await deletePost(mockRequest, mockResponse);
+
+            expect(removePostById).toHaveBeenCalledTimes(1);
+            expect(mockResponse.send).toHaveBeenCalledWith("post deleted");
+        });
+
+        it("should return a 401 status code when the user is not authorized", async () => {
+            (removePostById as jest.Mock).mockResolvedValueOnce({
+                errors: [{ msg: "User not authorized" }],
+            });
+
+            await deletePost(mockRequest, mockResponse);
+
+            expect(removePostById).toHaveBeenCalledTimes(1);
+            expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.UNAUTHORIZED);
+            expect(mockResponse.send).toHaveBeenCalledWith({
+                errors: [{ msg: "User not authorized" }],
+            });
+        });
+
+        it("should return a 400 status code when there are errors deleting the post", async () => {
+            (removePostById as jest.Mock).mockResolvedValueOnce({
+                errors: [{ msg: "Server Error" }],
+            });
+
+            await deletePost(mockRequest, mockResponse);
+
+            expect(removePostById).toHaveBeenCalledTimes(1);
+            expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.BAD_REQUEST);
+            expect(mockResponse.send).toHaveBeenCalledWith({
+                errors: [{ msg: "Server Error" }],
+            });
+        });
+
+        it("should return a 500 status code when an internal server error occurs", async () => {
+            (removePostById as jest.Mock).mockRejectedValueOnce("Internal server error");
+
+            await deletePost(mockRequest, mockResponse);
+
+            expect(removePostById).toHaveBeenCalledTimes(1);
+            expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.INTERNAL_SERVER_ERROR);
+            expect(mockResponse.send).toHaveBeenCalledWith({ errors: [{ msg: "Server Error" }] });
+        });
+    });
 });
 
 
