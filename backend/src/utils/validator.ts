@@ -1,6 +1,6 @@
 import * as EmailValidator from 'email-validator';
 import { ValidateMethod } from '../constants/ValidateMethod';
-import Profile, { Education, Experience } from '../models/Profile.model';
+import { Education, Experience } from '../models/Profile.model';
 import { CommentInput, PostInput } from '../services/posts.service';
 import { ProfileInfo } from '../services/profiles.service';
 
@@ -48,4 +48,3 @@ export const validateProfile = (profileInfo: ProfileInfo) => {
     if (!profileInfo.skills) errors.push({ msg: 'Skills date is required' });
     return errors
 }
-// errors: [{msg: "Invalid Credentials"}]

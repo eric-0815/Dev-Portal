@@ -3,7 +3,7 @@ import config from "config"
 
 const connectDB = async () => {
     try {
-        const mongoURI =  process.env.mongoURI || config.get<string>("mongoURI");
+        const mongoURI = process.env.mongoURI || config.get<string>("mongoURI");
         mongoose.set("strictQuery", false);
         await mongoose.connect(mongoURI);
 
