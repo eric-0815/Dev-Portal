@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { StatusCodes } from 'http-status-codes';
 import { getAuth } from "../auth.controller";
 import { getUser } from "../../services/auth.service";
-import { createErrorMsg } from "../../utils/error";
 
 jest.mock('../../services/auth.service');
 
