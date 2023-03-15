@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
 import { StatusCodes } from 'http-status-codes';
-import { addOrCreateProfile, findProfile, findProfiles, getGitHubResponse, removeEducation, removeExperience, removeProfile, updateEducation, updateExperience } from "../../services/profiles.service";
+import { addOrCreateProfile, findProfile, findProfiles, removeEducation, removeExperience, removeProfile, updateEducation, updateExperience } from "../../services/profiles.service";
 import { createErrorMsg } from "../../utils/error";
-import config from "config";
-import request, { Response as GithubResponse } from 'request';
 import { deleteEducation, deleteExperience, deleteProfile, getProfile, getProfiles, postProfile, putEducation, putExperience } from "../profiles.controller";
 
 jest.mock('../../services/profiles.service');
