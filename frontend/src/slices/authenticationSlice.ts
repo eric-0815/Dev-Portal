@@ -11,7 +11,7 @@ export interface AuthenticationState {
 }
 
 const initialState: AuthenticationState = {
-  token: localStorage.getItem('token'),
+  token: null, //localStorage.getItem('token'),
   isAuthenticated: false,
   loading: true,
   user: null
