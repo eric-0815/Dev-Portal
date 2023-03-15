@@ -64,23 +64,23 @@ export const authenticateUser = async (body: UserLogin) => {
 }
 
 
-const checkIfUserExists = async (email: string) => {
+export const checkIfUserExists = async (email: string) => {
     const user = await User.findOne({ email });
     return user ? true : false
 }
 
-const getUserByEmail = async (email: string) => {
+export const getUserByEmail = async (email: string) => {
     const user = await User.findOne({ email });
     return user;
 }
 
-const checkPassword = async (inputPassword: string, userPassword: string) => {
+export const checkPassword = async (inputPassword: string, userPassword: string) => {
     const isMatch = await bcrypt.compare(inputPassword, userPassword);
     return isMatch
 }
 
 
-const createAvatar = (email: string) => {
+export const createAvatar = (email: string) => {
     return gravatar.url(email, {
         s: '200',
         r: 'pg',
