@@ -4,7 +4,7 @@ import { addOrCreateProfile, findProfile, findProfiles, getGitHubResponse, remov
 import { createErrorMsg } from "../../utils/error";
 import config from "config";
 import request, { Response as GithubResponse } from 'request';
-import { getProfile, getProfiles } from "../profiles.controller";
+import { deleteEducation, deleteExperience, deleteProfile, getProfile, getProfiles, postProfile, putEducation } from "../profiles.controller";
 
 jest.mock('../../services/profiles.service');
 
@@ -104,5 +104,189 @@ describe('profiles controller', () => {
       expect(mockResponse.send).toHaveBeenCalledWith(createErrorMsg("Server Error"));
     });
   });
-});
 
+  describe('postProfile', () => {
+
+    beforeEach(() => {
+      mockRequest.body = {
+        name: 'John Doe',
+        age: 30,
+        email: 'johndoe@example.com'
+      };
+    })
+
+    const mockAddOrCreateProfile = addOrCreateProfile as jest.MockedFunction<typeof addOrCreateProfile>;
+
+    it('should create a new profile', async () => {
+      // @ts-ignore
+      mockAddOrCreateProfile.mockResolvedValueOnce({ name: 'John Doe', age: 30, email: 'johndoe@example.com' });
+      await postProfile(mockRequest, mockResponse);
+      expect(mockAddOrCreateProfile).toHaveBeenCalledWith(mockRequest.body);
+      expect(mockResponse.send).toHaveBeenCalledWith({ name: 'John Doe', age: 30, email: 'johndoe@example.com' });
+    });
+
+    it('should return a bad request status when there are errors', async () => {
+      mockAddOrCreateProfile.mockResolvedValueOnce(createErrorMsg('Invalid email'));
+      await postProfile(mockRequest, mockResponse);
+      expect(mockAddOrCreateProfile).toHaveBeenCalledWith(mockRequest.body);
+      expect(mockResponse.status).toHaveBeenCalledWith(400);
+      expect(mockResponse.send).toHaveBeenCalledWith(createErrorMsg('Invalid email'));
+    });
+
+    it('should return an internal server error status when an error occurs', async () => {
+      mockAddOrCreateProfile.mockRejectedValueOnce(new Error('Database connection failed'));
+      await postProfile(mockRequest, mockResponse);
+      expect(mockAddOrCreateProfile).toHaveBeenCalledWith(mockRequest.body);
+      expect(mockResponse.status).toHaveBeenCalledWith(500);
+      expect(mockResponse.send).toHaveBeenCalledWith(createErrorMsg('Server Error'));
+    });
+  });
+
+  describe('deleteProfile', () => {
+
+    beforeEach(() => {
+      mockRequest.body = {
+        userId: '123'
+      }
+    })
+
+    const mockRemoveProfile = removeProfile as jest.MockedFunction<typeof removeProfile>;
+
+    it('should remove a profile', async () => {
+      // @ts-ignore
+      mockRemoveProfile.mockResolvedValueOnce({ success: true });
+      await deleteProfile(mockRequest, mockResponse);
+      expect(mockRemoveProfile).toHaveBeenCalledWith('123');
+      expect(mockResponse.send).toHaveBeenCalledWith({ success: true });
+    });
+
+    it('should return an internal server error status when an error occurs', async () => {
+      mockRemoveProfile.mockRejectedValueOnce(new Error('Database connection failed'));
+      await deleteProfile(mockRequest, mockResponse);
+      expect(mockRemoveProfile).toHaveBeenCalledWith('123');
+      expect(mockResponse.status).toHaveBeenCalledWith(500);
+      expect(mockResponse.send).toHaveBeenCalledWith(createErrorMsg('Server Error'));
+    });
+  });
+
+  describe('deleteProfile', () => {
+    beforeEach(() => {
+      mockRequest.body = {
+        userId: '123'
+      }
+    })
+
+    const mockRemoveProfile = removeProfile as jest.MockedFunction<typeof removeProfile>;
+
+    it('should remove a profile', async () => {
+      // @ts-ignore
+      mockRemoveProfile.mockResolvedValueOnce({ success: true });
+      await deleteProfile(mockRequest, mockResponse);
+      expect(mockRemoveProfile).toHaveBeenCalledWith('123');
+      expect(mockResponse.send).toHaveBeenCalledWith({ success: true });
+    });
+
+    it('should return an internal server error status when an error occurs', async () => {
+      mockRemoveProfile.mockRejectedValueOnce(new Error('Database connection failed'));
+      await deleteProfile(mockRequest, mockResponse);
+      expect(mockRemoveProfile).toHaveBeenCalledWith('123');
+      expect(mockResponse.status).toHaveBeenCalledWith(500);
+      expect(mockResponse.send).toHaveBeenCalledWith(createErrorMsg('Server Error'));
+    });
+  });
+
+  describe('deleteExperience', () => {
+
+    beforeEach(() => {
+      mockRequest.body = {
+        userId: 123,
+      }
+      mockRequest.params = {
+        expId: '456'
+      }
+    })
+
+    const mockRemoveExperience = removeExperience as jest.MockedFunction<typeof removeExperience>;
+
+    it('should remove an experience', async () => {
+      // @ts-ignore
+      mockRemoveExperience.mockResolvedValueOnce({ success: true });
+      await deleteExperience(mockRequest, mockResponse);
+      expect(mockRemoveExperience).toHaveBeenCalledWith(mockRequest.body.userId, mockRequest.params.expId);
+      expect(mockResponse.send).toHaveBeenCalledWith({ success: true });
+    });
+
+    it('should return an internal server error status when an error occurs', async () => {
+      mockRemoveExperience.mockRejectedValueOnce(new Error('Database connection failed'));
+      await deleteExperience(mockRequest, mockResponse);
+      expect(mockRemoveExperience).toHaveBeenCalledWith(mockRequest.body.userId, mockRequest.params.expId);
+      expect(mockResponse.status).toHaveBeenCalledWith(500);
+      expect(mockResponse.send).toHaveBeenCalledWith(createErrorMsg('Server Error'));
+    });
+  });
+
+  describe('putEducation', () => {
+    beforeEach(() => {
+      mockRequest.body = {
+        userId: '123',
+        educationId: '456',
+      }
+    })
+
+    const mockUpdateEducation = updateEducation as jest.MockedFunction<typeof updateEducation>;
+
+    it('should update an education', async () => {
+      // @ts-ignore
+      mockUpdateEducation.mockResolvedValueOnce({ success: true });
+      await putEducation(mockRequest, mockResponse);
+      expect(mockUpdateEducation).toHaveBeenCalledWith(mockRequest.body);
+      expect(mockResponse.send).toHaveBeenCalledWith({ success: true });
+    });
+
+    it('should return a bad request status when validation errors occur', async () => {
+      mockUpdateEducation.mockResolvedValueOnce({ errors: [{ msg: 'Title is required' }] });
+      await putEducation(mockRequest, mockResponse);
+      expect(mockUpdateEducation).toHaveBeenCalledWith(mockRequest.body);
+      expect(mockResponse.status).toHaveBeenCalledWith(400);
+      expect(mockResponse.send).toHaveBeenCalledWith(createErrorMsg('Title is required'));
+    });
+
+    it('should return an internal server error status when an error occurs', async () => {
+      mockUpdateEducation.mockRejectedValueOnce(new Error('Database connection failed'));
+      await putEducation(mockRequest, mockResponse);
+      expect(mockUpdateEducation).toHaveBeenCalledWith(mockRequest.body);
+      expect(mockResponse.status).toHaveBeenCalledWith(500);
+      expect(mockResponse.send).toHaveBeenCalledWith(createErrorMsg('Server Error'));
+    });
+  });
+
+  describe('deleteEducation', () => {
+
+    beforeEach(() => {
+      mockRequest.body = {
+        userId: '123',
+      }
+      mockRequest.params = {
+        eduId: '456',
+      }
+    })
+
+    const mockRemoveEducation = removeEducation as jest.MockedFunction<typeof removeEducation>;
+
+    it('should remove an education', async () => {
+      // @ts-ignore
+      mockRemoveEducation.mockResolvedValueOnce({ success: true });
+      await deleteEducation(mockRequest, mockResponse);
+      expect(mockRemoveEducation).toHaveBeenCalledWith('123', '456');
+      expect(mockResponse.send).toHaveBeenCalledWith({ success: true });
+    });
+
+    it('should return an internal server error status when an error occurs', async () => {
+      mockRemoveEducation.mockRejectedValueOnce(new Error('Database connection failed'));
+      await deleteEducation(mockRequest, mockResponse);
+      expect(mockRemoveEducation).toHaveBeenCalledWith('123', '456');
+      expect(mockResponse.status).toHaveBeenCalledWith(500);
+      expect(mockResponse.send).toHaveBeenCalledWith(createErrorMsg('Server Error'));
+    });
+  });
+});
