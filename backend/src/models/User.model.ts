@@ -8,11 +8,6 @@ export interface User {
     date: Date;
 }
 
-// export interface UserDocument extends UserInfo, mongoose.Document {
-//     createdAt: Date;
-//     updatedAt: Date;
-// }
-
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
