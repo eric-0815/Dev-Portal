@@ -1,10 +1,8 @@
-import React from "react";
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import { render as rtlRender, screen } from "@testing-library/react";
 import Alert from "..";
 import { alertSlice } from "../../../slices/alertSlice";
-import { storeFactory } from "../../../mocks/storeFactory";
 
 
 describe("Alert", () => {

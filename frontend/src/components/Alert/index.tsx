@@ -4,7 +4,6 @@ import { useAppSelector } from "../../store/configureStore";
 
 const Alert = () => {
   const { alerts } = useAppSelector((state) => state.alertState);
-  console.log('alerts: ', alerts.length)
   return (
     <div className="container">
       {alerts?.length > 0 &&
