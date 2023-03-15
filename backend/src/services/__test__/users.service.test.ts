@@ -2,7 +2,7 @@ import User from '../../models/User.model';
 import gravatar from 'gravatar';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { checkPassword, checkIfUserExists, createUser, getUserByEmail, UserRegistration, createAvatar } from '../users.service';
+import { checkPassword, checkIfUserExists, createUser, getUserByEmail, UserRegistration, createAvatar, encryptPassword, createToken } from '../users.service';
 
 jest.mock('../../models/User.model');
 jest.mock('gravatar');
@@ -154,5 +154,37 @@ describe('user service', () => {
       });
     });
   });
+
+
+  describe('encryptPassword', () => {
+    it('should encrypt the password', async () => {
+      const password = 'password123';
+      const encryptedPassword = 'encryptedPassword123';
+      (bcrypt.genSalt as jest.Mock).mockResolvedValue('salt');
+      (bcrypt.hash as jest.Mock).mockResolvedValue(encryptedPassword);
+
+      const result = await encryptPassword(password);
+
+      expect(bcrypt.genSalt).toHaveBeenCalledWith(10);
+      expect(bcrypt.hash).toHaveBeenCalledWith(password, 'salt');
+      expect(result).toEqual(encryptedPassword);
+    });
+  });
+
+  describe('createToken', () => {
+    it('should create a JWT token', () => {
+      const userId = '123';
+      const token = 'token123';
+      const jwtSecret = 'secret';
+
+      (jwt.sign as jest.Mock).mockReturnValue(token)
+
+      const result = createToken(userId);
+
+      expect(jwt.sign).toHaveBeenCalledWith({ user: { id: userId } }, 'mysecrettoken', { expiresIn: 360000 });
+      expect(result).toEqual(token);
+    });
+  });
+
 });
 
