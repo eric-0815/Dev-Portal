@@ -2,7 +2,8 @@ import User from '../../models/User.model';
 import gravatar from 'gravatar';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { checkPassword, checkIfUserExists, createUser, getUserByEmail, UserRegistration, createAvatar, encryptPassword, createToken } from '../users.service';
+import { checkPassword, checkIfUserExists, createUser, getUserByEmail, UserRegistration, createAvatar, encryptPassword, createToken, authenticateUser } from '../users.service';
+import { createErrorMsg } from '../../utils/error';
 
 jest.mock('../../models/User.model');
 jest.mock('gravatar');
@@ -186,5 +187,40 @@ describe('user service', () => {
     });
   });
 
+
+  describe('authenticateUser', () => {
+    beforeEach(() => {
+
+    });
+
+    const user = {
+      id: '123456',
+      email: 'test@example.com',
+      password: 'password'
+    };
+
+    it('should return an error message if the input is invalid', async () => {
+      const body = {
+        email: 'test@example.com',
+        password: ''
+      };
+
+      const result = await authenticateUser(body);
+      // @ts-ignore
+      expect(result.errors).toBeDefined();
+    });
+
+    it('should return an error message if the password is incorrect', async () => {
+      const body = {
+        email: 'test@example.com',
+        password: 'wrongpassword'
+      };
+      const result = await authenticateUser(body);
+      console.log(`result: ${JSON.stringify(result)}`)
+      // @ts-ignore
+      expect(result.errors).toBeDefined();
+      expect(result).toStrictEqual(createErrorMsg("Invalid Credentials"))
+    });
+  });
 });
 

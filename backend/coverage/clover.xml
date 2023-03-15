@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1678853070530" clover="3.2.0">
-  <project timestamp="1678853070531" name="All files">
-    <metrics statements="457" coveredstatements="291" conditionals="242" coveredconditionals="90" methods="117" coveredmethods="58" elements="816" coveredelements="439" complexity="0" loc="457" ncloc="457" packages="7" files="19" classes="19"/>
+<coverage generated="1678854736919" clover="3.2.0">
+  <project timestamp="1678854736919" name="All files">
+    <metrics statements="457" coveredstatements="293" conditionals="242" coveredconditionals="91" methods="117" coveredmethods="60" elements="816" coveredelements="444" complexity="0" loc="457" ncloc="457" packages="7" files="19" classes="19"/>
     <package name="config">
       <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="default.ts" path="C:\Users\EricHong\Desktop\learn-front-end\DevBlog\backend\config\default.ts">
@@ -239,7 +239,7 @@
       </file>
     </package>
     <package name="src.services">
-      <metrics statements="215" coveredstatements="76" conditionals="140" coveredconditionals="10" methods="66" coveredmethods="12"/>
+      <metrics statements="215" coveredstatements="78" conditionals="140" coveredconditionals="11" methods="66" coveredmethods="14"/>
       <file name="auth.service.ts" path="C:\Users\EricHong\Desktop\learn-front-end\DevBlog\backend\src\services\auth.service.ts">
         <metrics statements="4" coveredstatements="4" conditionals="1" coveredconditionals="1" methods="2" coveredmethods="2"/>
         <line num="1" count="2" type="stmt"/>
@@ -415,7 +415,7 @@
         <line num="254" count="0" type="stmt"/>
       </file>
       <file name="users.service.ts" path="C:\Users\EricHong\Desktop\learn-front-end\DevBlog\backend\src\services\users.service.ts">
-        <metrics statements="50" coveredstatements="39" conditionals="15" coveredconditionals="9" methods="14" coveredmethods="10"/>
+        <metrics statements="50" coveredstatements="41" conditionals="15" coveredconditionals="10" methods="14" coveredmethods="12"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
@@ -453,19 +453,19 @@
         <line num="73" count="2" type="cond" truecount="1" falsecount="0"/>
         <line num="74" count="2" type="stmt"/>
         <line num="77" count="2" type="stmt"/>
-        <line num="78" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="79" count="0" type="stmt"/>
+        <line num="78" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="79" count="2" type="stmt"/>
         <line num="83" count="2" type="stmt"/>
-        <line num="84" count="1" type="stmt"/>
+        <line num="84" count="2" type="stmt"/>
         <line num="91" count="2" type="stmt"/>
-        <line num="92" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="93" count="1" type="stmt"/>
-        <line num="94" count="1" type="stmt"/>
+        <line num="92" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="93" count="2" type="stmt"/>
+        <line num="94" count="2" type="stmt"/>
         <line num="97" count="2" type="stmt"/>
-        <line num="98" count="1" type="stmt"/>
-        <line num="103" count="1" type="cond" truecount="2" falsecount="0"/>
-        <line num="104" count="1" type="stmt"/>
-        <line num="106" count="1" type="stmt"/>
+        <line num="98" count="2" type="stmt"/>
+        <line num="103" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="104" count="2" type="stmt"/>
+        <line num="106" count="2" type="stmt"/>
       </file>
     </package>
     <package name="src.utils">
