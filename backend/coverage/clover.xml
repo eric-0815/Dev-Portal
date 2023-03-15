@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1678859943785" clover="3.2.0">
-  <project timestamp="1678859943785" name="All files">
-    <metrics statements="443" coveredstatements="309" conditionals="240" coveredconditionals="104" methods="114" coveredmethods="72" elements="797" coveredelements="485" complexity="0" loc="443" ncloc="443" packages="7" files="19" classes="19"/>
+<coverage generated="1678861207105" clover="3.2.0">
+  <project timestamp="1678861207105" name="All files">
+    <metrics statements="443" coveredstatements="312" conditionals="240" coveredconditionals="104" methods="114" coveredmethods="74" elements="797" coveredelements="490" complexity="0" loc="443" ncloc="443" packages="7" files="19" classes="19"/>
     <package name="config">
       <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="default.ts" path="C:\Users\EricHong\Desktop\learn-front-end\DevBlog\backend\config\default.ts">
@@ -225,7 +225,7 @@
       </file>
     </package>
     <package name="src.services">
-      <metrics statements="215" coveredstatements="94" conditionals="140" coveredconditionals="20" methods="66" coveredmethods="24"/>
+      <metrics statements="215" coveredstatements="97" conditionals="140" coveredconditionals="20" methods="66" coveredmethods="26"/>
       <file name="auth.service.ts" path="C:\Users\EricHong\Desktop\learn-front-end\DevBlog\backend\src\services\auth.service.ts">
         <metrics statements="4" coveredstatements="4" conditionals="1" coveredconditionals="1" methods="2" coveredmethods="2"/>
         <line num="1" count="2" type="stmt"/>
@@ -298,7 +298,7 @@
         <line num="141" count="0" type="stmt"/>
       </file>
       <file name="profiles.service.ts" path="C:\Users\EricHong\Desktop\learn-front-end\DevBlog\backend\src\services\profiles.service.ts">
-        <metrics statements="100" coveredstatements="24" conditionals="77" coveredconditionals="3" methods="27" coveredmethods="3"/>
+        <metrics statements="100" coveredstatements="27" conditionals="77" coveredconditionals="3" methods="27" coveredmethods="5"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
@@ -341,9 +341,9 @@
         <line num="111" count="0" type="stmt"/>
         <line num="112" count="0" type="stmt"/>
         <line num="115" count="2" type="stmt"/>
-        <line num="116" count="0" type="stmt"/>
-        <line num="117" count="0" type="stmt"/>
-        <line num="118" count="0" type="stmt"/>
+        <line num="116" count="1" type="stmt"/>
+        <line num="117" count="2" type="stmt"/>
+        <line num="118" count="1" type="stmt"/>
         <line num="121" count="2" type="stmt"/>
         <line num="122" count="0" type="stmt"/>
         <line num="124" count="0" type="stmt"/>
