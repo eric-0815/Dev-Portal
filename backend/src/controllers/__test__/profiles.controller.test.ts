@@ -13,6 +13,10 @@ describe('profiles controller', () => {
   let mockResponse: Response;
 
   beforeEach(() => {
+    mockRequest = {
+
+    } as unknown as Request;
+
     mockResponse = {
       send: jest.fn(),
       status: jest.fn().mockReturnThis(),
@@ -24,7 +28,6 @@ describe('profiles controller', () => {
   });
 
   describe('getProfiles', () => {
-    mockRequest = {} as Request;
     it("should return all profiles", async () => {
       const mockProfiles = [
         { id: 1, name: "John" },
@@ -52,52 +55,54 @@ describe('profiles controller', () => {
     });
   });
 
-  // describe("getProfile", () => {
-  //   beforeEach(() => {
-  //     mockRequest.params = { userId: "123" }
-  //   });
+  describe("getProfile", () => {
+    beforeEach(() => {
+      mockRequest.params = {
+        userId: "123"
+      }
+    });
 
-  //   it("should return the user profile", async () => {
-  //     (findProfile as jest.Mock).mockResolvedValue({
-  //       name: "John",
-  //       email: "john@example.com"
-  //     });
+    it("should return the user profile", async () => {
+      const mockProfile = {
+        name: "John",
+        email: "john@example.com",
+      };
 
-  //     await getProfile(mockRequest, mockResponse);
+      (findProfile as jest.Mock).mockResolvedValue(mockProfile);
 
-  //     expect(findProfile).toHaveBeenCalledWith("123");
-  //     expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.OK);
-  //     expect(mockResponse.send).toHaveBeenCalledWith({
-  //       name: "John",
-  //       email: "john@example.com"
-  //     });
-  //   });
+      await getProfile(mockRequest, mockResponse);
 
-  //   it("should return an error if the user profile cannot be found", async () => {
-  //     (findProfile as jest.Mock).mockResolvedValue({
-  //       errors: ["User profile not found"]
-  //     });
+      expect(findProfile).toHaveBeenCalledWith("123");
+      // expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.OK);
+      expect(mockResponse.send).toHaveBeenCalledWith({
+        name: "John",
+        email: "john@example.com"
+      });
+    });
 
-  //     await getProfile(mockRequest, mockResponse);
+    it("should return an error if the user profile cannot be found", async () => {
+      (findProfile as jest.Mock).mockResolvedValue({
+        errors: ["User profile not found"]
+      });
 
-  //     expect(findProfile).toHaveBeenCalledWith("123");
-  //     expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.BAD_REQUEST);
-  //     expect(mockResponse.send).toHaveBeenCalledWith({
-  //       errors: ["User profile not found"]
-  //     });
-  //   });
+      await getProfile(mockRequest, mockResponse);
 
-  // it("should return a server error if there is an exception", async () => {
-  //   (findProfile as jest.Mock).mockRejectedValue(new Error("Database error"));
+      expect(findProfile).toHaveBeenCalledWith("123");
+      expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.BAD_REQUEST);
+      expect(mockResponse.send).toHaveBeenCalledWith({
+        errors: ["User profile not found"]
+      });
+    });
 
-  //   await getProfile(mockRequest, mockResponse);
+    it("should return a server error if there is an exception", async () => {
+      (findProfile as jest.Mock).mockRejectedValue(new Error("Database error"));
 
-  //   expect(findProfile).toHaveBeenCalledWith("123");
-  //   expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.INTERNAL_SERVER_ERROR);
-  //   expect(mockResponse.send).toHaveBeenCalledWith({
-  //     error: "Server Error"
-  //   });
-  // });
-  // });
+      await getProfile(mockRequest, mockResponse);
+
+      expect(findProfile).toHaveBeenCalledWith("123");
+      expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.INTERNAL_SERVER_ERROR);
+      expect(mockResponse.send).toHaveBeenCalledWith(createErrorMsg("Server Error"));
+    });
+  });
 });
 

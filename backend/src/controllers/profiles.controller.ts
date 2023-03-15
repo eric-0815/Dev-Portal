@@ -21,7 +21,7 @@ export const getProfile = async (req: Request, res: Response) => {
         // const userId = req.body.user.id
         const result = await findProfile(req.params.userId)
         if (result?.errors) return res.status(StatusCodes.BAD_REQUEST).send(result)
-        return res.send(result)
+        return res.status(StatusCodes.OK).send(result)
     } catch (err: any) {
         console.error(err.message)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
@@ -39,7 +39,6 @@ export const postProfile = async (req: Request, res: Response) => {
         console.error(err.message)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(createErrorMsg("Server Error"))
     }
-
 }
 
 export const deleteProfile = async (req: Request, res: Response) => {
