@@ -4,7 +4,7 @@ import { addOrCreateProfile, findProfile, findProfiles, getGitHubResponse, remov
 import { createErrorMsg } from "../../utils/error";
 import config from "config";
 import request, { Response as GithubResponse } from 'request';
-import { deleteEducation, deleteExperience, deleteProfile, getProfile, getProfiles, postProfile, putEducation } from "../profiles.controller";
+import { deleteEducation, deleteExperience, deleteProfile, getProfile, getProfiles, postProfile, putEducation, putExperience } from "../profiles.controller";
 
 jest.mock('../../services/profiles.service');
 
@@ -195,8 +195,71 @@ describe('profiles controller', () => {
     });
   });
 
-  describe('deleteExperience', () => {
+  describe("putExperience", () => {
 
+    beforeEach(() => {
+      mockRequest.body = {
+        title: "Software Developer",
+        company: "Acme Inc.",
+        location: "San Francisco, CA",
+        from: "2022-01-01",
+        to: "2023-01-01",
+        current: false,
+        description: "Worked on developing software applications for clients.",
+        userId: "1234"
+      }
+    })
+    const mockUpdateExperience = updateExperience as jest.MockedFunction<typeof updateExperience>;
+    it("should send the result of updateExperience if there are no errors", async () => {
+      const expectedResult = { some: "result" };
+      //@ts-ignore
+      mockUpdateExperience.mockResolvedValue(expectedResult);
+
+      await putExperience(mockRequest, mockResponse);
+
+      expect(updateExperience).toHaveBeenCalledTimes(1);
+      expect(updateExperience).toHaveBeenCalledWith(mockRequest.body);
+
+      expect(mockResponse.send).toHaveBeenCalledTimes(1);
+      expect(mockResponse.send).toHaveBeenCalledWith(expectedResult);
+
+      expect(mockResponse.send).toHaveBeenCalledTimes(1);
+    });
+
+    it("should send a BAD_REQUEST status and the errors if there are any", async () => {
+      const expectedErrors = { errors: ["some error"] };
+      //@ts-ignore
+      mockUpdateExperience.mockResolvedValue(expectedErrors);
+
+      await putExperience(mockRequest, mockResponse);
+
+      expect(updateExperience).toHaveBeenCalledTimes(1);
+      expect(updateExperience).toHaveBeenCalledWith(mockRequest.body);
+
+      expect(mockResponse.status).toHaveBeenCalledTimes(1);
+      expect(mockResponse.status).toHaveBeenCalledWith(400);
+
+      expect(mockResponse.send).toHaveBeenCalledTimes(1);
+      expect(mockResponse.send).toHaveBeenCalledWith(expectedErrors);
+
+    });
+
+    it("should call the next middleware with an error if there is an error", async () => {
+      const expectedError = new Error("some error");
+      //@ts-ignore
+      mockUpdateExperience.mockResolvedValue(expectedError);
+
+      await putExperience(mockRequest, mockResponse);
+
+      expect(updateExperience).toHaveBeenCalledTimes(1);
+      expect(updateExperience).toHaveBeenCalledWith(mockRequest.body);
+
+      expect(mockResponse.status).toHaveBeenCalledTimes(1);
+      expect(mockResponse.send).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('deleteExperience', () => {
     beforeEach(() => {
       mockRequest.body = {
         userId: 123,

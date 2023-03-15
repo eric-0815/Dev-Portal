@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.01% </span>
+                <span class="strong">91.35% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>64/81</span>
+                <span class='fraction'>74/81</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">86.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/15</span>
+                <span class='fraction'>13/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>12/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82% </span>
+                <span class="strong">92% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>41/50</span>
+                <span class='fraction'>46/50</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -222,12 +222,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -243,9 +243,9 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -330,13 +330,13 @@ export const createUser = async (body: UserRegistration) =&gt; {
     return { token }
 }
 &nbsp;
-export const authenticateUser = <span class="fstat-no" title="function not covered" >async (b</span>ody: UserLogin<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >) =&gt; {</span></span>
-    const <span class="cstat-no" title="statement not covered" >errors = <span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >await validateUserInfo(body, ValidateMethod.LOGIN)</span></span></span>
-<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (errors.length &gt; 0) <span class="cstat-no" title="statement not covered" >return ({ errors })</span></span>
+export const authenticateUser = async (body: UserLogin) =&gt; {
+    const errors = await validateUserInfo(body, ValidateMethod.LOGIN)
+    if (errors.length &gt; 0) return ({ errors })
 &nbsp;
-    const { <span class="cstat-no" title="statement not covered" >email, password } = b</span>ody
-    let <span class="cstat-no" title="statement not covered" >user = <span class="cstat-no" title="statement not covered" >await getUserByEmail(email);</span></span>
-<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (!user) <span class="cstat-no" title="statement not covered" >return createErrorMsg("Invalid Credentials");</span></span>
+    const { email, password } = body
+    let user = await getUserByEmail(email);
+    if (!user) return createErrorMsg("Invalid Credentials");
 &nbsp;
     const <span class="cstat-no" title="statement not covered" >isMatch = <span class="cstat-no" title="statement not covered" >await checkPassword(password, user.password)</span></span>
 <span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (!isMatch) <span class="cstat-no" title="statement not covered" >return createErrorMsg("Invalid Credentials");</span></span>
@@ -397,7 +397,7 @@ export const createToken = (userId: string) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-15T04:32:16.869Z
+                at 2023-03-15T04:58:45.709Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
