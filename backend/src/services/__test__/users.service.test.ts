@@ -118,40 +118,41 @@ describe('user service', () => {
     });
   });
 
+  describe('checkPassword', () => {
+    beforeEach(() => {
+      jest.resetModules();
+    });
 
-  // describe('checkPassword', () => {
-  //   it('should return true if passwords match', async () => {
-  //     (bcrypt.compare as any).mockResolvedValueOnce(true);
+    it('should return true if passwords match', async () => {
+      const inputPassword = 'password123';
+      const userPassword = 'hashedPassword';
+      (bcrypt.compare as any).mockReturnValue(true);
 
-  //     const result = await checkPassword('password', 'hashedPassword');
+      const result = await checkPassword(inputPassword, userPassword);
+      expect(result).toBe(true);
+    });
 
-  //     expect(result).toBe(true);
-  //     expect(bcrypt.compare).toHaveBeenCalledWith('password', 'hashedPassword');
-  //   });
+    it('should return false if passwords do not match', async () => {
+      (bcrypt.compare as any).mockReturnValue(false);
 
-  //   it('should return false if passwords do not match', async () => {
-  //     (bcrypt.compare as any).mockResolvedValueOnce(false);
+      const result = await checkPassword('password', 'hashed_password');
+      expect(result).toBe(false);
+    });
+  });
 
-  //     const result = await checkPassword('password', 'hashedPassword');
+  describe('createAvatar', () => {
+    it('should return the avatar url for the given email', () => {
+      (gravatar.url as any).mockReturnValueOnce('https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50');
 
-  //     expect(result).toBe(false);
-  //     expect(bcrypt.compare).toHaveBeenCalledWith('password', 'hashedPassword');
-  //   });
-  // });
+      const result = createAvatar('test@example.com');
 
-  // describe('createAvatar', () => {
-  //   it('should return the avatar url for the given email', () => {
-  //     (gravatar.url as any).mockReturnValueOnce('https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50');
-
-  //     const result = createAvatar('test@example.com');
-
-  //     expect(result).toBe('https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50');
-  //     expect(gravatar.url).toHaveBeenCalledWith('test@example.com', {
-  //       s: '200',
-  //       r: 'pg',
-  //       d: 'mm',
-  //     });
-  //   });
-  // });
+      expect(result).toBe('https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50');
+      expect(gravatar.url).toHaveBeenCalledWith('test@example.com', {
+        s: '200',
+        r: 'pg',
+        d: 'mm',
+      });
+    });
+  });
 });
 
