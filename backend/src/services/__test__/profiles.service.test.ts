@@ -1,6 +1,6 @@
 import Profile from "../../models/Profile.model";
 import { createErrorMsg } from "../../utils/error";
-import { findProfiles, findProfile, createProfile } from "../profiles.service";
+import { findProfiles, findProfile, createProfile, updateProfile, findProfileByUserId } from "../profiles.service";
 
 jest.mock("../../models/Profile.model");
 
@@ -87,6 +87,53 @@ describe('profile service', () => {
       // expect(Profile.save).toHaveBeenCalledWith(mockProfileFields);
       expect(mockCreatedProfile.save).toHaveBeenCalledTimes(0);
       // expect(createdProfile).toEqual(mockCreatedProfile);
+    });
+  });
+
+  describe('updateProfile', () => {
+    it('should update a profile', async () => {
+      const profileFields = {
+        user: 'userId',
+        company: 'test company',
+        website: 'test website',
+        location: 'test location',
+        bio: 'test bio',
+        status: 'test status',
+        githubusername: 'test githubusername',
+        skills: ['test skill 1', 'test skill 2'],
+        social: {
+          youtube: 'test youtube',
+          twitter: 'test twitter',
+          instagram: 'test instagram',
+          linkedin: 'test linkedin',
+          facebook: 'test facebook',
+        },
+      };
+
+      const findOneAndUpdateMock = jest.fn().mockReturnValueOnce('updated profile');
+      Profile.findOneAndUpdate = findOneAndUpdateMock;
+
+      // @ts-ignore
+      const result = await updateProfile(profileFields);
+
+      expect(findOneAndUpdateMock).toHaveBeenCalledWith(
+        { user: 'userId' },
+        { $set: profileFields },
+        { new: true }
+      );
+      expect(result).toEqual('updated profile');
+    });
+  });
+
+  describe('findProfileByUserId', () => {
+    it.only('should find profile by user ID', async () => {
+      const profile = { user: 'user123', company: 'Acme' };
+      (Profile.findOne as jest.Mock).mockResolvedValueOnce(profile);
+
+      const result = await findProfileByUserId('user123');
+
+      expect(result).toEqual(profile);
+      expect(Profile.findOne).toHaveBeenCalledWith({ user: 'user123' });
     });
   });
 })
