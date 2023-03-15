@@ -10,7 +10,7 @@ const auth = (req: any, res: Response, next: NextFunction) => {
     const token = req.header("x-auth-token");
     // Check if not token
     if (!token) {
-        return res.status(StatusCodes.UNAUTHORIZED).send(createErrorMsg("No token, authorization denied"));
+        res.status(StatusCodes.UNAUTHORIZED).send(createErrorMsg("No token, authorization denied"));
     }
 
     // Verify token
