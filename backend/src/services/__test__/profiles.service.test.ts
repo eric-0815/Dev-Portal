@@ -1,8 +1,10 @@
 import Profile from "../../models/Profile.model";
+import User from "../../models/User.model";
 import { createErrorMsg } from "../../utils/error";
-import { findProfiles, findProfile, createProfile, updateProfile, findProfileByUserId } from "../profiles.service";
+import { findProfiles, findProfile, createProfile, updateProfile, findProfileByUserId, removeProfile } from "../profiles.service";
 
 jest.mock("../../models/Profile.model");
+jest.mock("../../models/User.model");
 
 describe('profile service', () => {
 
@@ -134,6 +136,25 @@ describe('profile service', () => {
 
       expect(result).toEqual(profile);
       expect(Profile.findOne).toHaveBeenCalledWith({ user: 'user123' });
+    });
+  });
+
+  describe("removeProfile function", () => {
+    it("should remove the profile and user with the given id", async () => {
+      const userId = "123";
+      const profile = { user: userId };
+      const user = { _id: userId };
+
+      (Profile.findOne as jest.Mock).mockResolvedValueOnce(profile);
+      (Profile.findOneAndRemove as jest.Mock).mockResolvedValueOnce(profile);
+
+      (User.findOneAndRemove as jest.Mock).mockResolvedValueOnce(user);
+
+      const result = await removeProfile(userId);
+
+      expect(Profile.findOneAndRemove).toHaveBeenCalledWith({ user: userId });
+      expect(User.findOneAndRemove).toHaveBeenCalledWith({ _id: userId });
+      expect(result).toEqual({ msg: 'User deleted' });
     });
   });
 })
