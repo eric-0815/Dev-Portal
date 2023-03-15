@@ -11,6 +11,6 @@ Back-end: NodeJS ExpressJS; RESTAPI; JTW
 
 Database: MongoDB
 
-Unit Test: Jest, React Testing Library (WIP)
+Unit Test: Jest, React Testing Library
 
 Docker (WIP)
