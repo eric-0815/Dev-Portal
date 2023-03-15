@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1678856325760" clover="3.2.0">
-  <project timestamp="1678856325760" name="All files">
-    <metrics statements="443" coveredstatements="298" conditionals="240" coveredconditionals="98" methods="114" coveredmethods="64" elements="797" coveredelements="460" complexity="0" loc="443" ncloc="443" packages="7" files="19" classes="19"/>
+<coverage generated="1678858164863" clover="3.2.0">
+  <project timestamp="1678858164863" name="All files">
+    <metrics statements="443" coveredstatements="304" conditionals="240" coveredconditionals="101" methods="114" coveredmethods="69" elements="797" coveredelements="474" complexity="0" loc="443" ncloc="443" packages="7" files="19" classes="19"/>
     <package name="config">
       <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="default.ts" path="C:\Users\EricHong\Desktop\learn-front-end\DevBlog\backend\config\default.ts">
@@ -17,9 +17,9 @@
       <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
       <file name="ValidateMethod.ts" path="C:\Users\EricHong\Desktop\learn-front-end\DevBlog\backend\src\constants\ValidateMethod.ts">
         <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
-        <line num="1" count="5" type="cond" truecount="2" falsecount="0"/>
-        <line num="2" count="5" type="stmt"/>
-        <line num="3" count="5" type="stmt"/>
+        <line num="1" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="3" count="6" type="stmt"/>
       </file>
     </package>
     <package name="src.controllers">
@@ -204,10 +204,10 @@
       <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="Post.model.ts" path="C:\Users\EricHong\Desktop\learn-front-end\DevBlog\backend\src\models\Post.model.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="32" count="1" type="stmt"/>
-        <line num="80" count="1" type="stmt"/>
-        <line num="82" count="1" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="80" count="2" type="stmt"/>
+        <line num="82" count="2" type="stmt"/>
       </file>
       <file name="Profile.model.ts" path="C:\Users\EricHong\Desktop\learn-front-end\DevBlog\backend\src\models\Profile.model.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -218,14 +218,14 @@
       </file>
       <file name="User.model.ts" path="C:\Users\EricHong\Desktop\learn-front-end\DevBlog\backend\src\models\User.model.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="6" type="stmt"/>
-        <line num="11" count="6" type="stmt"/>
-        <line num="34" count="6" type="stmt"/>
-        <line num="36" count="6" type="stmt"/>
+        <line num="1" count="7" type="stmt"/>
+        <line num="11" count="7" type="stmt"/>
+        <line num="34" count="7" type="stmt"/>
+        <line num="36" count="7" type="stmt"/>
       </file>
     </package>
     <package name="src.services">
-      <metrics statements="215" coveredstatements="83" conditionals="140" coveredconditionals="14" methods="66" coveredmethods="16"/>
+      <metrics statements="215" coveredstatements="89" conditionals="140" coveredconditionals="17" methods="66" coveredmethods="21"/>
       <file name="auth.service.ts" path="C:\Users\EricHong\Desktop\learn-front-end\DevBlog\backend\src\services\auth.service.ts">
         <metrics statements="4" coveredstatements="4" conditionals="1" coveredconditionals="1" methods="2" coveredmethods="2"/>
         <line num="1" count="2" type="stmt"/>
@@ -234,42 +234,42 @@
         <line num="5" count="2" type="stmt"/>
       </file>
       <file name="posts.service.ts" path="C:\Users\EricHong\Desktop\learn-front-end\DevBlog\backend\src\services\posts.service.ts">
-        <metrics statements="61" coveredstatements="14" conditionals="47" coveredconditionals="0" methods="23" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="20" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="25" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
-        <line num="30" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="34" count="1" type="stmt"/>
+        <metrics statements="61" coveredstatements="20" conditionals="47" coveredconditionals="3" methods="23" coveredmethods="5"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="20" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="25" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="30" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="34" count="2" type="stmt"/>
         <line num="35" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="37" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="39" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="42" count="0" type="stmt"/>
         <line num="44" count="0" type="stmt"/>
-        <line num="47" count="1" type="stmt"/>
+        <line num="47" count="2" type="stmt"/>
         <line num="48" count="0" type="stmt"/>
         <line num="49" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="52" count="0" type="stmt"/>
         <line num="54" count="0" type="stmt"/>
         <line num="61" count="0" type="stmt"/>
         <line num="63" count="0" type="stmt"/>
-        <line num="66" count="1" type="stmt"/>
+        <line num="66" count="2" type="stmt"/>
         <line num="67" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="70" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="72" count="0" type="stmt"/>
         <line num="74" count="0" type="stmt"/>
         <line num="76" count="0" type="stmt"/>
         <line num="78" count="0" type="stmt"/>
-        <line num="81" count="1" type="stmt"/>
+        <line num="81" count="2" type="stmt"/>
         <line num="82" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="85" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="87" count="0" type="stmt"/>
@@ -278,7 +278,7 @@
         <line num="92" count="0" type="stmt"/>
         <line num="94" count="0" type="stmt"/>
         <line num="96" count="0" type="stmt"/>
-        <line num="99" count="1" type="stmt"/>
+        <line num="99" count="2" type="stmt"/>
         <line num="100" count="0" type="stmt"/>
         <line num="101" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="103" count="0" type="stmt"/>
@@ -287,7 +287,7 @@
         <line num="114" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="116" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="118" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="121" count="1" type="stmt"/>
+        <line num="121" count="2" type="stmt"/>
         <line num="123" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="126" count="0" type="stmt"/>
         <line num="127" count="0" type="stmt"/>
@@ -471,7 +471,7 @@
       </file>
       <file name="error.ts" path="C:\Users\EricHong\Desktop\learn-front-end\DevBlog\backend\src\utils\error.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="10" type="stmt"/>
+        <line num="1" count="11" type="stmt"/>
         <line num="2" count="36" type="stmt"/>
       </file>
       <file name="server.ts" path="C:\Users\EricHong\Desktop\learn-front-end\DevBlog\backend\src\utils\server.ts">
@@ -488,32 +488,32 @@
       </file>
       <file name="validator.ts" path="C:\Users\EricHong\Desktop\learn-front-end\DevBlog\backend\src\utils\validator.ts">
         <metrics statements="33" coveredstatements="33" conditionals="26" coveredconditionals="25" methods="5" coveredmethods="5"/>
-        <line num="1" count="5" type="stmt"/>
-        <line num="2" count="5" type="stmt"/>
-        <line num="7" count="5" type="stmt"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="7" count="6" type="stmt"/>
         <line num="8" count="6" type="stmt"/>
         <line num="10" count="6" type="cond" truecount="3" falsecount="0"/>
         <line num="11" count="6" type="cond" truecount="3" falsecount="0"/>
         <line num="12" count="6" type="cond" truecount="6" falsecount="1"/>
         <line num="13" count="6" type="stmt"/>
-        <line num="16" count="5" type="stmt"/>
+        <line num="16" count="6" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
         <line num="19" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="20" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="21" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="22" count="1" type="stmt"/>
-        <line num="25" count="5" type="stmt"/>
+        <line num="25" count="6" type="stmt"/>
         <line num="26" count="1" type="stmt"/>
         <line num="28" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="29" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="30" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="31" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="32" count="1" type="stmt"/>
-        <line num="35" count="5" type="stmt"/>
+        <line num="35" count="6" type="stmt"/>
         <line num="36" count="1" type="stmt"/>
         <line num="37" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="38" count="1" type="stmt"/>
-        <line num="41" count="5" type="stmt"/>
+        <line num="41" count="6" type="stmt"/>
         <line num="42" count="1" type="stmt"/>
         <line num="44" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="45" count="1" type="cond" truecount="1" falsecount="0"/>

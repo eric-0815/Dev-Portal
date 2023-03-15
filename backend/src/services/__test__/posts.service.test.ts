@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import Post, { PostType } from "../../models/Post.model";
 import User from "../../models/User.model";
-import { findAllPosts, findPostById, findUserByIdWithoutPassword } from "../posts.service";
+import { createErrorMsg } from "../../utils/error";
+import { findAllPosts, findPostById, findUserByIdWithoutPassword, removePostById } from "../posts.service";
 
 jest.mock("../../models/Post.model");
 
@@ -57,6 +58,7 @@ describe('post service', () => {
       expect(user).toEqual(expectedUser);
     });
   });
+
 })
 
 
