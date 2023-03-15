@@ -112,13 +112,13 @@ export const addOrCreateProfile = async (profileInfo: ProfileInfo) => {
     return createdProfile
 }
 
-const createProfile = async (profileFields: ProfileType) => {
+export const createProfile = async (profileFields: ProfileType) => {
     const createdProfile = new Profile(profileFields);
     await createdProfile.save();
     return createdProfile;
 }
 
-const updateProfile = async (profileFields: ProfileType) => {
+export const updateProfile = async (profileFields: ProfileType) => {
     const { user } = profileFields
     // Update
     const updatedProfile = await Profile.findOneAndUpdate(
@@ -129,7 +129,7 @@ const updateProfile = async (profileFields: ProfileType) => {
     return updatedProfile
 }
 
-const findProfileByUserId = async (userId: mongoose.Types.ObjectId | string) => {
+export const findProfileByUserId = async (userId: mongoose.Types.ObjectId | string) => {
     const profile = await Profile.findOne({ user: userId })
     return profile
 }
