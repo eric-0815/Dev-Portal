@@ -5,11 +5,39 @@ import profilesRoute from "./routes/profiles";
 import postsRoute from "./routes/posts";
 import createServer from "./utils/server";
 
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express'
+
 
 const app = createServer();
 
+const options = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'My API',
+            version: '1.0.0',
+            description: 'My API description'
+        },
+        servers: [
+            {
+                url: 'http://localhost:5000'
+            }
+        ]
+    },
+    // Path to the API docs
+    apis: ['./swagger.yaml']
+};
+
 
 connectDB();
+
+
+// Initialize Swagger JSdoc
+const specs = swaggerJsdoc(options);
+
+// Serve Swagger docs using Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 // app.get('/', (req: Request, res: Response) => res.send('API Running'));
 
