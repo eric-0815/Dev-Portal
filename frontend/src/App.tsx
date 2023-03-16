@@ -37,38 +37,40 @@ const App = () => {
   }, [dispatch, isAuthenticated, alerts.length]);
 
   return (
-    <BrowserRouter>
-      <>
-        <Navbar />
-        <Alert />
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profiles" element={<Profiles />} />
-          <Route path="/profile/:id" element={<Profile />} />
-          {isAuthenticated && (
-            <Route path="/dashboard" element={<Dashboard />} />
-          )}
-          {isAuthenticated && (
-            <Route path="/create-profile" element={<CreateOrEditProfile />} />
-          )}
-          {isAuthenticated && (
-            <Route path="/edit-profile" element={<CreateOrEditProfile />} />
-          )}
-          {isAuthenticated && (
-            <Route path="/add-experience" element={<AddExperience />} />
-          )}
-          {isAuthenticated && (
-            <Route path="/add-education" element={<AddEducation />} />
-          )}
-          {isAuthenticated && <Route path="/posts" element={<Posts />} />}
-          {isAuthenticated && <Route path="/posts/:id" element={<Post />} />}
-          <Route path="/contact" element={<Contact />} />
-          {<Route path="*" element={<Landing />} />}
-        </Routes>
-      </>
-    </BrowserRouter>
+    <div data-testid="app">
+      <BrowserRouter>
+        <>
+          <Navbar />
+          <Alert />
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/profiles" element={<Profiles />} />
+            <Route path="/profile/:id" element={<Profile />} />
+            {isAuthenticated && (
+              <Route path="/dashboard" element={<Dashboard />} />
+            )}
+            {isAuthenticated && (
+              <Route path="/create-profile" element={<CreateOrEditProfile />} />
+            )}
+            {isAuthenticated && (
+              <Route path="/edit-profile" element={<CreateOrEditProfile />} />
+            )}
+            {isAuthenticated && (
+              <Route path="/add-experience" element={<AddExperience />} />
+            )}
+            {isAuthenticated && (
+              <Route path="/add-education" element={<AddEducation />} />
+            )}
+            {isAuthenticated && <Route path="/posts" element={<Posts />} />}
+            {isAuthenticated && <Route path="/posts/:id" element={<Post />} />}
+            <Route path="/contact" element={<Contact />} />
+            {<Route path="*" element={<Landing />} />}
+          </Routes>
+        </>
+      </BrowserRouter>
+    </div>
   );
 };
 
