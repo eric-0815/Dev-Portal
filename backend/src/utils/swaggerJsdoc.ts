@@ -5,9 +5,9 @@ const createSwaggerDoc = () => {
         definition: {
             openapi: '3.0.0',
             info: {
-                title: 'My API',
+                title: 'Dev Center',
                 version: '1.0.0',
-                description: 'My API description'
+                description: `Swagger UI`
             },
             servers: [
                 {

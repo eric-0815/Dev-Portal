@@ -348,6 +348,8 @@ paths:
         '200':
           description: OK
     get:
+      tags:
+        - Posts
       summary: Get all posts
       responses:
         '200':
