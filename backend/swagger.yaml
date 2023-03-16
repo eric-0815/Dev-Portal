@@ -262,4 +262,121 @@ paths:
       responses:
         204:
           description: The education entry was deleted successfully
-    
+  
+  /users:
+    get:
+      tags:
+        - Users
+      summary: Get all users
+      description: Retrieve a list of all registered users
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A list of all registered users
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        401:
+          $ref: '#/responses/Unauthorized'
+    post:
+      tags:
+        - Users
+      summary: Register a new user
+      description: Creates a new user account
+      consumes:
+        - application/json
+      parameters:
+        - name: user
+          in: body
+          description: User object to be created
+          required: true
+          schema:
+            $ref: '#/definitions/UserCreate'
+      responses:
+        201:
+          description: User created
+          schema:
+            $ref: '#/definitions/User'
+        400:
+          $ref: '#/responses/BadRequest'
+        409:
+          $ref: '#/responses/Conflict'
+
+  /users/{id}:
+    parameters:
+      - name: id
+        in: path
+        description: ID of the user to retrieve or delete
+        required: true
+        type: string
+    get:
+      tags:
+        - Users
+      summary: Get user by ID
+      description: Retrieve a single user by ID
+      produces:
+        - application/json
+      responses:
+        200:
+          description: User object with matching ID
+          schema:
+            $ref: '#/definitions/User'
+        401:
+          $ref: '#/responses/Unauthorized'
+        404:
+          $ref: '#/responses/NotFound'
+  
+  /api/posts:
+    post:
+      tags:
+        - Posts
+      summary: Add a new post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+              required:
+                - text
+      responses:
+        '200':
+          description: OK
+    get:
+      summary: Get all posts
+      responses:
+        '200':
+          description: OK
+  
+  /api/posts/{id}:
+      get:
+        tags:
+          - Posts
+        summary: Get a post by ID
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: string
+        responses:
+          '200':
+            description: OK
+      delete:
+        tags:
+          - Posts
+        summary: Delete a post by ID
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: string
+        responses:
+          '200':
+            description: OK
