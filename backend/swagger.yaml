@@ -1,0 +1,89 @@
+openapi: 3.0.3
+info:
+  title: Dev Center
+  description: API documentation for Dev Center
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+paths:
+  /api/users/register:
+    post:
+      tags:
+        - Users & Auth
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The name of the user
+                email:
+                  type: string
+                  description: The email of the user
+                password:
+                  type: string
+                  description: The password of the user
+              required:
+                - name
+                - email
+                - password
+      responses:
+        '200':
+          description: User registration successful
+        '400':
+          description: Invalid input
+        '500':
+          description: Internal server error
+  /api/users/login:
+    post:
+      tags:
+        - Users & Auth
+      summary: Login a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: The email of the user
+                password:
+                  type: string
+                  description: The password of the user
+              required:
+                - email
+                - password
+      responses:
+        '200':
+          description: User login successful
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+  /api/auth:
+    get:
+      tags:
+        - Users & Auth
+      summary: Get an authentication token
+      parameters:
+        - name: x-auth-token
+          in: header
+          description: Authentication token obtained after login
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Authentication token retrieval successful
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error

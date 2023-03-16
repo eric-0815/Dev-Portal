@@ -15,7 +15,7 @@ const createServer = () => {
         credentials: true,
         allowedHeaders: 'Content-Type, Authorization, x-auth-token',
     };
-  
+
     app.use(cors(corsOptions));
 
     return app
