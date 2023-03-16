@@ -87,3 +87,179 @@ paths:
           description: Unauthorized
         '500':
           description: Internal server error
+  /profiles/user/{id}:
+    get:
+      tags:
+        - "Profiles"
+      summary: "Get user profile"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of user profile to return"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+
+  /api/profiles/experience:
+    put:
+      tags:
+        - "Profiles"
+      summary: "Add experience"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Experience object that needs to be added"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              title:
+                type: "string"
+              company:
+                type: "string"
+              location:
+                type: "string"
+              from:
+                type: "string"
+              to:
+                type: "string"
+              current:
+                type: "boolean"
+              description:
+                type: "string"
+      responses:
+        200:
+          description: "successful operation"
+
+    delete:
+      tags:
+        - "Profiles"
+      summary: "Delete experience"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of experience to delete"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+
+  /api/profiles/education:
+    put:
+      tags:
+        - "Profiles"
+      summary: "Add education"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Education object that needs to be added"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              school:
+                type: "string"
+              degree:
+                type: "string"
+              fieldofstudy:
+                type: "string"
+              from:
+                type: "string"
+              to:
+                type: "string"
+              current:
+                type: "boolean"
+              description:
+                type: "string"
+      responses:
+        200:
+          description: "successful operation"
+  /api/profiles:
+    get:
+      tags:
+        - "Profiles"
+      description: Returns a list of all profiles
+      produces:
+        - application/json
+      parameters:
+        - name: x-auth-token
+          in: header
+          description: The authentication token
+          required: true
+          type: string
+      responses:
+        200:
+          description: A list of profiles
+    post:
+      tags:
+        - "Profiles"
+      description: Adds a new profile
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: x-auth-token
+          in: header
+          description: The authentication token
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: The profile to add
+          required: true
+          schema:
+            type: object
+            properties:
+              company:
+                type: string
+              website:
+                type: string
+              location:
+                type: string
+              bio:
+                type: string
+              status:
+                type: string
+              githubusername:
+                type: string
+              skills:
+                type: string
+              youtube:
+                type: string
+              twitter:
+                type: string
+              instagram:
+                type: string
+              linkedin:
+                type: string
+              facebook:
+                type: string
+      responses:
+        201:
+          description: The newly created profile
+  /api/profiles/education/{id}:
+    delete:
+      tags:
+        - "Profiles"
+      description: Deletes a profile's education entry
+      produces:
+        - application/json
+      parameters:
+        - name: x-auth-token
+          in: header
+          description: The authentication token
+          required: true
+          type: string
+        - name: id
+          in: path
+          description: The ID of the education entry to delete
+          required: true
+          type: string
+      responses:
+        204:
+          description: The education entry was deleted successfully
+    
