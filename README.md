@@ -20,4 +20,5 @@ Docker (WIP)
 
 ## Others
 Inspired by https://github.com/bradtraversy/devconnector_2.0
+
 Added TypeScript, Unit Test, Redux tool kit, SASS CSS, SWAGGER
