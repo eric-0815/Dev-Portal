@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../../../store/configureStore";
 
 interface ProfileItemType {
   user: { _id: string; name: string; avatar: string };
@@ -15,7 +16,9 @@ interface ProfileItemProp {
 
 const ProfileItem = ({ key, profile }: ProfileItemProp) => {
   const { user, status, company, location, skills } = profile;
-
+  const { isAuthenticated } = useAppSelector(
+    (state) => state.authenticationState
+  );
   return (
     <div className="profile bg-light">
       <img src={user?.avatar} alt="" className="round-img" />
@@ -25,9 +28,15 @@ const ProfileItem = ({ key, profile }: ProfileItemProp) => {
           {status} {company && <span> at {company}</span>}
         </p>
         <p className="my-1">{location && <span>{location}</span>}</p>
-        <Link to={`/profile/${user?._id}`} className="btn btn-primary">
-          View Profile
-        </Link>
+        {isAuthenticated ? (
+          <Link to={`/profile/${user?._id}`} className="btn btn-primary">
+            View Profile
+          </Link>
+        ) : (
+          <Link to={`/login`} className="btn btn-primary">
+            Login to see the profile
+          </Link>
+        )}
       </div>
       <ul>
         {skills?.slice(0, 4).map((skill, index) => (

@@ -30,7 +30,7 @@ const App = () => {
   const { alerts } = useAppSelector((state) => state.alertState);
 
   useEffect(() => {
-    if (alerts.length > 0) dispatch(removeAllAlerts());
+    // if (alerts.length > 0) dispatch(removeAllAlerts());
 
     if (localStorage.token) setAuthToken(localStorage.token);
     if (isAuthenticated) dispatch(loadUserAsync());
