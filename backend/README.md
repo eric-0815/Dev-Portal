@@ -3,11 +3,6 @@ Data flow
 
 How to run
 ```
-npm install
+npm i
 npm run dev
-```
-
-Swagger doc
-```
-http://localhost:5000/api-docs/
 ```
