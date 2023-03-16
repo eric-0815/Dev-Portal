@@ -84,7 +84,7 @@ describe('profileSlice', () => {
       expect(actions[2].type).toEqual('profile/getProfilesAsync/fulfilled');
     });
 
-    it.only('should dispatch the correct actions on failure', async () => {
+    it('should dispatch the correct actions on failure', async () => {
       const error = new Error('Something went wrong');
       (agent.Profile.getProfiles as jest.Mock).mockRejectedValue(error);
       const store = mockStore({});
