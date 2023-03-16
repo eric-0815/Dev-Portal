@@ -1,0 +1,563 @@
+{
+	"info": {
+		"_postman_id": "07ca8a0f-a6ea-45a2-9d02-092974c3695b",
+		"name": "Dev Center",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18030875"
+	},
+	"item": [
+		{
+			"name": "Users & Auth",
+			"item": [
+				{
+					"name": "register user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Eric\",\r\n    \"email\": \"1@gmail.com\",\r\n    \"password\": \"123456\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/users/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get token",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNmNzc5MGJkNmY3ZTZjNjhhOTQ0MTI1In0sImlhdCI6MTY3NzE2Mjc2MywiZXhwIjoxNjc3NTIyNzYzfQ.UvMFoaqqIXiCcI6s14bC11d0YhsK3EurVc7Iyigh_as",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNmMzc2Yjc2OTcwNjQ1Yjc1MTdmZDYxIn0sImlhdCI6MTY3NjkwMDAyNCwiZXhwIjoxNjc3MjYwMDI0fQ.V2Uw1W0ouUb9hCV73Z6BEhBSj2sbCcSPx7yFAfAGOnY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"123@gmail.com\",\r\n    \"password\": \"123123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profiles",
+			"item": [
+				{
+					"name": "get user profile",
+					"item": [
+						{
+							"name": "get profile",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-auth-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNmZDcwNjA2OTQxMzY5NTdkNGRjZTY2In0sImlhdCI6MTY3NzU4OTQ1MywiZXhwIjoxNjc3OTQ5NDUzfQ.lrX61PLeikyMOLFVQ4re07E_vA0DDnqckZHJbSsXjzs",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5000/api/profiles/user/63fd7060694136957d4dce66",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"profiles",
+										"user",
+										"63fd7060694136957d4dce66"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "experience",
+					"item": [
+						{
+							"name": "put experience",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-auth-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNmMWUzMjEyZjZlZGJmNmZjYmUzOWFmIn0sImlhdCI6MTY3Njg5NzY1NSwiZXhwIjoxNjc3MjU3NjU1fQ.1MKILGNasZE5jUONyHxVc66jx6GkesxeEdJQKo5fuCs",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"1\",\r\n    \"company\": \"1\",\r\n    \"location\": \"1\",\r\n    \"from\": \"1\",\r\n    \"to\": \"1\",\r\n    \"current\": \"1\",\r\n    \"description\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/profiles/experience",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"profiles",
+										"experience"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete experience",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-auth-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNmMWUzMjEyZjZlZGJmNmZjYmUzOWFmIn0sImlhdCI6MTY3Njg5NzY1NSwiZXhwIjoxNjc3MjU3NjU1fQ.1MKILGNasZE5jUONyHxVc66jx6GkesxeEdJQKo5fuCs",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5000/api/profiles/experience/63f3819ffdb8f6bfe3cf5903",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"profiles",
+										"experience",
+										"63f3819ffdb8f6bfe3cf5903"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "education",
+					"item": [
+						{
+							"name": "put education",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-auth-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNmMWUzMjEyZjZlZGJmNmZjYmUzOWFmIn0sImlhdCI6MTY3Njg5NzY1NSwiZXhwIjoxNjc3MjU3NjU1fQ.1MKILGNasZE5jUONyHxVc66jx6GkesxeEdJQKo5fuCs",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"school\": \"1\",\r\n    \"degree\": \"1\",\r\n    \"fieldofstudy\": \"1\",\r\n    \"from\": \"1\",\r\n    \"to\": \"1\",\r\n    \"current\": \"1\",\r\n    \"description\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/profiles/education",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"profiles",
+										"education"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": null,
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete education",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-auth-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNmMWUzMjEyZjZlZGJmNmZjYmUzOWFmIn0sImlhdCI6MTY3Njg5NzY1NSwiZXhwIjoxNjc3MjU3NjU1fQ.1MKILGNasZE5jUONyHxVc66jx6GkesxeEdJQKo5fuCs",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5000/api/profiles/education/63f49efe5f32ad07389ddef6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"profiles",
+										"education",
+										"63f49efe5f32ad07389ddef6"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "github",
+					"item": [
+						{
+							"name": "get github",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-auth-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNmMWUzMjEyZjZlZGJmNmZjYmUzOWFmIn0sImlhdCI6MTY3Njg5NzY1NSwiZXhwIjoxNjc3MjU3NjU1fQ.1MKILGNasZE5jUONyHxVc66jx6GkesxeEdJQKo5fuCs",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5000/api/profiles/github/eric-0815",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"profiles",
+										"github",
+										"eric-0815"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get all profiles",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNmMWUzMjEyZjZlZGJmNmZjYmUzOWFmIn0sImlhdCI6MTY3Njg5NzY1NSwiZXhwIjoxNjc3MjU3NjU1fQ.1MKILGNasZE5jUONyHxVc66jx6GkesxeEdJQKo5fuCs",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/profiles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"profiles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add profile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNmZDcwNjA2OTQxMzY5NTdkNGRjZTY2In0sImlhdCI6MTY3NzU4OTQ1MywiZXhwIjoxNjc3OTQ5NDUzfQ.lrX61PLeikyMOLFVQ4re07E_vA0DDnqckZHJbSsXjzs",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"company\": \"4\",\r\n    \"website\": \"3\",\r\n    \"location\": \"3\",\r\n    \"bio\": \"3\",\r\n    \"status\": \"3\",\r\n    \"githubusername\": \"2\",\r\n    \"skills\": \"1,2,3\",\r\n    \"youtube\": \"1\",\r\n    \"twitter\": \"1\",\r\n    \"instagram\": \"1\",\r\n    \"linkedin\": \"1\",\r\n    \"facebook\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/profiles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"profiles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete profile and user",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNmMzc2Yjc2OTcwNjQ1Yjc1MTdmZDYxIn0sImlhdCI6MTY3NjkwMDAzNSwiZXhwIjoxNjc3MjYwMDM1fQ.WW9s4Wn5wSNrhXlu5eIxHFKx5-Wf-T2E_0WAsz0i0Rw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/profiles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"profiles"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "add post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNmMzc2Yjc2OTcwNjQ1Yjc1MTdmZDYxIn0sImlhdCI6MTY3NjkwMDAzNSwiZXhwIjoxNjc3MjYwMDM1fQ.WW9s4Wn5wSNrhXlu5eIxHFKx5-Wf-T2E_0WAsz0i0Rw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all posts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNmMzc2Yjc2OTcwNjQ1Yjc1MTdmZDYxIn0sImlhdCI6MTY3NjkwMDAzNSwiZXhwIjoxNjc3MjYwMDM1fQ.WW9s4Wn5wSNrhXlu5eIxHFKx5-Wf-T2E_0WAsz0i0Rw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get post by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNmMzc2Yjc2OTcwNjQ1Yjc1MTdmZDYxIn0sImlhdCI6MTY3NjkwMDAzNSwiZXhwIjoxNjc3MjYwMDM1fQ.WW9s4Wn5wSNrhXlu5eIxHFKx5-Wf-T2E_0WAsz0i0Rw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/posts/622b1e3e4d030717b1a5ac2f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"posts",
+								"622b1e3e4d030717b1a5ac2f"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNmMzc2Yjc2OTcwNjQ1Yjc1MTdmZDYxIn0sImlhdCI6MTY3NjkwMDAzNSwiZXhwIjoxNjc3MjYwMDM1fQ.WW9s4Wn5wSNrhXlu5eIxHFKx5-Wf-T2E_0WAsz0i0Rw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/posts/640584c086de864097782865",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"posts",
+								"640584c086de864097782865"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
