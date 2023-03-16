@@ -1,4 +1,4 @@
-import formatDate from "../../../utils/formtDate";
+import formatDate from "../../../utils/formatDate";
 import { useAppDispatch, useAppSelector } from "../../../store/configureStore";
 import { deleteEducationAsync } from "../../../slices/profileSlice";
 

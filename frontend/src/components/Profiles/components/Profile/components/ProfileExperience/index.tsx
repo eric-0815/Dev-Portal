@@ -1,5 +1,5 @@
 import React from "react";
-import formatDate from "../../../../../../utils/formtDate";
+import formatDate from "../../../../../../utils/formatDate";
 
 const ProfileExperience = ({ experience }: any) => {
   const { company, title, location, to, from, description } = experience;

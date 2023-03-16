@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import formatDate from "../../../../utils/formtDate";
+import formatDate from "../../../../utils/formatDate";
 import {
   useAppDispatch,
   useAppSelector,

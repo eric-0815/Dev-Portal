@@ -1,5 +1,5 @@
 import React from "react";
-import formatDate from "../../../../../../utils/formtDate";
+import formatDate from "../../../../../../utils/formatDate";
 
 const ProfileEducation = ({ education }: any) => {
   const { school, degree, fieldofstudy, to, from, description } = education;

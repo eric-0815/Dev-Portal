@@ -3,7 +3,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../../../store/configureStore";
-import formatDate from "../../../../../../utils/formtDate";
+import formatDate from "../../../../../../utils/formatDate";
 import { deleteCommentAsync } from "../../../../../../slices/postSlice";
 
 const CommentItem = ({ comment, postId }: any) => {

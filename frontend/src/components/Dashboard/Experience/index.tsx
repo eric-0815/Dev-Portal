@@ -3,7 +3,7 @@ import {
   deleteExperienceAsync,
 } from "../../../slices/profileSlice";
 //import { deleteExperience } from '../../actions/profile';
-import formatDate from "../../../utils/formtDate";
+import formatDate from "../../../utils/formatDate";
 
 const Experience = () => {
   const dispatch = useAppDispatch();
