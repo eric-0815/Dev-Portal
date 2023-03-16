@@ -10,8 +10,14 @@ Front-end: ReactJS; Redux tool kit; SASS CSS
 
 Back-end: NodeJS ExpressJS; RESTAPI; JTW; SWAGGER
 
+Language: TypeScript
+
 Database: MongoDB
 
 Unit Test: Jest, React Testing Library
 
 Docker (WIP)
+
+## Others
+Inspired by https://github.com/bradtraversy/devconnector_2.0
+Added TypeScript, Unit Test, Redux tool kit, SASS CSS, SWAGGER
