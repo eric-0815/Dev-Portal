@@ -1,3 +1,18 @@
 npm i axios react-router-dom redux react-redux redux-thunk redux-devtools-extension moment react-moment
 
 npm i @types/axios @types/react-router-dom @types/redux @types/react-redux @types/redux-thunk @types/redux-devtools-extension @types/moment @types/react-moment
+
+docker notes:
+1. Build the Docker image:
+docker build -t dev-center-frontend .
+
+2. Run the Docker container:
+docker run -p 80:80 dev-center-frontend
+docker run -p 3000:3000 dev-center-frontend
+
+deploy docker image to docker hub
+1. docker login
+
+2. docker build -t eatzz815/dev-center-frontend:1.0.0 .
+
+3. docker push eatzz815/dev-center-frontend:1.0.0

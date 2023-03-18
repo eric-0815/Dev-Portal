@@ -13,7 +13,6 @@ import Dashboard from "./components/Dashboard";
 import CreateOrEditProfile from "./components/Dashboard/components/DashboardActions/CreateOrEditProfile";
 import AddExperience from "./components/Dashboard/components/DashboardActions/AddExperience";
 import AddEducation from "./components/Dashboard/components/DashboardActions/AddEducation";
-import { removeAllAlerts } from "./slices/alertSlice";
 import Profiles from "./components/Profiles";
 import Posts from "./components/Posts";
 import Post from "./components/Posts/components/Post";
@@ -30,8 +29,6 @@ const App = () => {
   const { alerts } = useAppSelector((state) => state.alertState);
 
   useEffect(() => {
-    // if (alerts.length > 0) dispatch(removeAllAlerts());
-
     if (localStorage.token) setAuthToken(localStorage.token);
     if (isAuthenticated) dispatch(loadUserAsync());
   }, [dispatch, isAuthenticated, alerts.length]);
