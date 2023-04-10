@@ -24,4 +24,4 @@ Docker
 
 Inspired by https://github.com/bradtraversy/devconnector_2.0
 
-Refactored the whole project and used TypeScript, Unit Test, Redux toolkit, SASS CSS, SWAGGER
+Refactored the whole project and used TypeScript, Unit Test, Redux toolkit, SASS CSS, SWAGGER and Docker

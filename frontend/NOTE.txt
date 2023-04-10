@@ -16,3 +16,11 @@ deploy docker image to docker hub
 2. docker build -t eatzz815/dev-center-frontend:1.0.0 .
 
 3. docker push eatzz815/dev-center-frontend:1.0.0
+
+webpack:
+entry: The entry point of the application, which is the file where Webpack starts bundling. In this case, it is ./src/index.tsx.
+output: The output configuration of the bundled file, which includes the path and the name of the bundled file. In this case, it will be located in the ./dist directory and named bundle.js.
+resolve: This option allows you to specify which file extensions Webpack should look for when resolving modules. In this case, it includes .ts, .tsx, and .js files.
+module: This section defines the rules for how Webpack should handle different types of files. In this case, there are two rules: one for .tsx files, which uses the ts-loader to transpile TypeScript code into JavaScript, and one for .scss files, which uses style-loader, css-loader, and sass-loader to load and process stylesheets.
+plugins: This section is for defining plugins that Webpack should use during the bundling process. In this case, HtmlWebpackPlugin is used to generate an HTML file with a script tag that points to the bundled bundle.js file.
+devServer: This section specifies the configuration for the development server. In this case, it serves static files from the ./public directory, runs on port 3000, and opens a new browser window/tab when it starts.
