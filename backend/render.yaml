@@ -1,0 +1,10 @@
+services:
+  - name: my-app
+    env:
+      - key: NODE_ENV
+        value: production
+    build:
+      image: dev-center-backend:latest
+      dockerfile: Dockerfile
+    http:
+      port: 5000
