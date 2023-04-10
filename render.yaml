@@ -17,7 +17,3 @@ services:
         value: "45be3b6c406f6f1e1bbb"
       - key: GITHUB_SECRET
         value: "1ec1c13c37c3da931455516d0e525889237f2505"
-
-databases:
-  - name: dc-prod-db1
-    type: mongodb
