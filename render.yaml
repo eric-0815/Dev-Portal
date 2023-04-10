@@ -3,6 +3,9 @@ services:
     env:
       - key: NODE_ENV
         value: production
+    buildFilter:
+      paths:
+        - backend/**
     build:
       image: dev-center-backend:latest
       dockerfile: Dockerfile
