@@ -1,5 +1,6 @@
 services:
-  - name: my-app
+  - type: web
+    name: my-app
     env:
       - key: NODE_ENV
         value: production
