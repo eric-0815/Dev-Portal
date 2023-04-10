@@ -1,14 +1,23 @@
 services:
   - type: web
-    name: my-app
-    env:
-      - key: NODE_ENV
-        value: production
+    env: node
+    name: dc-prod-backend1
+    repo: https://github.com/eric-0815/Dev-Center.git
     buildFilter:
       paths:
         - backend/**
-    build:
-      image: dev-center-backend:latest
-      dockerfile: Dockerfile
-    http:
-      port: 5000
+    buildCommand: npm && npm build --filter=backend
+    startCommand: cd backend; npm start
+    envVars:
+      - key: MONGO_URI
+        value: "mongodb+srv://eric:123@devconnector.v6mxz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+      - key: JWT_SECRET
+        value: "mysecrettoken"
+      - key: GITHUB_CLIENT_ID
+        value: "45be3b6c406f6f1e1bbb"
+      - key: GITHUB_SECRET
+        value: "1ec1c13c37c3da931455516d0e525889237f2505"
+
+databases:
+  - name: dc-prod-db1
+    type: mongodb
