@@ -43,11 +43,13 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "jest",
     "eject": "react-scripts eject",
     "deploy": "npm install && npm run build",
-    "start": "webpack-dev-server --open --mode development",
-    "build": "webpack --mode production"
+    "webpack:start": "webpack-dev-server --open --mode development",
+    "webpack:build": "webpack --mode production"
   },
   "eslintConfig": {
     "extends": [
