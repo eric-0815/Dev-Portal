@@ -40,7 +40,7 @@ describe("Landing component", () => {
 
   it("renders the landing component without crashing", () => {
     render(<Landing />);
-    expect(screen.getByText("Developer Center")).toBeInTheDocument();
+    expect(screen.getByText("Developer Portal")).toBeInTheDocument();
   });
 
   it("renders the sign up and login buttons", () => {
