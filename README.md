@@ -2,7 +2,7 @@
 
 ## Deployment
 
-Front-end: https://developer-center-v1.netlify.app
+Front-end: https://developer-portal-v1.netlify.app
 
 Back-end(Swagger Doc): https://dev-center-backend.onrender.com/api-docs/
 
